@@ -1,0 +1,725 @@
+/* Extra small devices (phones, 320px to 425px) */
+@media only screen and (min-width: 320px) {
+  .site-logo img {
+    width: 90px;
+    display: inline-block;
+  }
+  .header-right {
+    gap: 15px;
+  }
+
+  .chat-container {
+    max-height: 300px;
+  }
+
+  .banner-img {
+    margin-top: 25px;
+  }
+  .reply-text p {
+    font-size: 13px;
+  }
+  .pt-100 {
+    padding-top: 70px;
+  }
+  .pb-100 {
+    padding-bottom: 70px;
+  }
+  .mb-100 {
+    margin-bottom: 70px;
+  }
+  .mt-100 {
+    margin-top: 70px;
+  }
+  .primary-btn-lg,
+  .secondary-btn-lg {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+  /* =====================================
+          Section title Start
+  ===================================== */
+  .section-title > .sec-title {
+    font-size: 24px;
+  }
+  .section-title {
+    margin-bottom: 35px;
+  }
+  /* =====================================
+        Mobile And Header menu Start
+  ===================================== */
+  .header {
+    width: 100%;
+  }
+  .main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1200;
+  }
+  .show-main-nav {
+    height: 100vh;
+    width: 100%;
+  }
+  .main-nav-overlay {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(15, 35, 53, 0.4);
+  }
+  .nav-menu-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 20px;
+    height: 100vh;
+    width: 320px;
+    background-color: var(--site-bg);
+    transition: var(--transition-5);
+    transform: translateX(-370px);
+    gap: 20px;
+    z-index: 1;
+  }
+  .show-menu-wrap {
+    transform: translateX(0);
+  }
+  .mobile-site-logo {
+    width: 100px;
+  }
+  .nav-menu {
+    display: block;
+    width: 100%;
+  }
+  .nav-menu ul {
+    align-items: flex-start;
+    flex-direction: column;
+    font-size: 16px;
+  }
+  .nav-menu ul > li > a {
+    display: block;
+    color: var(--text-primary);
+    padding: 10px 0;
+    width: 100%;
+  }
+  .close-sidebar {
+    width: 30px;
+    aspect-ratio: 1/1;
+    font-size: 24px;
+    line-height: 1;
+    background-color: var(--site-bg);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-4);
+  }
+  /* =====================================
+        Banner Section Start
+  ===================================== */
+  .banner::before {
+    width: 180px;
+    height: 180px;
+  }
+  .banner-img {
+    margin-top: 25px;
+  }
+  .banner-bg {
+    width: 100%;
+  }
+
+  .banner-shape > svg {
+    width: 40px;
+  }
+  .shape-1 {
+    left: 15%;
+    top: -8%;
+  }
+  .shape-4 {
+    right: 0%;
+    top: -15%;
+  }
+  .shape-3 {
+    right: -30px;
+    bottom: 0;
+  }
+
+  .banner-content > h5 {
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+  .banner-content > h1 {
+    font-size: 35px;
+    margin-bottom: 15px;
+  }
+  .banner-content > p {
+    font-size: 14px;
+  }
+  .banner-searchform > .search-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  .banner-searchform > span {
+    left: 15px;
+  }
+  .banner-searchform > input {
+    padding: 5px 5px 5px 25px;
+  }
+  /* =====================================
+        Support Section Start
+  ===================================== */
+  .support-item {
+    padding: 20px;
+  }
+  .support-item h4 {
+    font-size: 20px;
+  }
+  .support-item p {
+    font-size: 14px;
+  }
+  .questions-left .nav-link {
+    font-size: 14px;
+  }
+  .find-container {
+    padding: 40px 15px;
+  }
+
+  /* =====================================
+           Insrallation Page Start
+  ===================================== */
+  .document {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0;
+  }
+  .document-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1100;
+  }
+  .show-document-sidebar {
+    height: 100vh;
+    width: 100%;
+  }
+  .document-overlay {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(15, 35, 53, 0.4);
+  }
+  .document-left {
+    width: 320px;
+    height: 100vh;
+    padding: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: var(--site-bg);
+    transform: translateX(-370px);
+    transition: var(--transition-5);
+    z-index: 1;
+  }
+
+  .show-document-left {
+    transform: translateX(0);
+  }
+  .document-right {
+    grid-column: 1/-1;
+  }
+  /* =====================================
+           Create Ticket Page Start
+  ===================================== */
+
+  .ticket-notification {
+    display: block;
+    width: 100%;
+  }
+  .form-inner {
+    margin-bottom: 20px;
+  }
+
+  .chat-container {
+    padding: 20px 15px;
+  }
+
+  /* =====================================
+           Create Ticket Page Start
+  ===================================== */
+
+  .contact-bg-shape > svg {
+    width: 45px;
+  }
+  .contact-bg-shape-1 {
+    left: 9%;
+    bottom: 10%;
+    top: unset;
+    right: unset;
+  }
+  .contact-bg-shape-2 {
+    right: 5%;
+    bottom: 20%;
+  }
+  .contact-bg-shape-3 {
+    right: 70%;
+    top: 20%;
+  }
+  .contact-bg-shape-4 {
+    right: 5%;
+    top: 30%;
+  }
+
+  .form-wrapper {
+    padding: 15px;
+  }
+}
+
+@media only screen and (min-width: 425px) {
+  .shape-3 {
+    right: -30px;
+    bottom: 0;
+  }
+}
+/* Small devices (portrait tablets and large phones, 576px and 767px) */
+
+@media only screen and (min-width: 576px) {
+  .side-logo {
+    width: 150px;
+  }
+
+  .chat-container {
+    max-height: 280px;
+  }
+
+  .breadcrumb-title {
+    font-size: 36px;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+  .ticket-form {
+    padding: 30px 25px;
+  }
+  .creat-ticket-info {
+    padding: 30px 25px;
+    background-color: var(--white);
+    border-radius: var(--radius-4);
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 6px 24px 0px,
+      rgba(0, 0, 0, 0.03) 0px 0px 0px 0px;
+  }
+
+  .banner-wrapper {
+    padding: 120px 10px 70px 10px;
+  }
+
+  .questions-left .nav-link {
+    font-size: 16px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and 991px) */
+@media only screen and (min-width: 768px) {
+  .chat-area .send-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    line-height: 50px;
+  }
+
+  .chat-area .chat-box {
+    width: 300px;
+    left: 90px;
+    bottom: 30px;
+  }
+
+  .banner-searchform {
+    padding: 8px;
+  }
+
+  .header-right {
+    gap: 20px;
+  }
+
+  .newsletter-form-box > input {
+    padding: 11px 20px;
+  }
+
+  .section-title > .sub-title {
+    font-size: 14px;
+  }
+
+  .newsletter-form-box > button {
+    padding: 0 30px;
+  }
+
+  .contact-item {
+    flex-wrap: nowrap;
+  }
+  .news-icon svg {
+    width: 70px;
+    height: 70px;
+  }
+  .bars {
+    color: var(--text-primary);
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+  .site-logo img {
+    width: 135px;
+    height: auto;
+    object-fit: cover;
+    display: inline-block;
+  }
+
+  .footer-top {
+    padding: 20px 10px 80px 10px;
+  }
+
+  .creat-ticket-info h4 {
+    font-size: 20px;
+  }
+
+  .custiom-accordion .accordion-button {
+    font-size: 18px;
+  }
+
+  .section-title > .sub-title {
+    font-size: 14px;
+  }
+
+  .inner-banner {
+    padding: 150px 10px 100px 10px;
+  }
+
+  .pt-100 {
+    padding-top: 80px;
+  }
+  .pb-100 {
+    padding-bottom: 80px;
+  }
+  .mb-100 {
+    margin-bottom: 80px;
+  }
+  .mt-100 {
+    margin-top: 80px;
+  }
+  .primary-btn-lg,
+  .secondary-btn-lg {
+    padding: 7px 18px;
+    font-size: 16px;
+  }
+
+  .section-title {
+    margin-bottom: 30px;
+  }
+
+  .banner-wrapper {
+    padding: 150px 10px 100px 10px;
+  }
+
+  .section-title > .sec-title {
+    font-size: 32px;
+  }
+  .support-item {
+    padding: 20px;
+  }
+  .support-item h4 {
+    font-size: 22px;
+  }
+  .find-container {
+    padding: 40px 0;
+  }
+
+  /* =====================================
+           Create Ticket Page Start
+  ===================================== */
+  .ticket-form {
+    padding: 40px 30px;
+  }
+  .ticket-notification {
+    display: inline-block;
+  }
+  .form-wrapper {
+    padding: 60px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .document-menu-container {
+    all: unset;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and 1199px) */
+@media only screen and (min-width: 992px) {
+  .newsletter-title h3 {
+    font-size: 32px;
+  }
+
+  .contact-right form input,
+  textarea {
+    padding: 12px 15px;
+  }
+
+  .banner-vertical-text h2 {
+    font-size: 120px;
+  }
+
+  .header-right {
+    gap: 20px;
+  }
+
+  .banner::before {
+    width: 350px;
+    height: 350px;
+  }
+
+  .pt-100 {
+    padding-top: 90px;
+  }
+  .pb-100 {
+    padding-bottom: 90px;
+  }
+  .mt-100 {
+    margin-top: 90px;
+  }
+  .mb-100 {
+    margin-bottom: 90px;
+  }
+
+  .footer-top {
+    padding: 35px 10px 90px 10px;
+  }
+
+  .banner-wrapper {
+    padding: 200px 10px 150px 10px;
+  }
+
+  .breadcrumb-title {
+    font-size: 40px;
+  }
+
+  .banner-img {
+    margin-top: 0px;
+  }
+
+  .reply-text p {
+    font-size: 15px;
+  }
+  .chat-container {
+    padding: 25px 20px;
+    max-height: 380px;
+    overflow-y: scroll;
+  }
+
+  .chat-container::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .chat-container::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+
+  .chat-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+  }
+
+  .footer-item-title {
+    margin-bottom: 20px;
+    text-transform: capitalize;
+  }
+
+  .primary-btn-lg,
+  .secondary-btn-lg {
+    padding: 8px 18px;
+
+    font-size: 18px;
+  }
+
+  .section-title {
+    margin-bottom: 45px;
+  }
+  /* =====================================
+        Mobile And Header menu Start
+  ===================================== */
+  .header {
+    padding: 20px 0;
+  }
+  .main-nav {
+    position: unset;
+    background-color: transparent;
+    width: fit-content;
+    height: fit-content;
+    top: unset;
+    left: unset;
+  }
+  .nav-menu-wrap {
+    align-items: center;
+    flex-direction: row;
+    padding: 0;
+    height: 100%;
+    width: fit-content;
+    transform: translateX(0);
+    background: transparent;
+    position: unset;
+    gap: 20px;
+    transition: 0s;
+  }
+  .mobile-site-logo {
+    display: none;
+  }
+  .nav-menu ul {
+    flex-direction: row;
+  }
+  .nav-menu ul > li > a {
+    display: inline-block;
+    color: var(--text-primary);
+    padding: 0 20px;
+    width: fit-content;
+  }
+  /* =====================================
+        Banner Section Start
+  ===================================== */
+
+  .banner-content > h5 {
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+  .banner-content > h1 {
+    font-size: 42px;
+  }
+  .banner-content > p {
+    font-size: 16px;
+  }
+  .banner-searchform > span {
+    left: 20px;
+  }
+  .banner-searchform > input {
+    padding: 10px 10px 10px 30px;
+  }
+  .banner-searchform > .search-btn {
+    padding: 14px 25px;
+  }
+  .primary-btn-lg,
+  .secondary-btn-lg {
+    font-size: 16px;
+  }
+
+  .find-container {
+    padding: 55px 0;
+  }
+
+  .ticket-form {
+    padding: 45px 30px;
+  }
+  .form-inner {
+    margin-bottom: 20px;
+  }
+
+  /* =====================================
+          Installation Page Start
+  ===================================== */
+  .document {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .document-sidebar {
+    position: unset;
+    left: unset;
+    top: unset;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    z-index: unset;
+  }
+  .document-left {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    padding: 0;
+    position: unset;
+    left: unset;
+    top: unset;
+    transform: translateX(0);
+    transition: 0ms;
+  }
+
+  .document-right {
+    grid-column: 2/-1;
+    padding-inline-start: 30px;
+  }
+  .close-document-menu {
+    display: none;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .banner-img img {
+    max-width: 112%;
+  }
+
+  .news-icon svg {
+    width: 80px;
+    height: 80px;
+  }
+  .ticket-form {
+    padding: 45px 35px;
+  }
+  .pt-100 {
+    padding-top: 100px;
+  }
+  .pb-100 {
+    padding-bottom: 100px;
+  }
+  .mt-100 {
+    margin-top: 100px;
+  }
+  .mb-100 {
+    margin-bottom: 100px;
+  }
+
+  .banner-content > h1 {
+    font-size: 56px;
+  }
+  .banner-searchform > input {
+    font-size: 16px;
+  }
+  .banner-searchform > .search-btn {
+    padding: 16px 34px;
+    font-size: 18px;
+  }
+
+  .section-title > .sec-title {
+    font-size: 38px;
+
+    line-height: 1.35;
+  }
+  .banner-shape > svg {
+    width: 50px;
+  }
+  .shape-1 {
+    left: 0%;
+    top: -5%;
+  }
+  .shape-4 {
+    right: 0%;
+    top: -5%;
+  }
+  .primary-btn-lg,
+  .secondary-btn-lg {
+    padding: 9px 18px;
+
+    font-size: 18px;
+  }
+  .support-item {
+    padding: 30px;
+  }
+  .support-item h4 {
+    font-size: 24px;
+  }
+  .find-container {
+    padding: 70px 0;
+  }
+}
