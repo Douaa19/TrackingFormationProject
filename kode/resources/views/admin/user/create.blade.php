@@ -114,8 +114,8 @@
                                 </label>
 
                                 <select required class="form-select" name="traning" id="tranings">
-                                    <option {{old('status') == '1' ? 'selected' :''}} value="1">{{translate('Direct Training (CSF)')}}</option>
-                                    <option {{old('status') == '0' ? 'selected' :''}}  value="0">{{translate('Engineering + Training (GIAC + CSF)')}}</option>
+                                    <option {{old('status') == 'direct_training' ? 'selected' :''}} value="1">{{translate('Direct Training')}} (CSF)</option>
+                                    <option {{old('status') == 'engineering_training' ? 'selected' :''}}  value="0">{{translate('Engineering + Training')}} (GIAC + CSF)</option>
                                 </select>
                             </div>
                         </div>
@@ -157,8 +157,12 @@
                                 </label>
 
                                 <select required class="form-select" name="status" id="status">
-                                    <option {{old('status') == '1' ? 'selected' :''}} value="1">{{translate('Active')}}</option>
-                                    <option {{old('status') == '0' ? 'selected' :''}}  value="0">{{translate('Inactive')}}</option>
+                                    <option {{old('status') == '0' ? 'selected' :''}} value="1">{{translate('Active')}}</option>
+                                    <option {{old('status') == '1' ? 'selected' :''}}  value="0">{{translate('Inactive')}}</option>
+                                    <option {{old('status') == '2' ? 'selected' :''}}  value="0">{{translate('Inactive')}}</option>
+                                    <option {{old('status') == '3' ? 'selected' :''}}  value="0">{{translate('Inactive')}}</option>
+                                    <option {{old('status') == '4' ? 'selected' :''}}  value="0">{{translate('Inactive')}}</option>
+                                    <option {{old('status') == '5' ? 'selected' :''}}  value="0">{{translate('Inactive')}}</option>
                                 </select>
                             </div>
                         </div>
@@ -250,6 +254,55 @@
                 });
             })
             .catch(error => console.error('Error loading cities:', error));
+
+        // Get references to the select elements
+        const trainingSelect = document.getElementById('tranings');
+        const statusSelect = document.getElementById('status');
+
+        // Define the options for each training type
+        const options = {
+            1: [
+                { value: 0, text: 'Confirmation' },
+                { value: 1, text: 'Qualification Phase' },
+                { value: 2, text: 'Administrative Preliminary Phase' },
+                { value: 3, text: 'Validation Phase' },
+                { value: 4, text: 'Construction Phase' },
+                { value: 5, text: 'Repayment Phase' }
+            ],
+            0: [
+                { value: 0, text: 'Confirmation' },
+                { value: 1, text: 'Qualification Phase' },
+                { value: 2, text: 'Engineering Phase (GIAC)' },
+                { value: 3, text: 'Phase (CSF)' },
+                { value: 4, text: 'Construction Phase' },
+                { value: 5, text: 'Repayment Phase' }
+            ]
+        };
+
+        // Function to update the status options
+        const updateStatusOptions = () => {
+            // Get the selected value of the training select
+            const selectedTraining = trainingSelect.value;
+
+            // Clear the current options in the status select
+            statusSelect.innerHTML = '';
+
+            // Populate the status select with the corresponding options
+            if (options[selectedTraining]) {
+                options[selectedTraining].forEach(option => {
+                    const opt = document.createElement('option');
+                    opt.value = option.value;
+                    opt.textContent = option.text;
+                    statusSelect.appendChild(opt);
+                });
+            }
+        };
+
+        // Update the status options when the training select changes
+        trainingSelect.addEventListener('change', updateStatusOptions);
+
+        // Initialize the status options on page load
+        updateStatusOptions();
     });
 </script>
 
