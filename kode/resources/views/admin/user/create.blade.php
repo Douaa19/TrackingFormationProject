@@ -157,12 +157,6 @@
                                 </label>
 
                                 <select required class="form-select" name="status" id="status">
-                                    <option {{old('status') == '0' ? 'selected' :''}} value="1">{{translate('Active')}}</option>
-                                    <option {{old('status') == '1' ? 'selected' :''}}  value="0">{{translate('Inactive')}}</option>
-                                    <option {{old('status') == '2' ? 'selected' :''}}  value="0">{{translate('Inactive')}}</option>
-                                    <option {{old('status') == '3' ? 'selected' :''}}  value="0">{{translate('Inactive')}}</option>
-                                    <option {{old('status') == '4' ? 'selected' :''}}  value="0">{{translate('Inactive')}}</option>
-                                    <option {{old('status') == '5' ? 'selected' :''}}  value="0">{{translate('Inactive')}}</option>
                                 </select>
                             </div>
                         </div>
@@ -222,6 +216,28 @@
 @endpush
 
 <script>
+    const translations = {
+        1: [
+            { value: 0, text: @json(__('Confirmation')) },
+            { value: 1, text: @json(__('Qualification Phase')) },
+            { value: 2, text: @json(__('Administrative Preliminary Phase')) },
+            { value: 3, text: @json(__('Validation Phase')) },
+            { value: 4, text: @json(__('Construction Phase')) },
+            { value: 5, text: @json(__('Repayment Phase')) }
+        ],
+        0: [
+            { value: 0, text: @json(__('Confirmation')) },
+            { value: 1, text: @json(__('Qualification Phase')) },
+            { value: 2, text: @json(__('Engineering Phase (GIAC)')) },
+            { value: 3, text: @json(__('Phase (CSF)')) },
+            { value: 4, text: @json(__('Construction Phase')) },
+            { value: 5, text: @json(__('Repayment Phase')) }
+        ]
+    };
+</script>
+
+
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         const selectElement = document.getElementById('cities');
 
@@ -260,24 +276,7 @@
         const statusSelect = document.getElementById('status');
 
         // Define the options for each training type
-        const options = {
-            1: [
-                { value: 0, text: 'Confirmation' },
-                { value: 1, text: 'Qualification Phase' },
-                { value: 2, text: 'Administrative Preliminary Phase' },
-                { value: 3, text: 'Validation Phase' },
-                { value: 4, text: 'Construction Phase' },
-                { value: 5, text: 'Repayment Phase' }
-            ],
-            0: [
-                { value: 0, text: 'Confirmation' },
-                { value: 1, text: 'Qualification Phase' },
-                { value: 2, text: 'Engineering Phase (GIAC)' },
-                { value: 3, text: 'Phase (CSF)' },
-                { value: 4, text: 'Construction Phase' },
-                { value: 5, text: 'Repayment Phase' }
-            ]
-        };
+        const options = translations;
 
         // Function to update the status options
         const updateStatusOptions = () => {
