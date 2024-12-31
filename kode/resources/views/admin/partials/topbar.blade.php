@@ -48,7 +48,7 @@
                     @if(count($languages) != 0)
                         <div class="dropdown-menu dropdown-menu-end" data-simplebar>
                             @foreach($languages as $language)
-                                <a href="javascript:void(0);" class="dropdown-item notify-item language py-2" data-lang="{{$language->code}}"
+                                <a href="{{route('language.change',$language->code)}}" class="dropdown-item notify-item language py-2" data-lang="{{$language->code}}"
                                     title="{{$language->name}}">
                                     <img src="{{asset('assets/images/global/flags/'.strtoupper($language->code ).'.png') }}" alt="{{strtoupper($language->code ).'.png'}}" class="me-2 rounded" height="18">
                                     <span class="align-middle">
@@ -244,33 +244,4 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const languageLinks = document.querySelectorAll('.dropdown-item.language');
-        
-            languageLinks.forEach(link => {
-                link.addEventListener('click', function () {
-                    const languageCode = this.getAttribute('data-lang');
-                
-                    fetch(`{{ route('language.change', '') }}/${languageCode}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Include CSRF token
-                        },
-                        body: JSON.stringify({ language: languageCode })
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            location.reload(); // Reload the page to reflect the language change
-                        } else {
-                            console.error('Failed to change language');
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-                });
-            });
-        });
-    </script>
-
 </header>

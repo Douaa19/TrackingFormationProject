@@ -88,6 +88,66 @@
                                 <input type="text" name="phone" value="{{old('phone')}}" class="form-control" placeholder="{{translate("Enter Phone Number")}}" id="phone">
                             </div>
                         </div>
+                        
+                        <div class="col-xl-6 col-lg-6">
+                            <div >
+                                <label for="whatsappNumber" class="form-label">
+                                    {{translate('WhatsApp Number')}} <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" name="whatsapp_number" value="{{old('whatsapp_number')}}" class="form-control" placeholder="{{translate("Enter WhatsApp Number")}}" id="whatsappNumber">
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6">
+                            <div >
+                                <label for="cnss" class="form-label">
+                                    {{translate('CNSS')}} <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" name="cnss" value="{{old('cnss')}}" class="form-control" placeholder="{{translate("Enter CNSS Number")}}" id="cnss">
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6">
+                            <div >
+                                <label for="tranings" class="form-label capitalize">
+                                    {{translate('training')}} <span class="text-danger">*</span>
+                                </label>
+
+                                <select required class="form-select" name="traning" id="tranings">
+                                    <option {{old('status') == '1' ? 'selected' :''}} value="1">{{translate('Direct Training (CSF)')}}</option>
+                                    <option {{old('status') == '0' ? 'selected' :''}}  value="0">{{translate('Engineering + Training (GIAC + CSF)')}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-6 col-lg-6">
+                            <div >
+                                <label for="cities" class="form-label">
+                                    {{translate('City')}} <span class="text-danger">*</span>
+                                </label>
+
+                                <select required class="form-select" name="city" id="cities">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6">
+                            <div >
+                                <label for="garageName" class="form-label">
+                                    {{translate('Garage Name')}} <span  class="text-danger">*</span>
+                                </label>
+                                <input required type="text" name="garage_name" value="{{old('garage_name')}}"  class="form-control" placeholder="{{translate("Enter your Garage Name")}}" id="garageName">
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-6 col-lg-6">
+                            <div >
+                                <label for="revenue" class="form-label">
+                                    {{translate('Garage Revenue')}} <span  class="text-danger">*</span>
+                                </label>
+                                <input required type="text" name="revenue" value="{{old('revenue')}}"  class="form-control" placeholder="{{translate("Enter your Revenue")}}" id="revenue">
+                            </div>
+                        </div>
 
 
                         <div class="col-xl-6 col-lg-6">
@@ -102,7 +162,8 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6">
+
+                        <!-- <div class="col-xl-6 col-lg-6">
                             <div>
                                 <label for="formFile" class="form-label">
                                     {{translate('Image')}}  <span class="text-danger">
@@ -115,7 +176,7 @@
                             <div id="image-preview-section">
 
                             </div>
-                        </div>
+                        </div> -->
 
                         @if(site_settings('geo_location') == 'map_base' && site_settings('auto_ticket_assignment')  == '1')
                             <div class="col-xl-6 col-lg-6">
@@ -155,6 +216,42 @@
         <script src="{{asset('assets/global/js/map.js')}}"></script>
     @endif
 @endpush
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const selectElement = document.getElementById('cities');
+
+        // Fetch the cities JSON
+        fetch('/pixeldesk-new-installer-v2.1/kode/assets/json/cities.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(cities => {
+                // Clear existing options
+                selectElement.innerHTML = '';
+
+                // Add a default "Select City" option
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Select City';
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                selectElement.appendChild(defaultOption);
+
+                // Populate with cities
+                cities.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city.ville;
+                    option.textContent = city.ville;
+                    selectElement.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error loading cities:', error));
+    });
+</script>
 
 
 
