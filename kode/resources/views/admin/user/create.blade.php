@@ -42,86 +42,31 @@
                     @csrf
                     <div class="row g-3 pb-3">
                         <div class="col-xl-6 col-lg-6">
-                            <div >
+                            <div class="mt-3" >
                                 <label for="Name" class="form-label">
-                                    {{translate('Name')}} <span  class="text-danger">*</span>
+                                    {{translate('Full Name')}} <span  class="text-danger">*</span>
                                 </label>
                                 <input required type="text" name="name" value="{{old('name')}}"  class="form-control" placeholder="{{translate("Enter your Name")}}" id="Name">
                             </div>
-                        </div>
-
-
-
-                        <div class="col-xl-6 col-lg-6">
-                            <div >
+                            <div class="mt-3" >
                                 <label for="emailidInput" class="form-label">
                                     {{translate('Email')}} <span  class="text-danger"  >*</span>
                                 </label>
                                 <input required type="email" name="email" value="{{old('email')}}" class="form-control" placeholder="{{translate("example@gamil.com")}}" id="emailidInput">
                             </div>
-                        </div>
-
-                        <div class="col-xl-6 col-lg-6">
-                            <div >
-                                <label for="password" class="form-label">
-                                    {{translate('Password')}} <span  class="text-danger">* ({{translate('Minimum 5 Character Required!!')}})</span>
-                                </label>
-                                <input required type="password" name="password" value="{{old('password')}}" class="form-control" placeholder="*************" id="password">
-                            </div>
-                        </div>
-
-                        <div class="col-xl-6 col-lg-6">
-                            <div >
-                                <label for="confirmPassword" class="form-label">
-                                    {{translate('Confirm Password')}} <span  class="text-danger"  >*</span>
-                                </label>
-                                <input required type="password" name="password_confirmation" value="{{old('confirm_password')}}" class="form-control" placeholder="*************" id="confirmPassword">
-                            </div>
-                        </div>
-
-
-                        <div class="col-xl-6 col-lg-6">
-                            <div >
+                            <div class="mt-3" >
                                 <label for="phone" class="form-label">
                                     {{translate('Phone')}} <span class="text-danger">*</span>
                                 </label>
                                 <input type="text" name="phone" value="{{old('phone')}}" class="form-control" placeholder="{{translate("Enter Phone Number")}}" id="phone">
                             </div>
-                        </div>
-                        
-                        <div class="col-xl-6 col-lg-6">
-                            <div >
+                            <div class="mt-3" >
                                 <label for="whatsappNumber" class="form-label">
                                     {{translate('WhatsApp Number')}} <span class="text-danger">*</span>
                                 </label>
                                 <input type="text" name="whatsapp_number" value="{{old('whatsapp_number')}}" class="form-control" placeholder="{{translate("Enter WhatsApp Number")}}" id="whatsappNumber">
                             </div>
-                        </div>
-
-                        <div class="col-xl-6 col-lg-6">
-                            <div >
-                                <label for="cnss" class="form-label">
-                                    {{translate('CNSS')}} <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" name="cnss" value="{{old('cnss')}}" class="form-control" placeholder="{{translate("Enter CNSS Number")}}" id="cnss">
-                            </div>
-                        </div>
-
-                        <div class="col-xl-6 col-lg-6">
-                            <div >
-                                <label for="tranings" class="form-label capitalize">
-                                    {{translate('training')}} <span class="text-danger">*</span>
-                                </label>
-
-                                <select required class="form-select" name="traning" id="tranings">
-                                    <option {{old('status') == 'direct_training' ? 'selected' :''}} value="1">{{translate('Direct Training')}} (CSF)</option>
-                                    <option {{old('status') == 'engineering_training' ? 'selected' :''}}  value="0">{{translate('Engineering + Training')}} (GIAC + CSF)</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="col-xl-6 col-lg-6">
-                            <div >
+                            <div class="mt-3" >
                                 <label for="cities" class="form-label">
                                     {{translate('City')}} <span class="text-danger">*</span>
                                 </label>
@@ -129,40 +74,13 @@
                                 <select required class="form-select" name="city" id="cities">
                                 </select>
                             </div>
-                        </div>
-
-                        <div class="col-xl-6 col-lg-6">
-                            <div >
-                                <label for="garageName" class="form-label">
-                                    {{translate('Garage Name')}} <span  class="text-danger">*</span>
+                            <div class="mt-3" >
+                                <label for="cnss" class="form-label">
+                                    {{translate('CNSS')}} <span class="text-danger">*</span>
                                 </label>
-                                <input required type="text" name="garage_name" value="{{old('garage_name')}}"  class="form-control" placeholder="{{translate("Enter your Garage Name")}}" id="garageName">
+                                <input type="text" name="cnss" value="{{old('cnss')}}" class="form-control" placeholder="{{translate("Enter CNSS Number")}}" id="cnss">
                             </div>
-                        </div>
-                        
-                        <div class="col-xl-6 col-lg-6">
-                            <div >
-                                <label for="revenue" class="form-label">
-                                    {{translate('Garage Revenue')}} <span  class="text-danger">*</span>
-                                </label>
-                                <input required type="text" name="revenue" value="{{old('revenue')}}"  class="form-control" placeholder="{{translate("Enter your Revenue")}}" id="revenue">
-                            </div>
-                        </div>
-
-
-                        <div class="col-xl-6 col-lg-6">
-                            <div >
-                                <label for="status" class="form-label">
-                                    {{translate('status')}} <span class="text-danger">*</span>
-                                </label>
-
-                                <select required class="form-select" name="status" id="status">
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- <div class="col-xl-6 col-lg-6">
-                            <div>
+                            <!-- <div class="mt-3">
                                 <label for="formFile" class="form-label">
                                     {{translate('Image')}}  <span class="text-danger">
                                         ({{getFilePaths()['profile']['user']['size'] }})
@@ -173,8 +91,67 @@
                             </div>
                             <div id="image-preview-section">
 
+                            </div> -->
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="mt-3" >
+                                <label for="garageName" class="form-label">
+                                    {{translate('Garage Name')}} <span  class="text-danger">*</span>
+                                </label>
+                                <input required type="text" name="garage_name" value="{{old('garage_name')}}"  class="form-control" placeholder="{{translate("Enter your Garage Name")}}" id="garageName">
                             </div>
-                        </div> -->
+                            <div class="mt-3" >
+                                <label for="revenue" class="form-label">
+                                    {{translate('Garage Revenue')}}
+                                </label>
+                                <input type="text" name="revenue" value="{{old('revenue')}}"  class="form-control" placeholder="{{translate("Enter your Revenue")}}" id="revenue">
+                            </div>
+                            <div class="mt-3" >
+                                <label for="traning_type" class="form-label capitalize">
+                                    {{translate('Training Type')}} <span class="text-danger">*</span>
+                                </label>
+
+                                <select required class="form-select" name="traning_type" id="traning_type">
+                                    <option {{old('status') == 'direct_training' ? 'selected' :''}} value="1">{{translate('Direct Training')}} (CSF)</option>
+                                    <option {{old('status') == 'engineering_training' ? 'selected' :''}}  value="0">{{translate('Engineering + Training')}} (GIAC + CSF)</option>
+                                </select>
+                            </div>
+                            <div class="mt-3" >
+                                <label for="tranings" class="form-label capitalize">
+                                    {{translate('Trainings')}}
+                                </label>
+
+                                <select class="form-select" name="traning" id="tranings">
+                                    <option {{old('status') == 'direct_training' ? 'selected' :''}} value="1">{{translate('EBVA Traning')}}</option>
+                                    <option {{old('status') == 'engineering_training' ? 'selected' :''}}  value="0">{{translate('Diagnosis Traning')}}</option>
+                                    <option {{old('status') == 'engineering_training' ? 'selected' :''}}  value="0">{{translate('Towing Traning')}}</option>
+                                    <option {{old('status') == 'engineering_training' ? 'selected' :''}}  value="0">{{translate('ADAS Traning')}}</option>
+                                    <option {{old('status') == 'engineering_training' ? 'selected' :''}}  value="0">{{translate('Preparation for the electrical activation of EV charging infrastructures')}}</option>
+                                    <option {{old('status') == 'engineering_training' ? 'selected' :''}}  value="0">{{translate('Preparation for VE/VH Electrical Clearance')}}</option>
+                                </select>
+                            </div>
+                            <div class="mt-3" >
+                                <label for="status" class="form-label">
+                                    {{translate('status')}} <span class="text-danger">*</span>
+                                </label>
+
+                                <select required class="form-select" name="status" id="status">
+                                </select>
+                            </div>
+                            <div class="mt-3" >
+                                <label for="password" class="form-label">
+                                    {{translate('Password')}} <span  class="text-danger">* ({{translate('Minimum 5 Character Required!!')}})</span>
+                                </label>
+                                <input required type="password" name="password" value="{{old('password')}}" class="form-control" placeholder="*************" id="password">
+                            </div>
+                            <div class="mt-3" >
+                                <label for="confirmPassword" class="form-label">
+                                    {{translate('Confirm Password')}} <span  class="text-danger"  >*</span>
+                                </label>
+                                <input required type="password" name="password_confirmation" value="{{old('confirm_password')}}" class="form-control" placeholder="*************" id="confirmPassword">
+                            </div>
+                        </div>
 
                         @if(site_settings('geo_location') == 'map_base' && site_settings('auto_ticket_assignment')  == '1')
                             <div class="col-xl-6 col-lg-6">
@@ -272,7 +249,7 @@
             .catch(error => console.error('Error loading cities:', error));
 
         // Get references to the select elements
-        const trainingSelect = document.getElementById('tranings');
+        const trainingTypeSelect = document.getElementById('traning_type');
         const statusSelect = document.getElementById('status');
 
         // Define the options for each training type
@@ -281,14 +258,14 @@
         // Function to update the status options
         const updateStatusOptions = () => {
             // Get the selected value of the training select
-            const selectedTraining = trainingSelect.value;
+            const selectedTrainingType = trainingTypeSelect.value;
 
             // Clear the current options in the status select
             statusSelect.innerHTML = '';
 
             // Populate the status select with the corresponding options
-            if (options[selectedTraining]) {
-                options[selectedTraining].forEach(option => {
+            if (options[selectedTrainingType]) {
+                options[selectedTrainingType].forEach(option => {
                     const opt = document.createElement('option');
                     opt.value = option.value;
                     opt.textContent = option.text;
@@ -298,7 +275,7 @@
         };
 
         // Update the status options when the training select changes
-        trainingSelect.addEventListener('change', updateStatusOptions);
+        trainingTypeSelect.addEventListener('change', updateStatusOptions);
 
         // Initialize the status options on page load
         updateStatusOptions();

@@ -50,10 +50,14 @@ class UserController extends Controller
             'name'     => 'required|max:255',
             'email'    => 'required|max:255|unique:users,email',
             'phone'    => 'required|max:100|unique:users,phone',
-            'image'    =>[new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))],
+            'whatsapp_number' => 'required|max:100',
+            'city'     => 'required|max:255',
+            'cnss'     => 'required|max:255',
+            'garage_name'     => 'required|max:255',
+            'status'   =>'required',
             'password' => 'required|confirmed|min:5',
-            'address'  =>  Rule::requiredIf(site_settings("auto_ticket_assignment") == (StatusEnum::true)->status() && site_settings('geo_location') == 'map_base'),
-            'status' =>'required'
+            'image'    =>[new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))],
+            'address'  =>  Rule::requiredIf(site_settings("auto_ticket_assignment") == (StatusEnum::true)->status() && site_settings('geo_location') == 'map_base')
         ],
         [
             'name.required'      => translate('User Name Feild Is Required'),
@@ -61,34 +65,48 @@ class UserController extends Controller
             'email.unique'       => translate('Email Feild Must Be Unique'),
             'phone.required'     => translate('Phone Feild Is Required'),
             'phone.unique'       => translate('Phone Feild Must Be Unique'),
+            'whatsapp_number.required' => translate('Whatsapp Number Feild Is Required'),
+            'city.required'      => translate('Select Your City'),
+            'cnss.required'      => translate('CNSS Feild Is Required'),
+            'cnss.unique'        => translate('CNSS Number Must Be Unique'),
+            'garage_name.required' => translate('CNSS Number Must Be Unique'),
+            'status.required'    => translate('Please Select A Status'),
             'password'           => translate('Password Feild Is Required'),
             'password.confirmed' => translate('Confirm Password Does not Match'),
             'password.min'       => translate('Minimum 5 digit or character is required'),
-            'status.required'    => translate('Please Select A Status'),
             'address.required'   => translate('Select Your Address'),
 
         ]);
 
+        
         $address_data    =  (new AgentController())->get_address($request);
         $user            =  new User();
+        var_dump($user);
         $user->name      =  $request->name;
-        $user->phone     =  $request->phone;
         $user->email     =  $request->email;
+        $user->phone     =  $request->phone;
+        $user->whatsapp_number = $request->whatsapp_number;
+        $user->city = $request->city;
+        $user->cnss = $request->cnss;
+        $user->garage_name = $request->garage_name;
+        $user->revenue = $request->revenue;
+        $user->training_type = $request->training_type;
+        $user->training = $request->training;
         $user->status    =  $request->status;
+        $user->password  = Hash::make($request->password);
         $user->address   =  json_encode($address_data);
         $user->longitude =  isset($address_data['lon']) ?  $address_data['lon'] : null;
         $user->latitude	 =  isset($address_data['lat']) ?  $address_data['lat'] : null;
-        $user->password  = Hash::make($request->password);
-        if($request->hasFile('image')){
-            try{
-                $removefile  =  null;
-                $user->image = storeImage($request->image, getFilePaths()['profile']['user']['path'], getFilePaths()['profile']['user']['size'], $removefile);
-            }catch (\Exception $exp){
-                return back()->with('error', translate("Unable to upload file. Check directory permissions"));
-            }
-        }
+        // if($request->hasFile('image')){
+        //     try{
+        //         $removefile  =  null;
+        //         $user->image = storeImage($request->image, getFilePaths()['profile']['user']['path'], getFilePaths()['profile']['user']['size'], $removefile);
+        //     }catch (\Exception $exp){
+        //         return back()->with('error', translate("Unable to upload file. Check directory permissions"));
+        //     }
+        // }
         $user->save();
-
+        
         if(site_settings('default_notification') == (StatusEnum::true)->status()){
             set_default_notifications($user);
         }

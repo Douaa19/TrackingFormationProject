@@ -136,7 +136,7 @@
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
-                                                    10998</h5>
+                                                    10998 DHS</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -389,7 +389,7 @@
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
-                                                    10998</h5>
+                                                    10998 DHS</h5>
                                             </div>
                                         </div>
                                     </div>
