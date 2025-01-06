@@ -53,7 +53,9 @@ class UserController extends Controller
             'whatsapp_number' => 'required|max:100',
             'city'     => 'required|max:255',
             'cnss'     => 'required|max:255',
-            'garage_name'     => 'required|max:255',
+            'garage_name' => 'required|max:255',
+            'traning_type' => 'required|max:255',
+            'traning' => 'required|max:255',
             'status'   =>'required',
             'password' => 'required|confirmed|min:5',
             'image'    =>[new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))],
@@ -70,6 +72,9 @@ class UserController extends Controller
             'cnss.required'      => translate('CNSS Feild Is Required'),
             'cnss.unique'        => translate('CNSS Number Must Be Unique'),
             'garage_name.required' => translate('CNSS Number Must Be Unique'),
+            'traning_type.required'      => translate('Select Training Type'),
+            'traning.required'      => translate('Select Training'),
+            'city.required'      => translate('Select Your City'),
             'status.required'    => translate('Please Select A Status'),
             'password'           => translate('Password Feild Is Required'),
             'password.confirmed' => translate('Confirm Password Does not Match'),
@@ -81,7 +86,6 @@ class UserController extends Controller
         
         $address_data    =  (new AgentController())->get_address($request);
         $user            =  new User();
-        var_dump($user);
         $user->name      =  $request->name;
         $user->email     =  $request->email;
         $user->phone     =  $request->phone;
@@ -90,21 +94,23 @@ class UserController extends Controller
         $user->cnss = $request->cnss;
         $user->garage_name = $request->garage_name;
         $user->revenue = $request->revenue;
-        $user->training_type = $request->training_type;
-        $user->training = $request->training;
+        $user->training_type = $request->traning_type;
+        $user->training = $request->traning;
         $user->status    =  $request->status;
         $user->password  = Hash::make($request->password);
         $user->address   =  json_encode($address_data);
         $user->longitude =  isset($address_data['lon']) ?  $address_data['lon'] : null;
         $user->latitude	 =  isset($address_data['lat']) ?  $address_data['lat'] : null;
-        // if($request->hasFile('image')){
-        //     try{
-        //         $removefile  =  null;
-        //         $user->image = storeImage($request->image, getFilePaths()['profile']['user']['path'], getFilePaths()['profile']['user']['size'], $removefile);
-        //     }catch (\Exception $exp){
-        //         return back()->with('error', translate("Unable to upload file. Check directory permissions"));
-        //     }
-        // }
+
+        if($request->hasFile('image')){
+            try{
+                $removefile  =  null;
+                $user->image = storeImage($request->image, getFilePaths()['profile']['user']['path'], getFilePaths()['profile']['user']['size'], $removefile);
+            }catch (\Exception $exp){
+                    return back()->with('error', translate("Unable to upload file. Check directory permissions"));
+                }
+            }
+
         $user->save();
         
         if(site_settings('default_notification') == (StatusEnum::true)->status()){

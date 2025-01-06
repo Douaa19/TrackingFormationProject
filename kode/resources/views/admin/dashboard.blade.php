@@ -109,7 +109,7 @@
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
-                                                    {{ translate('Total Clients') }} 28</h5>
+                                                    {{ translate('Total Clients') }} {{$data['total_user']}}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -251,12 +251,12 @@
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
-                                        <!-- <div class="avatar-sm flex-shrink-0">
+                                        <div class="avatar-sm flex-shrink-0">
                                             <span class="avatar-title bg-soft-success rounded fs-3">
 
                                                 <i class="ri-message-2-line text-success"></i>
                                             </span>
-                                        </div> -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -362,7 +362,7 @@
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
-                                                    {{ translate('Total Clients') }} 28</h5>
+                                                    {{ translate('Total Clients') }} {{$data['total_user']}}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -666,6 +666,7 @@
                                     </div>
                                 </div><!-- end card header -->
 
+                                <!-- Table Users -->
                                 <div class="card-body">
                                     <div class="table-responsive pb-2">
                                         <table class="table table-border table-centered align-middle table-nowrap mb-0">
@@ -693,8 +694,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-
-
 
                                                 @forelse($data['latest_ticket'] as $ticket)
                                                     <tr>

@@ -30,7 +30,7 @@
         "textmagic/sdk": "dev-master",
         "twilio/sdk": "^6.37",
         "webklex/laravel-imap": "^5.3.0",
-        "doctrine/dbal": "*"
+        "doctrine/dbal": "^2.10"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

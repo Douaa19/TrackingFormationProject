@@ -113,22 +113,22 @@
                                 </label>
 
                                 <select required class="form-select" name="traning_type" id="traning_type">
-                                    <option {{old('status') == 'direct_training' ? 'selected' :''}} value="1">{{translate('Direct Training')}} (CSF)</option>
-                                    <option {{old('status') == 'engineering_training' ? 'selected' :''}}  value="0">{{translate('Engineering + Training')}} (GIAC + CSF)</option>
+                                    <option  value="direct_training_(CSF)">{{translate('Direct Training')}} (CSF)</option>
+                                    <option  value="engineering_training_(GIAC+CSF)">{{translate('Engineering + Training')}} (GIAC + CSF)</option>
                                 </select>
                             </div>
                             <div class="mt-3" >
                                 <label for="tranings" class="form-label capitalize">
-                                    {{translate('Trainings')}}
+                                    {{translate('Trainings')}} <span class="text-danger">*</span>
                                 </label>
 
-                                <select class="form-select" name="traning" id="tranings">
-                                    <option {{old('status') == 'direct_training' ? 'selected' :''}} value="1">{{translate('EBVA Traning')}}</option>
-                                    <option {{old('status') == 'engineering_training' ? 'selected' :''}}  value="0">{{translate('Diagnosis Traning')}}</option>
-                                    <option {{old('status') == 'engineering_training' ? 'selected' :''}}  value="0">{{translate('Towing Traning')}}</option>
-                                    <option {{old('status') == 'engineering_training' ? 'selected' :''}}  value="0">{{translate('ADAS Traning')}}</option>
-                                    <option {{old('status') == 'engineering_training' ? 'selected' :''}}  value="0">{{translate('Preparation for the electrical activation of EV charging infrastructures')}}</option>
-                                    <option {{old('status') == 'engineering_training' ? 'selected' :''}}  value="0">{{translate('Preparation for VE/VH Electrical Clearance')}}</option>
+                                <select require class="form-select" name="traning" id="tranings">
+                                    <option  value="ebva_training">{{translate('EBVA Training')}}</option>
+                                    <option  value="diagnosis_training">{{translate('Diagnosis Training')}}</option>
+                                    <option  value="towing_training">{{translate('Towing Training')}}</option>
+                                    <option  value="adas_training">{{translate('ADAS Trianing')}}</option>
+                                    <option  value="preparation_for_the_electrical_activation_of_ev_charging_infrastructures">{{translate('Preparation for the electrical activation of EV charging infrastructures')}}</option>
+                                    <option  value="preparation_for_VE/VH_electrical_clearance">{{translate('Preparation for VE/VH Electrical Clearance')}}</option>
                                 </select>
                             </div>
                             <div class="mt-3" >
@@ -194,21 +194,21 @@
 
 <script>
     const translations = {
-        1: [
-            { value: 0, text: @json(__('Confirmation')) },
-            { value: 1, text: @json(__('Qualification Phase')) },
-            { value: 2, text: @json(__('Administrative Preliminary Phase')) },
-            { value: 3, text: @json(__('Validation Phase')) },
-            { value: 4, text: @json(__('Construction Phase')) },
-            { value: 5, text: @json(__('Repayment Phase')) }
+        'direct_training_(CSF)': [
+            { value: 'confirmation', text: @json(__('Confirmation')) },
+            { value: 'qualification_phase', text: @json(__('Qualification Phase')) },
+            { value: 'administrative_preliminary_phase', text: @json(__('Administrative Preliminary Phase')) },
+            { value: 'validation_phase', text: @json(__('Validation Phase')) },
+            { value: 'construction_phase', text: @json(__('Construction Phase')) },
+            { value: 'repayment_phase', text: @json(__('Repayment Phase')) }
         ],
-        0: [
-            { value: 0, text: @json(__('Confirmation')) },
-            { value: 1, text: @json(__('Qualification Phase')) },
-            { value: 2, text: @json(__('Engineering Phase (GIAC)')) },
-            { value: 3, text: @json(__('Phase (CSF)')) },
-            { value: 4, text: @json(__('Construction Phase')) },
-            { value: 5, text: @json(__('Repayment Phase')) }
+        'engineering_training_(GIAC+CSF)': [
+            { value: 'confirmation', text: @json(__('Confirmation')) },
+            { value: 'qualification_phase', text: @json(__('Qualification Phase')) },
+            { value: 'engineering_phase_(GIAC)', text: @json(__('Engineering Phase (GIAC)')) },
+            { value: 'phase_(CSF)', text: @json(__('Phase (CSF)')) },
+            { value: 'construction_phase', text: @json(__('Construction Phase')) },
+            { value: 'repayment_phase', text: @json(__('Repayment Phase')) }
         ]
     };
 </script>
