@@ -49,6 +49,8 @@ class AdminController extends Controller
         $currentYear = date("Y");
 
 
+        $data['direct_training_users'] = User::where('training_type', 'direct_training_(CSF)');
+        $data['engineering_training_users'] = User::where('training_type', 'engineering_training_(GIAC+CSF)');
         $data['total_user']        = User::filter($request)->count();
         $data['total_categories']  = Category::filter($request)->count();
         $data['total_article']     = Article::filter($request)->count();

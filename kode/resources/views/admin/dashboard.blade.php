@@ -88,7 +88,8 @@
                         </div>
                     </div>
 
-
+                    {{var_dump($data['direct_training_users'])}}
+                    
                     <div class="row justify-content-start gap-0 h-auto">
                         <div class="col-xl-5">
                             <div class="card crm-widget">
@@ -103,13 +104,15 @@
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
                                                         <h2 class="mb-0">
+                                                        <h1>{{ request('direct_training_(CSF)') }}</h1>
+
                                                         {{ translate('Direct Training') }} 
                                                         </h2>
                                                     </div>
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
-                                                    {{ translate('Total Clients') }} {{$data['total_user']}}</h5>
+                                                    <!-- {{ translate('Total Clients') }} {{$data['direct_training_users']}}</h5> -->
                                             </div>
                                         </div>
                                     </div>
@@ -251,12 +254,12 @@
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
-                                        <div class="avatar-sm flex-shrink-0">
+                                        <!-- <div class="avatar-sm flex-shrink-0">
                                             <span class="avatar-title bg-soft-success rounded fs-3">
 
                                                 <i class="ri-message-2-line text-success"></i>
                                             </span>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -356,13 +359,13 @@
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
                                                         <h2 class="mb-0">
-                                                        {{ translate('Ingénierie + Formation') }} (GIAC + CSF)
+                                                        {{ translate('Engineering + Taining') }} (GIAC + CSF)
                                                         </h2>
                                                     </div>
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
-                                                    {{ translate('Total Clients') }} {{$data['total_user']}}</h5>
+                                                    <!-- {{ translate('Total Clients') }} {{$data['engineering_training_users']}}</h5> -->
                                             </div>
                                         </div>
                                     </div>

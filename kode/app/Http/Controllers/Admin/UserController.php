@@ -279,6 +279,21 @@ class UserController extends Controller
         return back()->with("success", translate('Password updated'));
     }
     
+    
+    
+    /**
+     * Get Clients By Training Type
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function trainingClients(Request $request, $training_type)
+    {
+        $users = User::all();
+        return view('admin.dashboard')->with($users);
+    }
+
+    
 
 
 }
