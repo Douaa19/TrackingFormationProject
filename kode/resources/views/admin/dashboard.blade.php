@@ -88,7 +88,7 @@
                         </div>
                     </div>
 
-                    {{var_dump($data['direct_training_users'])}}
+                    
                     
                     <div class="row justify-content-start gap-0 h-auto">
                         <div class="col-xl-5">
@@ -104,7 +104,7 @@
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
                                                         <h2 class="mb-0">
-                                                        <h1>{{ request('direct_training_(CSF)') }}</h1>
+                                                        <!-- <h1>{{ request('direct_training_(CSF)') }}</h1> -->
 
                                                         {{ translate('Direct Training') }} 
                                                         </h2>
