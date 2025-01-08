@@ -88,7 +88,7 @@
                         </div>
                     </div>
 
-                    
+                    {{var_dump($data['direct_training_users'])}}
                     
                     <div class="row justify-content-start gap-0 h-auto">
                         <div class="col-xl-5">
@@ -112,7 +112,7 @@
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
-                                                    <!-- {{ translate('Total Clients') }} {{$data['direct_training_users']}}</h5> -->
+                                                    
                                             </div>
                                         </div>
                                     </div>
@@ -365,7 +365,7 @@
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
-                                                    <!-- {{ translate('Total Clients') }} {{$data['engineering_training_users']}}</h5> -->
+                                                    
                                             </div>
                                         </div>
                                     </div>
