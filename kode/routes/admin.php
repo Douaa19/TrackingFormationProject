@@ -97,7 +97,6 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
                 Route::post('/update', [UserController::class, 'update'])->name('update');
                 Route::post('/password/update', [UserController::class, 'passwordUpdate'])->name('password.update');
                 Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
-                Route::get('/training_clients/{training_type}', [UserController::class, 'trainingClients'])->name('trainingClients');
             });
 
             //General Setting
@@ -180,8 +179,7 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
                 Route::post('/delete/message','deleteMessage')->name('delete.message');
                 Route::post('/block/user','blockUser')->name('block.user');
                 Route::post('/delete/conversation','deleteConversation')->name('delete.conversation');
-
-              
+                
             });
 
              //agent group section
