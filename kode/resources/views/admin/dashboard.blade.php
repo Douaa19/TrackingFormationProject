@@ -117,7 +117,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-xl-2 col-md-4 m-0 p-0">
                             <div class="card crm-widget">
                                 <div class="card-body p-0">
@@ -147,7 +146,6 @@
                     </div>
 
                     <div class="row justify-content-around gap-0">
-
                         <div class="col-xl-2 col-md-4 m-0 p-0">
                             <div class="card card-animate">
                                 <div class="card-body">
@@ -172,7 +170,7 @@
                                             <h2 class="fs-22 mb-4">
                                                 {{ num_short($data['direct_training_users_phase_1']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'qualification_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -204,7 +202,7 @@
                                             <h2 class="fs-22 mb-4">
                                                 {{ num_short($data['direct_training_users_phase_2']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'administrative_preliminary_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -236,7 +234,7 @@
                                             <h2 class="fs-22 mb-4">
                                                 {{ num_short($data['direct_training_users_phase_3']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'validation_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -268,7 +266,7 @@
                                             <h2 class="fs-22 mb-4">
                                                 {{ num_short($data['direct_training_users_phase_4']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'construction_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -300,7 +298,7 @@
                                             <h2 class="fs-22 mb-4">
                                                 {{ num_short($data['direct_training_users_phase_5']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'repayment_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -308,7 +306,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="row justify-content-start gap-0 h-auto">
@@ -331,7 +328,7 @@
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
-                                                    <{{ translate('Total Clients') }} {{$data['engineering_training_users']}}
+                                                    {{ translate('Total Clients') }} {{$data['engineering_training_users']}}
                                                 </h5> 
                                             </div>
                                         </div>
@@ -339,7 +336,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-xl-2 col-md-4 m-0 p-0">
                             <div class="card crm-widget">
                                 <div class="card-body p-0">
@@ -369,7 +365,6 @@
                     </div>
 
                     <div class="row justify-content-around gap-0">
-
                         <div class="col-xl-2 col-md-4 m-0 p-0">
                             <div class="card card-animate">
                                 <div class="card-body">
@@ -394,7 +389,7 @@
                                             <h2 class="fs-22 mb-4">
                                                 {{ num_short($data['engineering_training_users_phase_1']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'qualification_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -426,7 +421,7 @@
                                             <h2 class="fs-22 mb-4">
                                                 {{ num_short($data['engineering_training_users_phase_2']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'engineering_phase_(GIAC)'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -458,7 +453,7 @@
                                             <h2 class="fs-22 mb-4">
                                                 {{ num_short($data['engineering_training_users_phase_3']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'phase_(CSF)'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -490,7 +485,7 @@
                                             <h2 class="fs-22 mb-4">
                                                 {{ num_short($data['engineering_training_users_phase_4']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'construction_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -522,7 +517,7 @@
                                             <h2 class="fs-22 mb-4">
                                                 {{ num_short($data['engineering_training_users_phase_5']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'repayment_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>

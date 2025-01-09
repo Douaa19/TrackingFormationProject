@@ -97,6 +97,7 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
                 Route::post('/update', [UserController::class, 'update'])->name('update');
                 Route::post('/password/update', [UserController::class, 'passwordUpdate'])->name('password.update');
                 Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
+                Route::get('/training/{training_type}/phase/{phase}/list', [UserController::class, 'phaseUsers'])->name('phase.list');
             });
 
             //General Setting

@@ -60,8 +60,6 @@ class AdminTicketController extends Controller
 
         $title    = 'Ticket List';
 
-
-         
         if($request->ajax()) return json_encode($this->ticketService->getTicketList($request));
 
 

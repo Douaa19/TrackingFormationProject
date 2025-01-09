@@ -21,9 +21,10 @@ class UserController extends Controller
      */
     public function index(): View
     {
+
         $title = "Manage User";
-        $users = User::latest()->get();
         return view('admin.user.index', compact('title', 'users'));
+
     }
 
     /**
@@ -277,6 +278,18 @@ class UserController extends Controller
         $user->password  = Hash::make($request->password);
         $user->save();
         return back()->with("success", translate('Password updated'));
+    }
+    
+
+    public function phaseUsers(string $training_type, string $phase): View
+    {
+        $title = "Manage Users for" . ucfirst(str_replace('_', '', $training_type)) . " - " . ucfirst($phase);
+
+        $users = User::where('training_type', $training_type)
+                        ->where('status', $phase)
+                        ->get();
+        
+        return view('admin.user.index', compact('title', 'users'));
     }
 
     
