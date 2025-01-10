@@ -49,6 +49,7 @@ class AdminController extends Controller
         $currentYear = date("Y");
 
 
+
         $data['direct_training_users'] = User::where('training_type', 'direct_training_(CSF)')->count();
         $data['direct_training_total_revenue'] = User::where('training_type', 'direct_training_(CSF)')->sum('revenue');
         $data['direct_training_users_phase_1'] = User::where('training_type', 'direct_training_(CSF)')
