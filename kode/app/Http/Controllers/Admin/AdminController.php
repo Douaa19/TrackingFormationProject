@@ -50,38 +50,38 @@ class AdminController extends Controller
 
 
 
-        $data['direct_training_users'] = User::where('training_type', 'direct_training_(CSF)')->count();
-        $data['direct_training_total_revenue'] = User::where('training_type', 'direct_training_(CSF)')->sum('revenue');
-        $data['direct_training_users_phase_1'] = User::where('training_type', 'direct_training_(CSF)')
+        $data['planned_training_users'] = User::where('training_type', 'planned_training')->count();
+        $data['planned_training_total_revenue'] = User::where('training_type', 'planned_training')->sum('revenue');
+        $data['planned_training_users_phase_1'] = User::where('training_type', 'planned_training')
             ->where('status', 'qualification_phase')
             ->count();
-        $data['direct_training_users_phase_2'] = User::where('training_type', 'direct_training_(CSF)')
+        $data['planned_training_users_phase_2'] = User::where('training_type', 'planned_training')
             ->where('status', 'administrative_preliminary_phase')
             ->count();
-        $data['direct_training_users_phase_3'] = User::where('training_type', 'direct_training_(CSF)')
+        $data['planned_training_users_phase_3'] = User::where('training_type', 'planned_training')
             ->where('status', 'validation_phase')
             ->count();
-        $data['direct_training_users_phase_4'] = User::where('training_type', 'direct_training_(CSF)')
+        $data['planned_training_users_phase_4'] = User::where('training_type', 'planned_training')
             ->where('status', 'construction_phase')
             ->count();
-        $data['direct_training_users_phase_5'] = User::where('training_type', 'direct_training_(CSF)')
+        $data['planned_training_users_phase_5'] = User::where('training_type', 'planned_training')
             ->where('status', 'repayment_phase')
             ->count();
-        $data['engineering_training_users'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')->count();
-        $data['engineering_training_users_total_revenue'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')->sum('revenue');
-        $data['engineering_training_users_phase_1'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
+        $data['no_planned_training_users'] = User::where('training_type', 'no_planned_training')->count();
+        $data['no_planned_training_users_total_revenue'] = User::where('training_type', 'no_planned_training')->sum('revenue');
+        $data['no_planned_training_users_phase_1'] = User::where('training_type', 'no_planned_training')
             ->where('status', 'qualification_phase')
             ->count();
-        $data['engineering_training_users_phase_2'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
+        $data['no_planned_training_users_phase_2'] = User::where('training_type', 'no_planned_training')
             ->where('status', 'engineering_phase_(GIAC)')
             ->count();
-        $data['engineering_training_users_phase_3'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
+        $data['no_planned_training_users_phase_3'] = User::where('training_type', 'no_planned_training')
             ->where('status', 'phase_(CSF)')
             ->count();
-        $data['engineering_training_users_phase_4'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
+        $data['no_planned_training_users_phase_4'] = User::where('training_type', 'no_planned_training')
             ->where('status', 'construction_phase')
             ->count();
-        $data['engineering_training_users_phase_5'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
+        $data['no_planned_training_users_phase_5'] = User::where('training_type', 'no_planned_training')
             ->where('status', 'repayment_phase')
             ->count();
         $data['total_user']        = User::filter($request)->count();

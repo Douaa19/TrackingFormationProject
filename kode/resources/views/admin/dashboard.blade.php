@@ -103,13 +103,13 @@
                                                     <div class="flex-grow-1 ms-3">
                                                         <h2 class="mb-0">
 
-                                                        {{ translate('Direct Training') }}
+                                                        {{ translate('Planned Training') }}
                                                         </h2>
                                                     </div>
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
-                                                    <!-- Total of clinets in direct training -->
-                                                    {{ translate('Total Clients') }} {{$data['direct_training_users']}}
+                                                    <!-- Total of clinets in planned training -->
+                                                    {{ translate('Total Clients') }} {{$data['planned_training_users']}}
                                                 </h5>
                                             </div>
                                         </div>
@@ -135,8 +135,8 @@
                                                     </div>
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
-                                                    <!-- Total of clinets in direct training -->
-                                                    {{$data['direct_training_total_revenue']}} DHS</h5>
+                                                    <!-- Total of clinets in planned training -->
+                                                    {{$data['planned_training_total_revenue']}} DHS</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -168,9 +168,9 @@
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['direct_training_users_phase_1']) }}
+                                                {{ num_short($data['planned_training_users_phase_1']) }}
                                             </h2>
-                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'qualification_phase'])}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'planned_training_(CSF)', 'phase' => 'qualification_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -200,9 +200,9 @@
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['direct_training_users_phase_2']) }}
+                                                {{ num_short($data['planned_training_users_phase_2']) }}
                                             </h2>
-                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'administrative_preliminary_phase'])}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'planned_training_(CSF)', 'phase' => 'administrative_preliminary_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -232,9 +232,9 @@
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['direct_training_users_phase_3']) }}
+                                                {{ num_short($data['planned_training_users_phase_3']) }}
                                             </h2>
-                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'validation_phase'])}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'planned_training_(CSF)', 'phase' => 'validation_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -264,9 +264,9 @@
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['direct_training_users_phase_4']) }}
+                                                {{ num_short($data['planned_training_users_phase_4']) }}
                                             </h2>
-                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'construction_phase'])}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'planned_training_(CSF)', 'phase' => 'construction_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -296,9 +296,9 @@
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['direct_training_users_phase_5']) }}
+                                                {{ num_short($data['planned_training_users_phase_5']) }}
                                             </h2>
-                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'repayment_phase'])}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'planned_training_(CSF)', 'phase' => 'repayment_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -322,13 +322,13 @@
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
                                                         <h2 class="mb-0">
-                                                        {{ translate('Engineering + Taining') }} (GIAC + CSF)
+                                                        {{ translate('No Planned Training') }}
                                                         </h2>
                                                     </div>
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
-                                                    <!-- Total of clinets in direct training -->
-                                                    {{ translate('Total Clients') }} {{$data['engineering_training_users']}}
+                                                    <!-- Total of clinets in no planned training -->
+                                                    {{ translate('Total Clients') }} {{$data['no_planned_training_users']}}
                                                 </h5>
                                             </div>
                                         </div>
@@ -354,8 +354,8 @@
                                                     </div>
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
-                                                    <!-- Total of clinets in direct training -->
-                                                    {{$data['engineering_training_users_total_revenue']}} DHS</h5>
+                                                    <!-- Total of clinets in no planned training -->
+                                                    {{$data['no_planned_training_users_total_revenue']}} DHS</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -387,9 +387,9 @@
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['engineering_training_users_phase_1']) }}
+                                                {{ num_short($data['no_planned_training_users_phase_1']) }}
                                             </h2>
-                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'qualification_phase'])}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'no_planned_training', 'phase' => 'qualification_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -405,7 +405,7 @@
                                             <p
                                                 class="text-uppercase fw-medium text-muted text-truncate mb-0">
 
-                                                {{translate('Engineering Phase ')}}(GIAC)
+                                                {{translate('Engineering Phase ')}}
 
                                             </p>
                                         </div>
@@ -419,9 +419,9 @@
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['engineering_training_users_phase_2']) }}
+                                                {{ num_short($data['no_planned_training_users_phase_2']) }}
                                             </h2>
-                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'engineering_phase_(GIAC)'])}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'no_planned_training', 'phase' => 'engineering_phase_(GIAC)'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -451,9 +451,9 @@
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['engineering_training_users_phase_3']) }}
+                                                {{ num_short($data['no_planned_training_users_phase_3']) }}
                                             </h2>
-                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'phase_(CSF)'])}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'no_planned_training', 'phase' => 'phase_(CSF)'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -483,9 +483,9 @@
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['engineering_training_users_phase_4']) }}
+                                                {{ num_short($data['no_planned_training_users_phase_4']) }}
                                             </h2>
-                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'construction_phase'])}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'no_planned_training', 'phase' => 'construction_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -515,9 +515,9 @@
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['engineering_training_users_phase_5']) }}
+                                                {{ num_short($data['no_planned_training_users_phase_5']) }}
                                             </h2>
-                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'repayment_phase'])}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'no_planned_training', 'phase' => 'repayment_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
