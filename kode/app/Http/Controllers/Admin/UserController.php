@@ -23,6 +23,7 @@ class UserController extends Controller
     {
 
         $title = "Manage User";
+        $users = User::all();
         return view('admin.user.index', compact('title', 'users'));
 
     }
@@ -32,13 +33,13 @@ class UserController extends Controller
      * @return View
      */
     public function create() : View
-    {        
+    {
         $title = "Create User";
         return view('admin.user.create', compact('title'));
     }
 
     /**
-     * stroe a user 
+     * stroe a user
      *
      * @param Request $request
      * @return RedirectResponse
@@ -47,7 +48,7 @@ class UserController extends Controller
     {
 
         $this->validate($request, [
-            
+
             'name'     => 'required|max:255',
             'email'    => 'required|max:255|unique:users,email',
             'phone'    => 'required|max:100|unique:users,phone',
@@ -84,7 +85,7 @@ class UserController extends Controller
 
         ]);
 
-        
+
         $address_data    =  (new AgentController())->get_address($request);
         $user            =  new User();
         $user->name      =  $request->name;
@@ -113,7 +114,7 @@ class UserController extends Controller
             }
 
         $user->save();
-        
+
         if(site_settings('default_notification') == (StatusEnum::true)->status()){
             set_default_notifications($user);
         }
@@ -122,8 +123,8 @@ class UserController extends Controller
     }
 
     /**
-     * edit a user 
-     * 
+     * edit a user
+     *
      * @param int|string $id
      * @return  View
      */
@@ -135,7 +136,7 @@ class UserController extends Controller
     }
 
     /**
-     * update a user 
+     * update a user
      *
      * @param Request $request
      * @return RedirectResponse
@@ -191,7 +192,7 @@ class UserController extends Controller
     public function delete(Request $request):RedirectResponse
     {
        $user  = User::where('id',$request->id)->first();
-       
+
        try {
           remove_file(getFilePaths()['profile']['user']['path'], $user->image);
         } catch (\Throwable $th) {
@@ -203,13 +204,13 @@ class UserController extends Controller
 
     /**
      * user login
-     * 
+     *
      * @param $request
      * @return  string
      */
      public function statusUpdate(Request $request) :string{
 
-    
+
         $modelInfo = [
             'table'  => (new User())->getTable(),
             'key'    => "id",
@@ -230,7 +231,7 @@ class UserController extends Controller
 
     /**
      * user login
-     * 
+     *
      * @param int|string $id
      * @return RedirectResponse
      */
@@ -279,7 +280,7 @@ class UserController extends Controller
         $user->save();
         return back()->with("success", translate('Password updated'));
     }
-    
+
 
     public function phaseUsers(string $training_type, string $phase): View
     {
@@ -288,11 +289,11 @@ class UserController extends Controller
         $users = User::where('training_type', $training_type)
                         ->where('status', $phase)
                         ->get();
-        
+
         return view('admin.user.index', compact('title', 'users'));
     }
 
-    
+
 
 
 }
