@@ -136,7 +136,7 @@
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
-                                                    10998 DHS</h5>
+                                                    {{$data['direct_training_total_revenue']}} DHS</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -329,7 +329,7 @@
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
                                                     {{ translate('Total Clients') }} {{$data['engineering_training_users']}}
-                                                </h5> 
+                                                </h5>
                                             </div>
                                         </div>
                                     </div>
@@ -355,7 +355,7 @@
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
-                                                    10998 DHS</h5>
+                                                    {{$data['engineering_training_users_total_revenue']}} DHS</h5>
                                             </div>
                                         </div>
                                     </div>

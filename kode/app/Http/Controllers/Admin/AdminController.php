@@ -50,6 +50,7 @@ class AdminController extends Controller
 
 
         $data['direct_training_users'] = User::where('training_type', 'direct_training_(CSF)')->count();
+        $data['direct_training_total_revenue'] = User::where('training_type', 'direct_training_(CSF)')->sum('revenue');
         $data['direct_training_users_phase_1'] = User::where('training_type', 'direct_training_(CSF)')
             ->where('status', 'qualification_phase')
             ->count();
@@ -66,6 +67,7 @@ class AdminController extends Controller
             ->where('status', 'repayment_phase')
             ->count();
         $data['engineering_training_users'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')->count();
+        $data['engineering_training_users_total_revenue'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')->sum('revenue');
         $data['engineering_training_users_phase_1'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
             ->where('status', 'qualification_phase')
             ->count();
