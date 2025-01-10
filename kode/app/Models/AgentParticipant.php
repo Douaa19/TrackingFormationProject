@@ -10,5 +10,10 @@ class AgentParticipant extends Model
     use HasFactory;
 
     protected $table = 'agent_participant';
-    protected $fillable = ['id_agent', 'id_participant'];
+    protected $fillable = ['agent_id', 'participant_id']; 
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }

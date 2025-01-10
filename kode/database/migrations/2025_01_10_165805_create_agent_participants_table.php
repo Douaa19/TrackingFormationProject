@@ -16,13 +16,12 @@ class CreateAgentParticipantsTable extends Migration
         Schema::create('agent_participants', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('id_agent');
-            $table->unsignedBigInteger('id_participant');
-
-            $table->foreign('id_agent')->references('id')->on('admins')->onDelete('cascade');
-            $table->foreign('id_participant')->references('id')->on('users')->onDelete('cascade');
-
+            $table->unsignedBigInteger('agent_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('agent_id')->references('id')->on('agents')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -33,6 +32,6 @@ class CreateAgentParticipantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agent_participants');
+        Schema::dropIfExists('agent__participants');
     }
 }
