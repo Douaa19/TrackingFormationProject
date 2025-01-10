@@ -96,10 +96,10 @@
 
                         <div class="col-xl-6 col-lg-6">
                             <div class="mt-3" >
-                                <label for="garageName" class="form-label">
-                                    {{translate('Garage Name')}} <span  class="text-danger">*</span>
+                                <label for="companyName" class="form-label">
+                                    {{translate('Company Name')}} <span  class="text-danger">*</span>
                                 </label>
-                                <input required type="text" name="garage_name" value="{{old('garage_name')}}"  class="form-control" placeholder="{{translate("Enter your Garage Name")}}" id="garageName">
+                                <input required type="text" name="garage_name" value="{{old('garage_name')}}"  class="form-control" placeholder="{{translate("Enter your Garage Name")}}" id="companyName">
                             </div>
                             <div class="mt-3" >
                                 <label for="revenue" class="form-label">
