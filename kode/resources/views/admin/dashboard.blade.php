@@ -126,7 +126,7 @@
                                             <div class="py-4 px-3">
                                                 <div class="d-flex align-items-center mb-1">
                                                     <div class="flex-shrink-0">
-                                                        <i class="link-secondary ri-group-line display-6 "></i>
+                                                        <i class="link-secondary ri-money-dollar-circle-line display-6 "></i>
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
                                                         <h2 class="mb-0">
@@ -345,7 +345,7 @@
                                             <div class="py-4 px-3">
                                                 <div class="d-flex align-items-center mb-1">
                                                     <div class="flex-shrink-0">
-                                                        <i class="link-secondary ri-group-line display-6 "></i>
+                                                        <i class="link-secondary ri-money-dollar-circle-line display-6 "></i>
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
                                                         <h2 class="mb-0">
