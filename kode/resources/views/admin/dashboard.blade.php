@@ -26,7 +26,7 @@
                                                     @php
                                                        $cornRunAt = App\Models\Settings::where('key','last_cron_run')->first();
                                                        site_settings('last_cron_run');
-                            
+
                                                     @endphp
                                                     {{translate('Last cron run')}}  : {{  $cornRunAt ? diff_for_humans($cornRunAt->value)  : "N/A"}}
                                                  </p>
@@ -88,8 +88,6 @@
                         </div>
                     </div>
 
-                    {{var_dump($data['direct_training_users'])}}
-                    
                     <div class="row justify-content-start gap-0 h-auto">
                         <div class="col-xl-5">
                             <div class="card crm-widget">
@@ -104,22 +102,21 @@
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
                                                         <h2 class="mb-0">
-                                                        <!-- <h1>{{ request('direct_training_(CSF)') }}</h1> -->
 
-                                                        {{ translate('Direct Training') }} 
+                                                        {{ translate('Direct Training') }}
                                                         </h2>
                                                     </div>
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
-                                                    
+                                                    {{ translate('Total Clients') }} {{$data['direct_training_users']}}
+                                                </h5>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-xl-2 col-md-4 m-0 p-0">
                             <div class="card crm-widget">
                                 <div class="card-body p-0">
@@ -139,7 +136,7 @@
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
-                                                    10998 DHS</h5>
+                                                    {{$data['direct_training_total_revenue']}} DHS</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -149,7 +146,6 @@
                     </div>
 
                     <div class="row justify-content-around gap-0">
-                        
                         <div class="col-xl-2 col-md-4 m-0 p-0">
                             <div class="card card-animate">
                                 <div class="card-body">
@@ -162,28 +158,22 @@
 
                                             </p>
                                         </div>
-                                        <div class="flex-shrink-0">
+                                        {{-- <div class="flex-shrink-0">
                                             <h5 class="text-success fs-14 mb-0">
                                                 <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
                                                 {{ num_short($data['total_tickets_increase']) }}%
                                             </h5>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['total_tickets']) }}
+                                                {{ num_short($data['direct_training_users_phase_1']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'qualification_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
-                                        <!-- <div class="avatar-sm flex-shrink-0">
-                                            <span class="avatar-title bg-soft-success rounded fs-3">
-
-                                                <i class="ri-message-2-line text-success"></i>
-                                            </span>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -200,28 +190,22 @@
 
                                             </p>
                                         </div>
-                                        <div class="flex-shrink-0">
+                                        {{-- <div class="flex-shrink-0">
                                             <h5 class="text-success fs-14 mb-0">
                                                 <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
                                                 {{ num_short($data['total_tickets_increase']) }}%
                                             </h5>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['total_tickets']) }}
+                                                {{ num_short($data['direct_training_users_phase_2']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'administrative_preliminary_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
-                                        <!-- <div class="avatar-sm flex-shrink-0">
-                                            <span class="avatar-title bg-soft-success rounded fs-3">
-
-                                                <i class="ri-message-2-line text-success"></i>
-                                            </span>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -238,28 +222,22 @@
 
                                             </p>
                                         </div>
-                                        <div class="flex-shrink-0">
+                                        {{-- <div class="flex-shrink-0">
                                             <h5 class="text-success fs-14 mb-0">
                                                 <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
                                                 {{ num_short($data['total_tickets_increase']) }}%
                                             </h5>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['total_tickets']) }}
+                                                {{ num_short($data['direct_training_users_phase_3']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'validation_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
-                                        <!-- <div class="avatar-sm flex-shrink-0">
-                                            <span class="avatar-title bg-soft-success rounded fs-3">
-
-                                                <i class="ri-message-2-line text-success"></i>
-                                            </span>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -276,28 +254,22 @@
 
                                             </p>
                                         </div>
-                                        <div class="flex-shrink-0">
+                                        {{-- <div class="flex-shrink-0">
                                             <h5 class="text-success fs-14 mb-0">
                                                 <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
                                                 {{ num_short($data['total_tickets_increase']) }}%
                                             </h5>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['total_tickets']) }}
+                                                {{ num_short($data['direct_training_users_phase_4']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'construction_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
-                                        <!-- <div class="avatar-sm flex-shrink-0">
-                                            <span class="avatar-title bg-soft-success rounded fs-3">
-
-                                                <i class="ri-message-2-line text-success"></i>
-                                            </span>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -314,36 +286,27 @@
 
                                             </p>
                                         </div>
-                                        <div class="flex-shrink-0">
+                                        {{-- <div class="flex-shrink-0">
                                             <h5 class="text-success fs-14 mb-0">
                                                 <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
                                                 {{ num_short($data['total_tickets_increase']) }}%
                                             </h5>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['total_tickets']) }}
+                                                {{ num_short($data['direct_training_users_phase_5']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'repayment_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
-                                        <!-- <div class="avatar-sm flex-shrink-0">
-                                            <span class="avatar-title bg-soft-success rounded fs-3">
-
-                                                <i class="ri-message-2-line text-success"></i>
-                                            </span>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-
 
                     <div class="row justify-content-start gap-0 h-auto">
                         <div class="col-xl-5">
@@ -365,14 +328,14 @@
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
-                                                    
+                                                    {{ translate('Total Clients') }} {{$data['engineering_training_users']}}
+                                                </h5>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-xl-2 col-md-4 m-0 p-0">
                             <div class="card crm-widget">
                                 <div class="card-body p-0">
@@ -392,7 +355,7 @@
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in direct training -->
-                                                    10998 DHS</h5>
+                                                    {{$data['engineering_training_users_total_revenue']}} DHS</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -402,7 +365,6 @@
                     </div>
 
                     <div class="row justify-content-around gap-0">
-                        
                         <div class="col-xl-2 col-md-4 m-0 p-0">
                             <div class="card card-animate">
                                 <div class="card-body">
@@ -415,28 +377,22 @@
 
                                             </p>
                                         </div>
-                                        <div class="flex-shrink-0">
+                                        {{-- <div class="flex-shrink-0">
                                             <h5 class="text-success fs-14 mb-0">
                                                 <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
                                                 {{ num_short($data['total_tickets_increase']) }}%
                                             </h5>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['total_tickets']) }}
+                                                {{ num_short($data['engineering_training_users_phase_1']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'qualification_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
-                                        <!-- <div class="avatar-sm flex-shrink-0">
-                                            <span class="avatar-title bg-soft-success rounded fs-3">
-
-                                                <i class="ri-message-2-line text-success"></i>
-                                            </span>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -453,28 +409,22 @@
 
                                             </p>
                                         </div>
-                                        <div class="flex-shrink-0">
+                                        {{-- <div class="flex-shrink-0">
                                             <h5 class="text-success fs-14 mb-0">
                                                 <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
                                                 {{ num_short($data['total_tickets_increase']) }}%
                                             </h5>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['total_tickets']) }}
+                                                {{ num_short($data['engineering_training_users_phase_2']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'engineering_phase_(GIAC)'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
-                                        <!-- <div class="avatar-sm flex-shrink-0">
-                                            <span class="avatar-title bg-soft-success rounded fs-3">
-
-                                                <i class="ri-message-2-line text-success"></i>
-                                            </span>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -491,28 +441,22 @@
 
                                             </p>
                                         </div>
-                                        <div class="flex-shrink-0">
+                                        {{-- <div class="flex-shrink-0">
                                             <h5 class="text-success fs-14 mb-0">
                                                 <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
                                                 {{ num_short($data['total_tickets_increase']) }}%
                                             </h5>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['total_tickets']) }}
+                                                {{ num_short($data['engineering_training_users_phase_3']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'phase_(CSF)'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
-                                        <!-- <div class="avatar-sm flex-shrink-0">
-                                            <span class="avatar-title bg-soft-success rounded fs-3">
-
-                                                <i class="ri-message-2-line text-success"></i>
-                                            </span>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -529,28 +473,22 @@
 
                                             </p>
                                         </div>
-                                        <div class="flex-shrink-0">
+                                        {{-- <div class="flex-shrink-0">
                                             <h5 class="text-success fs-14 mb-0">
                                                 <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
                                                 {{ num_short($data['total_tickets_increase']) }}%
                                             </h5>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['total_tickets']) }}
+                                                {{ num_short($data['engineering_training_users_phase_4']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'construction_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
-                                        <!-- <div class="avatar-sm flex-shrink-0">
-                                            <span class="avatar-title bg-soft-success rounded fs-3">
-
-                                                <i class="ri-message-2-line text-success"></i>
-                                            </span>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -567,87 +505,31 @@
 
                                             </p>
                                         </div>
-                                        <div class="flex-shrink-0">
+                                        {{-- <div class="flex-shrink-0">
                                             <h5 class="text-success fs-14 mb-0">
                                                 <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
                                                 {{ num_short($data['total_tickets_increase']) }}%
                                             </h5>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['total_tickets']) }}
+                                                {{ num_short($data['engineering_training_users_phase_5']) }}
                                             </h2>
-                                            <a href="{{route('admin.ticket.list')}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'repayment_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
-                                        <!-- <div class="avatar-sm flex-shrink-0">
-                                            <span class="avatar-title bg-soft-success rounded fs-3">
-
-                                                <i class="ri-message-2-line text-success"></i>
-                                            </span>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Tickets status cards -->
-                        <!-- @foreach (Arr::get($data,'ticket_status_counter',[]) as $statusCounter )
-
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card card-animate">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-grow-1 overflow-hidden">
-                                                <p
-                                                    class="text-uppercase fw-medium text-muted text-truncate mb-0">
-
-                                                    {{$statusCounter->name }} {{translate('Tickets')}}
-                                                    <span class="badge badge-pill bg-danger" data-key="t-hot">
-                                                        {{$statusCounter->current_year }}
-                                                    </span>
-
-                                                </p>
-                                            </div>
-                                            <div class="flex-shrink-0">
-                                                <h5 class="text-success fs-14 mb-0">
-                                                    <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
-                                                    {{ num_short($data[$statusCounter->increase_key]) }}%
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-end justify-content-between mt-4">
-                                            <div>
-                                                <h2 class="fs-22 mb-4">
-                                                    {{ num_short($data[$statusCounter->counter_key]) }}
-                                                </h2>
-                                                <a href="{{$statusCounter->url}}" class="text-decoration-underline">
-                                                    {{translate("View All")}}
-                                                </a>
-                                            </div>
-                                            <div class="avatar-sm flex-shrink-0">
-                                                <span class="avatar-title bg-soft-warning rounded fs-3">
-
-                                                    <i class="ri-questionnaire-line
-                                                    text-warning"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-                            
-                        @endforeach -->
-                    
-
                     </div>
 
 
                     <!-- Table -->
-                    <div class="row">
+                    {{-- <div class="row">
 
                         <div class="col-xl">
                             <div class="card">
@@ -732,7 +614,7 @@
                                                         </td>
 
                                                         <td>
-                                                            @php echo ticket_status($ticket->ticketStatus->name,$ticket->ticketStatus->color_code) @endphp 
+                                                            @php echo ticket_status($ticket->ticketStatus->name,$ticket->ticketStatus->color_code) @endphp
 
                                                         </td>
 
@@ -749,26 +631,26 @@
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div> --}}
                 </div>
             </div>
-            
+
             <!--  -->
-            <div class="col-auto layout-rightside-col d-block">
+            {{-- <div class="col-auto layout-rightside-col d-block">
                 <div class="overlay"></div>
                 <div class="layout-rightside">
                     <div class="sidebar-widget">
                         <h5 class="widget-title">
                             {{ translate('Pending Tickets') }}
                         </h5>
-                            
+
                         @if($data['latest_pending_ticket']->count() != 0)
-                        
+
                             <div class="widget-body" data-simplebar>
                                 <ul class="activity-list">
 
                                     @foreach($data['latest_pending_ticket'] as $pendingTicket)
-    
+
                                             <li class="mb-0">
 
                                                 <div class="acitivity-item py-3 d-flex">
@@ -871,7 +753,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

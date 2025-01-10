@@ -219,7 +219,7 @@
         const selectElement = document.getElementById('cities');
 
         // Fetch the cities JSON
-        fetch('/pixeldesk-new-installer-v2.1/kode/assets/json/cities.json')
+        fetch('/TrackingFormationProject/kode/assets/json/cities.json')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

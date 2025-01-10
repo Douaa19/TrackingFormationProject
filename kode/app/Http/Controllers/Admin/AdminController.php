@@ -49,8 +49,41 @@ class AdminController extends Controller
         $currentYear = date("Y");
 
 
-        $data['direct_training_users'] = User::where('training_type', 'direct_training_(CSF)');
-        $data['engineering_training_users'] = User::where('training_type', 'engineering_training_(GIAC+CSF)');
+
+        $data['direct_training_users'] = User::where('training_type', 'direct_training_(CSF)')->count();
+        $data['direct_training_total_revenue'] = User::where('training_type', 'direct_training_(CSF)')->sum('revenue');
+        $data['direct_training_users_phase_1'] = User::where('training_type', 'direct_training_(CSF)')
+            ->where('status', 'qualification_phase')
+            ->count();
+        $data['direct_training_users_phase_2'] = User::where('training_type', 'direct_training_(CSF)')
+            ->where('status', 'administrative_preliminary_phase')
+            ->count();
+        $data['direct_training_users_phase_3'] = User::where('training_type', 'direct_training_(CSF)')
+            ->where('status', 'validation_phase')
+            ->count();
+        $data['direct_training_users_phase_4'] = User::where('training_type', 'direct_training_(CSF)')
+            ->where('status', 'construction_phase')
+            ->count();
+        $data['direct_training_users_phase_5'] = User::where('training_type', 'direct_training_(CSF)')
+            ->where('status', 'repayment_phase')
+            ->count();
+        $data['engineering_training_users'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')->count();
+        $data['engineering_training_users_total_revenue'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')->sum('revenue');
+        $data['engineering_training_users_phase_1'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
+            ->where('status', 'qualification_phase')
+            ->count();
+        $data['engineering_training_users_phase_2'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
+            ->where('status', 'engineering_phase_(GIAC)')
+            ->count();
+        $data['engineering_training_users_phase_3'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
+            ->where('status', 'phase_(CSF)')
+            ->count();
+        $data['engineering_training_users_phase_4'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
+            ->where('status', 'construction_phase')
+            ->count();
+        $data['engineering_training_users_phase_5'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
+            ->where('status', 'repayment_phase')
+            ->count();
         $data['total_user']        = User::filter($request)->count();
         $data['total_categories']  = Category::filter($request)->count();
         $data['total_article']     = Article::filter($request)->count();
@@ -112,17 +145,17 @@ class AdminController extends Controller
                                     ->whereYear('created_at', $currentYear)
                                     ->filter($request)
                                     ->count();
- 
+
          $prevSolvedTickets = SupportTicket::agent()
                                     ->solved()
                                     ->whereYear('created_at', $currentYear-1)
                                     ->filter($request)
                                     ->count();
- 
+
          $data['total_solved_tickets'] = $totalSolvedTickets;
- 
+
          $ticketIncrese = round($totalSolvedTickets-$prevSolvedTickets) ;
- 
+
          $data['total_solved_tickets_increase'] = ($prevSolvedTickets > 0)
                                                             ? round(($ticketIncrese /  $prevSolvedTickets ) * 100, 2)
                                                             : 0;
@@ -156,7 +189,7 @@ class AdminController extends Controller
 
 
 
-        $data['ticket_status_counter'] =  TicketStatus::withCount(['tickets'=> function($q) use($currentYear ,$request){          
+        $data['ticket_status_counter'] =  TicketStatus::withCount(['tickets'=> function($q) use($currentYear ,$request){
                                                         return $q->agent()
                                                                 ->whereYear('created_at', $currentYear)
                                                                 ->filter($request);
@@ -193,22 +226,22 @@ class AdminController extends Controller
                 ];
         })->all();
 
-       
+
 
         $ticketIncrese = round($totalClosedTickets-$prevClosedTickets) ;
 
         $data['total_closed_tickets_increase'] = ($prevClosedTickets > 0)
                     ? round(($ticketIncrese /  $prevClosedTickets ) * 100, 2)
                     : 0;
-   
+
 
 
         $data['ticket_by_category']  = Category::withCount(['tickets as tickets_count' => function($q) use($request){
- 
+
                $q->agent()->filter($request);
-            
+
         }])
-        ->having('tickets_count', '>', 0) 
+        ->having('tickets_count', '>', 0)
         ->orderBy('tickets_count','desc')
         ->pluck("tickets_count",'name',)
         ->mapWithKeys(function ($count, $name) {
@@ -220,12 +253,12 @@ class AdminController extends Controller
         $data['ticket_by_user']  = User::withCount(['tickets as tickets_count' => function($q)  use($request){
             $q->agent()->filter($request);
         }])
-                                                ->having('tickets_count', '>', 0) 
+                                                ->having('tickets_count', '>', 0)
                                                 ->orderBy('tickets_count','desc')
                                                 ->pluck("tickets_count",'name',)
                                                 ->toArray();
 
-   
+
         $data['latest_ticket'] = SupportTicket::agent()
                                                 ->latest("created_at")
                                                 ->with('messages')
@@ -272,7 +305,7 @@ class AdminController extends Controller
                                                 ->groupBy('months')
                                                 ->pluck('total', 'months')
                                                 ->toArray());
-        
+
 
 
 
@@ -311,30 +344,30 @@ class AdminController extends Controller
 
         $maxCount     = 0;
         $maxCountType = null;
-        
+
         foreach ($ticketTypes as $type => $data) {
             if (count($data) > $maxCount) {
                 $maxCount     = count($data);
                 $maxCountType = $type;
             }
         }
-        
+
         $graphLabels  = array_keys(Arr::get($ticketTypes,$maxCountType,[]));
-        
+
         foreach ($ticketTypes as &$typeData) {
-            
+
             $typeData = array_merge(array_fill_keys($graphLabels, 0), $typeData);
         }
-        
+
         unset($typeData);
-    
+
 
         $ticketTypes["label"] = $graphLabels;
 
         return $ticketTypes;
-        
 
-     
+
+
 
      }
 
@@ -480,7 +513,7 @@ class AdminController extends Controller
             }
         }
         auth_user()->notification_settings =  json_encode( $admin_notifications);
-        auth_user()->save();   
+        auth_user()->save();
         return back()->with('success',translate('Notifications Settings Updated'));
 
     }
@@ -495,7 +528,7 @@ class AdminController extends Controller
                                     ->where("notify_id", auth_user()->id)
                                     ->first();
         $status = false;
-        
+
         $message = translate('Notification Not Found');
 
         if( $admin_notification ){
@@ -533,7 +566,7 @@ class AdminController extends Controller
         ->update([
             "is_read" =>  (StatusEnum::true)->status()
         ]);
-        
+
         $notifications =  CustomNotifications::where("notify_id",auth_user()->id)
         ->where('is_read' ,(StatusEnum::true)->status())
         ->where(function ($query) {
@@ -578,7 +611,7 @@ class AdminController extends Controller
      *
      * @return  RedirectResponse
      */
-    public function clearNotitfication() :RedirectResponse { 
+    public function clearNotitfication() :RedirectResponse {
 
 
         CustomNotifications::where("notify_id",auth_user()->id)
@@ -592,7 +625,7 @@ class AdminController extends Controller
         ->each->delete();
 
         return back()->with('success',translate('All notification cleared'));
-  
+
     }
 
 

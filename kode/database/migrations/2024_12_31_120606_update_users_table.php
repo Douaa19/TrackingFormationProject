@@ -17,9 +17,9 @@ class UpdateUsersTable extends Migration
             //
             $table->string('cnss', 100)->nullable()->after('phone');
             $table->string('garage_name', 191)->nullable()->after('cnss');
-            $table->unsignedTinyInteger('city')->nullable()->after('garage_name');
-            $table->unsignedTinyInteger('training_type')->nullable()->after('city');
-            $table->unsignedTinyInteger('training')->nullable()->after('training_type');
+            $table->string('city')->nullable()->after('garage_name');
+            $table->string('training_type')->nullable()->after('city');
+            $table->string('training')->nullable()->after('training_type');
             $table->string('revenue', 100)->nullable()->after('training');
             $table->string('whatsapp_number', 100)->nullable()->after('revenue');
         });

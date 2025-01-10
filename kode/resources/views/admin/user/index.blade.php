@@ -28,7 +28,7 @@
 			</div>
 		</div>
 		<div class="card">
-			<div class="card-header border-bottom-dashed">
+			<div class="card-header border-bottom-dashed ">
 				<div class="row g-4 align-items-center">
 					<div class="col-sm">
 						<div>
@@ -50,94 +50,122 @@
 				</div>
 			</div>
 			<div class="card-body">
-			    <table id="user-table" class="w-100 table table-bordered dt-responsive nowrap table-striped align-middle" >
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>
-                                {{translate('Name')}}
-                            </th>
-
-                            <th>
-                                {{translate('Email')}}
-                            </th>
-                            <th>
-                                {{translate('Phone')}}
-                            </th>
-                            <th>
-                                {{translate('Status')}}
-                            </th>
-
-                            <th>
-                                {{translate('Options')}}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($users as $user)
+			    <div class="table-responsive">
+                    <table id="user-table" class="w-100 table table-bordered dt-responsive nowrap table-striped align-middle" >
+                        <thead>
                             <tr>
-                                <td>
-                                    {{$loop->iteration}}
-                                </td>
-                                <td class="d-flex">
-                                    @php
-                                    $url = getImageUrl(getFilePaths()['profile']['user']['path'].'/'.$user->image,getFilePaths()['profile']['user']['size']);
-                                        if(filter_var($user->image, FILTER_VALIDATE_URL) !== false){
-                                            $url = $user->image;
-                                        }
-                                    @endphp
-                                    <img src="{{ $url }}" alt="{{$user->image}}" class="avatar-xs rounded-3 me-2">
-                                    <div>
-                                        <h5 class="fs-13 mb-1">
-                                            {{ $user->name}}
-                                        </h5>
-                                   
-                                    </div>
-                                </td>
-
-                                <td>
-                                    {{$user->email}}
-                                </td>
-                                <td>
-                                    {{$user->phone ? $user->phone : "N/A"}}
-                                </td>
-                                <td>
-                                    <div class="form-check form-switch">
-                                        <input id="status-{{$user->id}}" type="checkbox" class="status-update form-check-input"
-                                            data-column="status"
-                                            data-route="{{ route('admin.user.status.update') }}"
-                                            data-model="User"
-                                            data-status="{{ $user->status == App\Enums\StatusEnum::true->status() ?  App\Enums\StatusEnum::false->status() : App\Enums\StatusEnum::true->status()}}"
-                                            data-id="{{$user->id}}" {{$user->status ==  App\Enums\StatusEnum::true->status() ? 'checked' : ''}} >
-                                        <label class="form-check-label" for="status-{{$user->id}}"></label>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="hstack gap-3">
-
-                                        <a target="_blank" href="{{route('admin.user.login', $user->id)}}" class=" fs-18 link-success"><i class="ri-login-box-line"></i></a>
-
-                                        <a href="javascript:void(0);" data-id="{{$user->id}}" class="update-password fs-18 link-danger">
-                                            <i class="ri-key-2-line"></i></a>
-
-                                        <a href="{{route('admin.user.edit',$user->id)}}" class=" fs-18 link-warning"><i class="ri-pencil-fill"></i></a>
-
-                                        <a href="javascript:void(0);" data-href="{{route('admin.user.delete',$user->id)}}" class="delete-item fs-18 link-danger">
-                                        <i class="ri-delete-bin-line"></i></a>
-
-                                    </div>
-                                </td>
+                                <th>#</th>
+                                <th>
+                                    {{translate('Name')}}
+                                </th>
+                                <th>
+                                    {{translate('Email')}}
+                                </th>
+                                <th>
+                                    {{translate('Phone')}}
+                                </th>
+                                <th>
+                                    {{translate('WhatsApp Number')}}
+                                </th>
+                                <th>
+                                    {{translate('City')}}
+                                </th>
+                                <th>
+                                    {{translate('CNSS')}}
+                                </th>
+                                <th>
+                                    {{translate('Garage Name')}}
+                                </th>
+                                <th>
+                                    {{translate('Garage Revenue')}}
+                                </th>
+                                <th>
+                                    {{translate('Training Type')}}
+                                </th>
+                                <th>
+                                    {{translate('Training')}}
+                                </th>
+                                <th>
+                                    {{translate('Status')}}
+                                </th>
+                                <th>
+                                    {{translate('Options')}}
+                                </th>
                             </tr>
-                            @empty
+                        </thead>
+                        <tbody>
+                            @forelse($users as $user)
+                                <tr>
+                                    <td>
+                                        {{$loop->iteration}}
+                                    </td>
+                                    <td class="d-flex">
+                                        @php
+                                        $url = getImageUrl(getFilePaths()['profile']['user']['path'].'/'.$user->image,getFilePaths()['profile']['user']['size']);
+                                            if(filter_var($user->image, FILTER_VALIDATE_URL) !== false){
+                                                $url = $user->image;
+                                            }
+                                        @endphp
+                                        <img src="{{ $url }}" alt="{{$user->image}}" class="avatar-xs rounded-3 me-2">
+                                        <div>
+                                            <h5 class="fs-13 mb-1">
+                                                {{ $user->name}}
+                                            </h5>
 
-                              @include('admin.partials.not_found')
+                                        </div>
+                                    </td>
 
-                            @endforelse
-                    </tbody>
-                </table>
+                                    <td>
+                                        {{$user->email}}
+                                    </td>
+                                    <td>
+                                        {{$user->phone ? $user->phone : "N/A"}}
+                                    </td>
+                                    <td>
+                                        {{$user->whatsapp_number ? $user->whatsapp_number : "N/A"}}
+                                    </td>
+                                    <td>
+                                        {{$user->city}}
+                                    </td>
+                                    <td>
+                                        {{$user->cnss}}
+                                    </td>
+                                    <td>
+                                        {{$user->garage_name}}
+                                    </td>
+                                    <td>
+                                        {{$user->revenue ? $user->revenue : 0}}
+                                    </td>
+                                    <td>
+                                        {{str_replace('_', ' ', $user->training_type) ?? translate($user->training_type)}}
+                                    </td>
+                                    <td>
+                                        {{str_replace('_', ' ', $user->training_type) ?? translate($user->training)}}
+                                    </td>
+                                    <td>
+                                        {{str_replace('_', ' ', $user->training_type) ?? translate($user->status)}}
+                                    </td>
+                                    <td>
+                                        <div class="hstack gap-3">
+                                            <a target="_blank" href="{{route('admin.user.login', $user->id)}}" class=" fs-18 link-success"><i class="ri-login-box-line"></i></a>
+                                            <a href="javascript:void(0);" data-id="{{$user->id}}" class="update-password fs-18 link-danger">
+                                                <i class="ri-key-2-line"></i>
+                                            </a>
+                                            <a href="{{route('admin.user.edit',$user->id)}}" class=" fs-18 link-warning"><i class="ri-pencil-fill"></i></a>
+                                            <a href="javascript:void(0);" data-href="{{route('admin.user.delete',$user->id)}}" class="delete-item fs-18 link-danger">
+                                            <i class="ri-delete-bin-line"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @empty
+
+                                @include('admin.partials.not_found')
+
+                                @endforelse
+                        </tbody>
+                    </table>
+                </div>
 			</div>
-
 		</div>
 	</div>
 
@@ -215,7 +243,7 @@
     <script src="{{asset('assets/global/js/dataTables.responsive.min.js') }}"></script>
 @endpush
 
-@push('script-push')
+{{-- @push('script-push')
 <script>
 	(function($){
        	"use strict";
@@ -236,7 +264,7 @@
 
 	})(jQuery);
 </script>
-@endpush
+@endpush --}}
 
 
 
