@@ -140,10 +140,10 @@
                                         {{str_replace('_', ' ', $user->training_type) ?? translate($user->training_type)}}
                                     </td>
                                     <td>
-                                        {{str_replace('_', ' ', $user->training_type) ?? translate($user->training)}}
+                                        {{str_replace('_', ' ', $user->training) ?? translate($user->training)}}
                                     </td>
                                     <td>
-                                        {{str_replace('_', ' ', $user->training_type) ?? translate($user->status)}}
+                                        {{str_replace('_', ' ', $user->status) ?? translate($user->status)}}
                                     </td>
                                     <td>
                                         <div class="hstack gap-3">

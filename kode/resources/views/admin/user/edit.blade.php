@@ -63,7 +63,7 @@
                             </div>
 
 
-                            {{-- <div class="mt-3">
+                            <div class="mt-3">
                                 <div>
                                     <label for="formFile" class="form-label">
                                         {{translate('Image')}}  <span class="text-danger">
@@ -73,7 +73,7 @@
                                     <input id="formFile" data-size ="{{getFilePaths()['profile']['user']['size']}}" type="file" class="preview form-control w-100"
                                         name="image">
                                 </div>
-                            </div> --}}
+                            </div>
 
                             <div class="mt-3">
                                 <div>
@@ -172,7 +172,7 @@
                                 </div>
                             </div>
 
-                            <div class="mt-3">
+                            {{-- <div class="mt-3">
                                 <div>
                                     <label for="traning_type" class="form-label capitalize">
                                         {{translate('Training Type')}} <span class="text-danger">*</span>
@@ -226,7 +226,7 @@
                                 <select required class="form-select" name="status" id="status">
                                     <!-- Options will be populated dynamically -->
                                 </select>
-                            </div>
+                            </div> --}}
                         </div>
 
                     </div>
@@ -256,7 +256,7 @@
     @endif
 @endpush
 
-<script>
+{{-- <script>
     const translations = {
         'direct_training_(CSF)': [
             { value: 'confirmation', text: @json(__('Confirmation')) },
@@ -275,7 +275,7 @@
             { value: 'repayment_phase', text: @json(__('Repayment Phase')) }
         ]
     };
-</script>
+</script> --}}
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -313,29 +313,30 @@
             })
             .catch(error => console.error('Error loading cities:', error));
 
-            const statusSelect = document.getElementById('status');
-            const userTrainingType = @json($user->training_type);
-            const userStatus = @json($user->status);
+            // Define the options for each training type
+            // const statusSelect = document.getElementById('status');
+            // const userTrainingType = @json($user->training_type);
+            // const userStatus = @json($user->status);
 
-            if (translations[userTrainingType]) {
-                translations[userTrainingType].forEach(optionData => {
-                    const option = document.createElement('option');
-                    option.value = optionData.value;
-                    option.textContent = optionData.text;
+            // if (translations[userTrainingType]) {
+            //     translations[userTrainingType].forEach(optionData => {
+            //         const option = document.createElement('option');
+            //         option.value = optionData.value;
+            //         option.textContent = optionData.text;
 
-                    if (optionData.value === userStatus) {
-                        option.selected = true;
-                    }
+            //         if (optionData.value === userStatus) {
+            //             option.selected = true;
+            //         }
 
-                    statusSelect.appendChild(option);
-                });
-            } else {
-                const defaultOption = document.createElement('option');
-                defaultOption.value = '';
-                defaultOption.textContent = '{{ translate("Select a status") }}';
-                defaultOption.disabled = true;
-                defaultOption.selected = true;
-                statusSelect.appendChild(defaultOption);
-            }
+            //         statusSelect.appendChild(option);
+            //     });
+            // } else {
+            //     const defaultOption = document.createElement('option');
+            //     defaultOption.value = '';
+            //     defaultOption.textContent = '{{ translate("Select a status") }}';
+            //     defaultOption.disabled = true;
+            //     defaultOption.selected = true;
+            //     statusSelect.appendChild(defaultOption);
+            // }
     });
 </script>
