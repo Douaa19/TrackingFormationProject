@@ -32,7 +32,7 @@ class UserController extends Controller
         $agents = Admin::where('agent', StatusEnum::true->status())->get();
         $agentsUsers = AgentParticipant::all();
 
-        return view('admin.user.index', compact('title', 'users', 'agents'));
+        return view('admin.user.index', compact('title', 'users', 'agents', 'agentsUsers'));
 
     }
 

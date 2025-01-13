@@ -215,36 +215,50 @@
                                         {{str_replace('_', ' ', $user->status) ?? translate($user->status)}}
                                     </td>
                                     {{-- Assign to --}}
+
+                                    {{-- {{var_dump($agentsUsers->id_participant)}} --}}
                                     <td>
                                         <div class="avatar-group">
-                                            {{-- @forelse($user->agents as $agent)
-                                                <div class="avatar-group-item material-shadow">
-                                                    <a href="javascript:void(0)" class="d-inline-block custom-tooltip">
+                                            @php
+                                                $isAssigned = $agentsUsers->contains(function ($agentUser) use ($user) {
+                                                    return $agentUser->id_participant == $user->id;
+                                                });
+                                            @endphp
+
+
+
+                                            @if ($isAssigned)
+                                                @foreach ($agentsUsers as $agentUser)
+                                                    @if ($agentUser->id_participant == $user->id)
+                                                        <div class="avatar-group-item material-shadow">
+                                                            <a href="javascript:void(0)" class="d-inline-block custom-tooltip">
+                                                                <span class="tooltip-text">
+                                                                    {{ $agentUser->agent->name ?? 'Unknown Agent' }}
+                                                                </span>
+                                                                <img src="{{ getImageUrl(getFilePaths()['profile']['admin']['path'] . '/' . $agentUser->agent->image) }}"
+                                                                    alt="{{ $agentUser->id_agent }}"
+                                                                    class="rounded-circle avatar-xxs"
+                                                                >
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            @else
+                                                <div class="avatar-group-item material-shadow" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                    <a href="javascript:void(0);" class="assign-user custom--tooltip" data-user-id="{{ $user->id }}">
                                                         <span class="tooltip-text">
-                                                            {{$agent->name}}
+                                                            {{ translate("Assign") }}
                                                         </span>
-                                                        <img src="{{getImageUrl(getFilePaths()['profile']['admin']['path']."/". $agent->image)}}"
-                                                            alt="{{$agent->name}}"
-                                                            class="rounded-circle avatar-xxs">
+                                                        <div class="avatar-xxs">
+                                                            <span class="avatar-title rounded-circle bg-info text-white">
+                                                                +
+                                                            </span>
+                                                        </div>
                                                     </a>
                                                 </div>
-                                            @empty
-                                                <span class="text-muted">{{translate('No agents assigned')}}</span>
-                                            @endforelse --}}
-
-                                            <div class="avatar-group-item material-shadow" data-bs-toggle="tooltip" data-bs-placement="top">
-                                                <a href="javascript:void(0);" class="assign-user custom--tooltip" data-user-id='{{$user->id}}'>
-                                                    <span class="tooltip-text">
-                                                        {{ translate("Assign") }}
-                                                    </span>
-                                                    <div class="avatar-xxs">
-                                                        <span class="avatar-title rounded-circle bg-info text-white">
-                                                            +
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            </div>
+                                            @endif
                                         </div>
+
                                     </td>
                                     <td>
                                         <div class="hstack gap-3">
@@ -304,9 +318,6 @@
                                         <input required type="password" name="password_confirmation" value="{{old('confirm_password')}}" class="form-control" placeholder="*************" id="confirmPassword">
                                     </div>
 								</div>
-
-
-
 							</div>
 						</div>
 					</div>
