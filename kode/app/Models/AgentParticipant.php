@@ -10,15 +10,15 @@ class AgentParticipant extends Model
     use HasFactory;
 
     protected $table = 'agent_participant';
-    protected $fillable = ['agent_id', 'participant_id'];
+    protected $fillable = ['agent_id', 'user_id'];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_participant');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function agent()
     {
-        return $this->belongsTo(Admin::class, 'id_agent');
+        return $this->belongsTo(Admin::class, 'agent_id');
     }
 }

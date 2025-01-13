@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col">
                 <div class="h-100">
-                    <div class="card crm-widget">
+                    {{-- <div class="card crm-widget">
                         <div class="card-body p-0">
                             <div class="row row-cols-lg-3 row-cols-sm-2 row-cols-1">
                                 <div class="col col-xl crm-widget-card">
@@ -34,38 +34,45 @@
                                                 </div>
                                                 <div class="flex-grow-1 ms-3">
                                                     <h2 class="mb-0">
-                                                        {{$counter->total_ticket}} 
+                                                        {{$counter->total_ticket}}
                                                     </h2>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 @endforeach
 
                             </div>
                         </div>
-                    </div>
-
+                    </div> --}}
                     <div class="row">
-                        <div class="col-xl-8">
+                        <div class="col-xl">
                             <div class="card">
-
-                                 <form action="{{route('user.dashboard')}}" method="get" id="filter-form">
+                                {{-- <form action="{{route('user.dashboard')}}" method="get" id="filter-form">
 
                                     <input type="hidden" name="filter" id="filterValue">
 
-                                 </form>
-                                <div class="card-header align-items-center d-flex gap-3 flex-wrap">
+                                </form> --}}
+                                <div class="card-header align-items-center d-flex flex-col gap-3">
                                     <h4 class="card-title mb-0 flex-grow-1">
-                                        {{translate('Latest Tickets')}}
+                                        {{translate('Training')}}
                                     </h4>
+                                    <h3 class="cmb-0 flex-grow-1">
+                                        <h5>{{ $data['user']['training'] }}</h5>
+                                    </h3>
+                                    <h3 class="cmb-0 flex-grow-1">
+                                        <h5>{{ $data['user']['training_type'] }}</h5>
+                                    </h3>
+                                    <h3 class="cmb-0 flex-grow-1">
+                                        <h5>{{ $data['user']['status'] }}</h5>
+                                    </h3>
 
-                                    <a href="{{route('user.dashboard')}}" class=" me-2 btn link-success btn-icon btn-sm reset-table res fs-18">
+                                    {{-- <a href="{{route('user.dashboard')}}" class=" me-2 btn link-success btn-icon btn-sm reset-table res fs-18">
                                         <i class="ri-refresh-line align-bottom"></i>
-                                    </a>
+                                    </a> --}}
 
-                                    <div class="flex-shrink-0">
+                                    {{-- <div class="flex-shrink-0">
 
                                         <div class="dropdown card-header-dropdown">
                                             <a class="text-reset dropdown-btn show" href="javascript:void(0)" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -92,10 +99,10 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div><!-- end card header -->
 
-                                <div class="card-body">
+                                {{-- <div class="card-body">
                                         <div class="table-responsive pb-2">
                                             <table
                                                 class="table table-border table-centered align-middle table-nowrap mb-0">
@@ -165,7 +172,7 @@
                                                             </td>
 
                                                             <td>
-                                                                @php echo ticket_status($ticket->ticketStatus->name,$ticket->ticketStatus->color_code) @endphp 
+                                                                @php echo ticket_status($ticket->ticketStatus->name,$ticket->ticketStatus->color_code) @endphp
 
                                                             </td>
 
@@ -179,11 +186,11 @@
                                             </table>
                                         </div>
 
-                                </div>
+                                </div> --}}
                             </div> <!-- .card-->
                         </div>
 
-                        <div class="col-xl-4">
+                        {{-- <div class="col-xl-4">
                             <div class="card card-height-100">
                                 <div class="card-header align-items-center d-flex gap-3 flex-wrap">
                                     <h4 class="card-title mb-0 flex-grow-1">
@@ -204,9 +211,9 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
-                        <div class="col-xl-12">
+                        {{-- <div class="col-xl-12">
                             <div class="card card-height-100">
                                 <div class="card-header align-items-center d-flex gap-3 flex-wrap">
                                     <h4 class="card-title mb-0 flex-grow-1">
@@ -221,7 +228,7 @@
                                             class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                     </div>
                 </div>

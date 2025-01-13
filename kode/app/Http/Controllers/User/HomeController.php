@@ -21,12 +21,12 @@ use Illuminate\Contracts\View\View;
 class HomeController extends Controller
 {
 
-    /** 
+    /**
      * use dashboard
      */
     public function dashboard(Request $request) :View
     {
-    
+
         $title = "User dashboard";
         $data  = $this->getDashboardData($request);
         return view('user.dashboard', compact('title','data'));
@@ -51,9 +51,9 @@ class HomeController extends Controller
                                                 values: $groupedPurchases->pluck('envato_item_id')  ->toArray())
                                         ->map(callback: function(Department $department) use( $groupedPurchases): Department{
                                             $latestPurchase = ($groupedPurchases->where('envato_item_id',$department->envato_item_id)->first());
-                                            if($latestPurchase) $department->latest_purchase  = $latestPurchase; 
+                                            if($latestPurchase) $department->latest_purchase  = $latestPurchase;
                                             return $department;
-                                        })->all(); 
+                                        })->all();
 
 
         return view('user.envato.purchase.list', compact('title', 'user', 'groupedPurchases','productPurchases'));
@@ -92,42 +92,31 @@ class HomeController extends Controller
      */
 
      public function getDashboardData($request =  null) :array{
-
-
-
         $data['ticket_status_counter'] =  TicketStatus::withCount(['tickets'=> function($q) use($request){
-                                return $q->where('user_id',auth_user('web')->id);
-                            }])->whereIn('id',[EnumsTicketStatus::PENDING->value,EnumsTicketStatus::PROCESSING->value ,EnumsTicketStatus::CLOSED->value,EnumsTicketStatus::SOLVED->value])
-                            ->lazyById(100,'id')
-                            ->map(function(TicketStatus $status){
-
-                            $counter_key = match ($status->id) {
-                                        EnumsTicketStatus::SOLVED->value => 'total_solved_tickets',
-                                        EnumsTicketStatus::CLOSED->value => 'total_closed_tickets',
-                                        EnumsTicketStatus::PROCESSING->value => 'total_processign_tickets',
-                                        default => 'total_pending_tickets',
-                            };
-                            $icon = match ($status->id) {
-                                        EnumsTicketStatus::SOLVED->value => '<i class="ri-chat-check-line display-6 link-success"></i>',
-                                        EnumsTicketStatus::CLOSED->value => '<i class="ri-chat-delete-line display-6 link-danger"></i>',
-                                        EnumsTicketStatus::PROCESSING->value => '<i class="ri-message-3-line display-6 link-primary"></i>',
-                                        default => '<i class="ri-message-2-line display-6 link-warning"></i>',
-                            };
-
-                            return (object)[
-                                'id'            => $status->id,
-                                'name'          => $status->name,
-                                'counter_key'   => $counter_key,
-                                'icon'          => $icon,
-                                'total_ticket'  => $status->tickets_count,
-                            ];
-                            })->all();
-        
-
-
-    
-        
-
+                return $q->where('user_id',auth_user('web')->id);
+            }])->whereIn('id',[EnumsTicketStatus::PENDING->value,EnumsTicketStatus::PROCESSING->value ,EnumsTicketStatus::CLOSED->value,EnumsTicketStatus::SOLVED->value])
+            ->lazyById(100,'id')
+            ->map(function(TicketStatus $status){
+            $counter_key = match ($status->id) {
+                        EnumsTicketStatus::SOLVED->value => 'total_solved_tickets',
+                        EnumsTicketStatus::CLOSED->value => 'total_closed_tickets',
+                        EnumsTicketStatus::PROCESSING->value => 'total_processign_tickets',
+                        default => 'total_pending_tickets',
+            };
+            $icon = match ($status->id) {
+                        EnumsTicketStatus::SOLVED->value => '<i class="ri-chat-check-line display-6 link-success"></i>',
+                        EnumsTicketStatus::CLOSED->value => '<i class="ri-chat-delete-line display-6 link-danger"></i>',
+                        EnumsTicketStatus::PROCESSING->value => '<i class="ri-message-3-line display-6 link-primary"></i>',
+                        default => '<i class="ri-message-2-line display-6 link-warning"></i>',
+            };
+            return (object)[
+                'id'            => $status->id,
+                'name'          => $status->name,
+                'counter_key'   => $counter_key,
+                'icon'          => $icon,
+                'total_ticket'  => $status->tickets_count,
+            ];
+            })->all();
 
         $data['ticket_by_category']       = Category::withCount(['tickets as tickets_count' => function($q){
             return $q->where('user_id',auth_user('web')->id);
@@ -148,9 +137,12 @@ class HomeController extends Controller
         ->toArray());
 
         $data['latest_ticket']            =  SupportTicket::with(['user'])->where('user_id',auth_user('web')->id)->filter($request)->latest()->take(5)->get();
+
+        $data['user'] = auth_user('web');
+
         return $data;
 
-     }
+    }
 
 
     public function profile() :View
@@ -233,7 +225,7 @@ class HomeController extends Controller
         return back()->with('success', translate("Password changed successfully"));
     }
 
-    
+
 
     /**
      * get user notifications settings
@@ -268,7 +260,7 @@ class HomeController extends Controller
             }
         }
         auth_user('web')->notification_settings =  json_encode( $user_notifications);
-        auth_user('web')->save();   
+        auth_user('web')->save();
         return back()->with('success',translate('Notifications Settings Updated'));
     }
 
@@ -311,11 +303,11 @@ class HomeController extends Controller
         ->where('notification_for',NotifyStatus::USER)->update([
             "is_read" =>  (StatusEnum::true)->status()
         ]);
-        
+
         $notifications =  CustomNotifications::where("notify_id",auth_user('web')->id)
         ->where('is_read' ,(StatusEnum::true)->status())
         ->where('notification_for',NotifyStatus::USER)->latest()->paginate(paginateNumber());
-        
+
         return view('notification',compact('title','notifications','layout'));
      }
 
@@ -341,7 +333,7 @@ class HomeController extends Controller
 
 
 
-    
+
 
 
 }

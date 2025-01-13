@@ -219,19 +219,19 @@
                                         <div class="avatar-group">
                                             @php
                                                 $isAssigned = $agentsUsers->contains(function ($agentUser) use ($user) {
-                                                    return $agentUser->id_participant == $user->id;
+                                                    return $agentUser->user_id == $user->id;
                                                 });
                                             @endphp
                                             @if ($isAssigned)
                                                 @foreach ($agentsUsers as $agentUser)
-                                                    @if ($agentUser->id_participant == $user->id)
+                                                    @if ($agentUser->user_id == $user->id)
                                                         <div class="avatar-group-item material-shadow" data-bs-toggle="tooltip" data-bs-placement="top">
                                                             <a href="javascript:void(0)" class="assign-user custom--tooltip">
                                                                 <span class="tooltip-text">
                                                                     {{ $agentUser->agent->name ?? 'Unknown Agent' }}
                                                                 </span>
                                                                 <img src="{{ getImageUrl(getFilePaths()['profile']['admin']['path'] . '/' . $agentUser->agent->image) }}"
-                                                                    alt="{{ $agentUser->id_agent }}"
+                                                                    alt="{{ $agentUser->agent_id }}"
                                                                     class="rounded-circle avatar-xxs"
                                                                 >
                                                             </a>
