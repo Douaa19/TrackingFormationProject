@@ -215,8 +215,6 @@
                                         {{str_replace('_', ' ', $user->status) ?? translate($user->status)}}
                                     </td>
                                     {{-- Assign to --}}
-
-                                    {{-- {{var_dump($agentsUsers->id_participant)}} --}}
                                     <td>
                                         <div class="avatar-group">
                                             @php
@@ -224,14 +222,11 @@
                                                     return $agentUser->id_participant == $user->id;
                                                 });
                                             @endphp
-
-
-
                                             @if ($isAssigned)
                                                 @foreach ($agentsUsers as $agentUser)
                                                     @if ($agentUser->id_participant == $user->id)
-                                                        <div class="avatar-group-item material-shadow">
-                                                            <a href="javascript:void(0)" class="d-inline-block custom-tooltip">
+                                                        <div class="avatar-group-item material-shadow" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                            <a href="javascript:void(0)" class="assign-user custom--tooltip">
                                                                 <span class="tooltip-text">
                                                                     {{ $agentUser->agent->name ?? 'Unknown Agent' }}
                                                                 </span>
@@ -258,7 +253,6 @@
                                                 </div>
                                             @endif
                                         </div>
-
                                     </td>
                                     <td>
                                         <div class="hstack gap-3">
