@@ -170,7 +170,7 @@
                                             <h2 class="fs-22 mb-4">
                                                 {{ num_short($data['planned_training_users_phase_1']) }}
                                             </h2>
-                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'planned_training_(CSF)', 'phase' => 'qualification_phase'])}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'planned_training', 'phase' => 'qualification_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -202,7 +202,7 @@
                                             <h2 class="fs-22 mb-4">
                                                 {{ num_short($data['planned_training_users_phase_2']) }}
                                             </h2>
-                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'planned_training_(CSF)', 'phase' => 'administrative_preliminary_phase'])}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'planned_training', 'phase' => 'administrative_preliminary_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -234,7 +234,7 @@
                                             <h2 class="fs-22 mb-4">
                                                 {{ num_short($data['planned_training_users_phase_3']) }}
                                             </h2>
-                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'planned_training_(CSF)', 'phase' => 'validation_phase'])}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'planned_training', 'phase' => 'validation_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -266,7 +266,7 @@
                                             <h2 class="fs-22 mb-4">
                                                 {{ num_short($data['planned_training_users_phase_4']) }}
                                             </h2>
-                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'planned_training_(CSF)', 'phase' => 'construction_phase'])}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'planned_training', 'phase' => 'construction_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
@@ -298,7 +298,7 @@
                                             <h2 class="fs-22 mb-4">
                                                 {{ num_short($data['planned_training_users_phase_5']) }}
                                             </h2>
-                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'planned_training_(CSF)', 'phase' => 'repayment_phase'])}}" class="text-decoration-underline">
+                                            <a href="{{route('admin.user.phase.list', ['training_type' => 'planned_training', 'phase' => 'repayment_phase'])}}" class="text-decoration-underline">
                                                 {{translate("View All")}}
                                             </a>
                                         </div>
