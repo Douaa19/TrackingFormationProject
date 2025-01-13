@@ -294,8 +294,10 @@ class UserController extends Controller
         $users = User::where('training_type', $training_type)
                         ->where('status', $phase)
                         ->get();
+        $agents = Admin::where('agent', StatusEnum::true->status())->get();
+        $agentsUsers = AgentParticipant::all();
 
-        return view('admin.user.index', compact('title', 'users'));
+        return view('admin.user.index', compact('title', 'users', 'agents', 'agentsUsers'));
     }
 
 
