@@ -39,7 +39,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class AdminTicketController extends Controller
 {
-    
+
 
     use EnvatoManager;
 
@@ -48,7 +48,7 @@ class AdminTicketController extends Controller
 
     }
 
- 
+
 
     /**
      * Get ticket list view
@@ -64,14 +64,14 @@ class AdminTicketController extends Controller
 
 
         $ticketStatus = \App\Models\TicketStatus::active()->get();
-        
+
         return view('admin.ticket.index',compact('title','ticketStatus'));
      }
 
 
 
      /**
-      * Get a specific ticket message 
+      * Get a specific ticket message
       *
       * @param Request $request
       * @return array
@@ -87,7 +87,7 @@ class AdminTicketController extends Controller
         $ticket = SupportTicket::withoutGlobalScope('autoload')
                                 ->where("id",$request->input("id"))
                                 ->firstOrfail();
-        
+
         if(!$ticket) return ['status' => false , 'message' => translate('Ticket not found')];
 
         $this->ticketService->makeTicketMessageSeen($ticket);
@@ -97,20 +97,20 @@ class AdminTicketController extends Controller
 
         return ([
             'ticket'                   => $ticket,
-            'status'                   => true, 
+            'status'                   => true,
             'next_page'                => $messages->hasMorePages(),
             "messages_html"            => view('admin.ticket.ticket_message', compact('messages','ticket'))->render(),
         ]);
 
      }
-      
+
 
      /**
       * Edit a specific ticket
-      * @param int | string $id 
+      * @param int | string $id
       * @return View
       */
-     
+
      public function edit(int | string $id): View {
 
         $title      = 'Edit Ticket';
@@ -161,7 +161,7 @@ class AdminTicketController extends Controller
         $ticket->priority_id   =  $request->input('priority_id');
         $ticket->status        =  $request->input('status');
         $ticket->saveQuietly();
-    
+
 
         return back()->with("success",translate("Ticket updated successfully"));
     }
@@ -192,7 +192,7 @@ class AdminTicketController extends Controller
          #VERIFY SUPPORT
          if(site_settings(key:'envato_support_verification',default:0) == 1) {
             $supported_until = Arr::get($envato_payload,'supported_until');
-            
+
             if($supported_until){
                 $supported_until   = Carbon::parse($supported_until);
                 $isSupportExpired  = 0;
@@ -209,12 +209,12 @@ class AdminTicketController extends Controller
 
         return back()->with("success", translate('Purchase sync successfully'));
 
-        
+
     }
 
 
 
-   
+
     /**
      * Summary of verifyEnvatoPurchase
      * @param \Illuminate\Http\Request $request
@@ -240,7 +240,7 @@ class AdminTicketController extends Controller
         $accessToken = @$envato_personal_token;
 
         if(!$accessToken) return back()->with('error', translate('Invalid envato product, no personal access token found'));
-        
+
 
         $envato_payload    = $this->verifyPurchase($purchaseKey ,$accessToken);
 
@@ -253,7 +253,7 @@ class AdminTicketController extends Controller
          if(site_settings(key:'envato_support_verification',default:0) == 1){
 
             $supported_until = Arr::get($envato_payload,'supported_until');
-            
+
             if($supported_until){
                 $supported_until   = Carbon::parse($supported_until);
                 $isSupportExpired  = 0;
@@ -270,10 +270,10 @@ class AdminTicketController extends Controller
 
         return back()->with("success", translate('Purchase verified successfully'));
 
-        
+
     }
 
-   
+
 
 
      /**
@@ -285,14 +285,14 @@ class AdminTicketController extends Controller
     public function mark(Request $request) : RedirectResponse {
 
 
-        $bulkIds = $request->input('bulk_id') ? 
+        $bulkIds = $request->input('bulk_id') ?
                         json_decode($request->input('bulk_id'), true)
                         :$request->input('ticket_id');
 
- 
+
         $request->merge([
             "ticket_id" =>  $bulkIds
-        ]); 
+        ]);
 
         $request->validate([
             'ticket_id'           => "required|array",
@@ -321,7 +321,7 @@ class AdminTicketController extends Controller
 
 
         $message                  = $this->ticketService->bulckAction($request);
-       
+
         if(auth_user()->agent == StatusEnum::true->status()){
             return redirect()->route("admin.ticket.list")->with('success', $message );
         }
@@ -330,10 +330,10 @@ class AdminTicketController extends Controller
 
 
 
- 
+
 
     /**
-     * Get ticket details view 
+     * Get ticket details view
      *
      * @param string $id
      * @return View | RedirectResponse
@@ -348,11 +348,11 @@ class AdminTicketController extends Controller
                                 ->agent()
                                 ->where('ticket_number',$id)
                                 ->first();
-   
+
         if(!$ticket) return redirect()->route('admin.ticket.list')->with('error', trans('Ticket Not found')) ;
 
         $previousTickets = SupportTicket::withoutGlobalScope('autoload')->where('id','!=',$ticket->id)
-                                ->when($ticket->user, function($query) use ($ticket) {    
+                                ->when($ticket->user, function($query) use ($ticket) {
                                     $query->where("user_id",$ticket->user_id);
                                 }, function ($query) use ($ticket) {
                                     $query->where("email",$ticket->email);
@@ -369,7 +369,7 @@ class AdminTicketController extends Controller
 
 
 
-    
+
 
     /**
      * Get ticket modal view
@@ -440,16 +440,16 @@ class AdminTicketController extends Controller
 
         return $this->ticketService->replyByAdmin($request);
 
-   
+
 
     }
 
 
 
 
-   
 
-    
+
+
 
    /**
     * update a ticket status
@@ -470,16 +470,16 @@ class AdminTicketController extends Controller
 
         $response = $this->ticketService->updateStatus($request);
 
-        return request()->ajax() 
+        return request()->ajax()
                       ?  $response
                       :  back()->with( Arr::get($response ,'status') ? 'success' :"error", Arr::get($response ,'message'));
 
-    
+
     }
 
 
 
-  
+
 
     /**
      * Download a specific files form ticket message
@@ -504,34 +504,34 @@ class AdminTicketController extends Controller
     }
 
 
-   
+
 
 
     /**
-     * Delete a file form ticket message 
+     * Delete a file form ticket message
      *
      * @param Request $request
      * @return RedirectResponse
      */
     public function deleteFile(Request $request) :RedirectResponse {
-        
+
         $request->validate([
             'id'   => 'required|exists:support_messages,id',
             'name' => 'required',
         ]);
 
-    
+
         $message      = translate("File Not Found");
         $status       = 'error';
 
         $message = SupportMessage::where('id',$request->input('id'))->firstOrfail();
 
         $files         = json_decode($message->file,true);
-        
+
         $filteredFiles = array_filter($files, function ($item) use($request) {
             return $item !== $request->input('name');
         });
-        
+
         $response = remove_file(getFilePaths()['ticket']['path'], $request->input('name'));
 
         if($response){
@@ -546,7 +546,7 @@ class AdminTicketController extends Controller
 
 
 
-    
+
     public function export(string $extension) {
 
         $tickets   =  SupportTicket::agent()->latest();
@@ -556,15 +556,15 @@ class AdminTicketController extends Controller
 
 
 
- 
+
     /**
-     * Delete a specific ticket  
-     * 
+     * Delete a specific ticket
+     *
      * @param string | int $id
-     * 
+     *
      * @return RedirectResponse
      */
-    
+
     public function delete(int | string $id) :RedirectResponse{
 
         $this->ticketService->deleteTicket((array)$id);
@@ -572,15 +572,15 @@ class AdminTicketController extends Controller
     }
 
 
-    
+
 
 
 
     /**
-     * Delete a specific ticket message 
-     * 
+     * Delete a specific ticket message
+     *
      * @param string | int $id
-     * 
+     *
      * @return RedirectResponse
      */
     public function deleteMessage(int | string $id) : RedirectResponse {
@@ -595,7 +595,7 @@ class AdminTicketController extends Controller
 
     /**
      * Make a ticket mute and unmute
-     * 
+     *
      * @param string | int $ticket_number
      */
      public function makeMute(int | string $ticket_number) :RedirectResponse |array{
@@ -605,8 +605,8 @@ class AdminTicketController extends Controller
 
 
     /**
-     * Ticket message update 
-     * 
+     * Ticket message update
+     *
      * @param Request $request
      */
     public function updateMessage(Request $request) :RedirectResponse |array{
@@ -619,7 +619,7 @@ class AdminTicketController extends Controller
 
         $messageBody =  build_dom_document( $request->input('message'));
 
-   
+
 
         $supportMessage                     = SupportMessage::where("id",$request->input('id'))
                                                        ->firstOrfail();
@@ -629,19 +629,19 @@ class AdminTicketController extends Controller
         $supportMessage->original_message	= $originalMassge;
         $supportMessage->save();
 
-        return  $request->ajax() 
+        return  $request->ajax()
                         ? ['status' => true , 'ticket_id' =>  $supportMessage->support_ticket_id ,"message" => translate("Message Updated")]
                         : back()->with('success', translate("Message Updated"));
-        
-       
+
+
 
     }
 
 
 
      /**
-     * Ticket message update 
-     * 
+     * Ticket message update
+     *
      * @param Request $request
      */
     public function saveDraft(Request $request) :array{
@@ -652,22 +652,22 @@ class AdminTicketController extends Controller
             'draft_id'           => 'nullable | exists:support_messages,id',
 
         ]);
-        
+
         return ['status'=>  $this->ticketService->storeDraftMessage($request)];
-        
+
 
     }
 
 
 
     /**
-     * Ticket message update 
-     * 
+     * Ticket message update
+     *
      * @param Request $request
      */
     public function updateNotification(Request $request) :JsonResponse {
 
-        
+
 
         $status   = true;
         $message  = translate('Status Updated Successfully');
@@ -680,14 +680,14 @@ class AdminTicketController extends Controller
             ]);
 
             $ticket   = $this->ticketService->updateTicketNotification($request);
-    
+
         } catch (\Exception $ex) {
 
             $status   = false;
             $message  = strip_tags($ex->getMessage());
         }
 
-     
+
         return response()->json([
             'status'  => $status,
             'message' => $message
@@ -790,7 +790,7 @@ class AdminTicketController extends Controller
         $ticket = $this->ticketService->addNote($request);
 
 
-        return  $request->ajax() 
+        return  $request->ajax()
                       ? ['status' => true , 'ticket_id' =>  $ticket->id ,"message" => translate("Note Added")]
                       : back()->with('success', translate("Note Added"));
     }

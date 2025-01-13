@@ -6,7 +6,6 @@
    <link href="{{ asset('assets/global/css/ticket.css') }}" rel="stylesheet" type="text/css" />
 
    <style>
-
         .custom--tooltip{
             position: relative;
             display: inline-block;
@@ -80,7 +79,7 @@
                 </div>
 
                 <div class="col ticket-content">
-                
+
                         <div class="card shadow-none rounded-none mb-0">
                             <div class="ticket-sidebar-sticky">
                                 <div class="card-body position-relative border-bottom py-3 bg-white">
@@ -139,6 +138,7 @@
                                                     @foreach($ticketStatus as $status)
                                                         <option value="{{$status->id}}">
                                                             {{$status->name}}
+
                                                         </option>
                                                     @endforeach
 
@@ -180,7 +180,7 @@
                                         <div id="ticketAction" class="col-auto ticketAction mt-1 d-none">
                                             <form action="{{route('admin.ticket.mark')}}" id="ticketbulkForm" method="post">
 
-                                                
+
                                                 @csrf
 
 
@@ -188,7 +188,7 @@
 
 
                                                 <div class="d-flex  align-items-center gap-2">
-                                                
+
                                                     @if(check_agent("update_tickets"))
                                                         <div class="dropdown">
                                                             <button class="btn btn-soft-warning btn-icon btn-sm fs-16" type="button"
@@ -224,7 +224,7 @@
                                                     @endif
                                                 </div>
                                             </form>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -250,7 +250,7 @@
                                 </div>
                             </div>
                         </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -337,13 +337,9 @@
         </div>
     </div>
 
-
     @include('modal.delete_modal')
-    
-
 
     <div class="modal fade modal-custom-bg" id="assignModal" tabindex="-1" aria-labelledby="assignModal" aria-hidden="true">
-
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="{{route('admin.ticket.mark')}}" method="post" >
@@ -354,21 +350,13 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close" ></button>
                     </div>
-    
                     <div class="modal-body">
                         <input class="assign-ticket" hidden type="text" name="ticket_id[1]"  value="">
-    
                         <div class="mb-3">
-    
-                        
-                            
                             <label class="form-label" for="assign">
                                 {{translate('Assign to')}}
-    
                                   <span class="text-danger"> *</span>
                             </label>
-    
-                 
                             <select name="assign[]" id="assign" multiple required class="form-select">
                                     @if(auth_user()->agent == App\Enums\StatusEnum::false->status() && auth_user()->super_agent != 1 )
                                             <option  value="{{auth_user()->id}}">
@@ -377,25 +365,17 @@
                                     @endif
                                     @forelse($agents as $agent)
                                         <option  value="{{$agent->id}}">
-
                                             {{ auth_user()->id == $agent->id ? 'me' : $agent->name}}
                                         </option>
                                     @empty
-                            
                                     @endforelse
                             </select>
-    
-                         
                         </div>
-    
                         <div class="mb-3">
                             <label for="message-text" class="col-form-label">{{translate("Message")}}:</label>
                             <textarea class="form-control" name="short_note" id="message-text" placeholder="{{translate("Write Short Note Here")}} ...... "></textarea>
                         </div>
-    
-     
                     </div>
-    
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">
                             {{translate("Close")}}
@@ -449,7 +429,7 @@
 
                 var ticketId = $(this).data('ticket-id');
                 var agentIds = $(this).data('agents');
-                
+
                 modal.find('input.assign-ticket').val(ticketId);
 
                 modal.find('#assign').val(null).trigger('change');

@@ -3,9 +3,67 @@
     <link rel="stylesheet" href="{{asset('assets/global/css/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{asset('assets/global/css/responsive.bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{asset('assets/global/css/buttons.dataTables.min.css') }}">
-@endpush
-@section('content')
+    <style>
+        .custom--tooltip{
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            .tooltip-text{
+                position: absolute;
+                bottom: 25px;
+                left: 50%;
+                max-width: 150px;
+                background: #111;
+                white-space:wrap;
+                padding: 10px;
+                color: #ddd;
+                transform: translateX(-50%);
+                border-radius:10px;
+                display:none;
+                z-index:999 !important;
+            }
 
+            &:hover{
+                .tooltip-text {
+                    display: block;
+                }
+            }
+        }
+   </style>
+@endpush
+
+@push('script-push')
+<script>
+    (function($){
+        "use strict";
+
+        // DataTable initialization
+        document.addEventListener("DOMContentLoaded", function () {
+            new DataTable("#user-table", {
+                fixedHeader: !0
+            });
+        });
+
+        // Password update modal
+        var modal = $("#updatePassword");
+        $(document).on('click','.update-password',function(e){
+            $('#id').val($(this).attr('data-id'));
+            modal.modal('show');
+        });
+
+        // Assign user modal
+        $(document).on('click', '.assign-user', function(e) {
+            e.preventDefault();
+            var userId = $(this).data('user-id');
+            $('.assign-user-id').val(userId);
+            $('#assignUserModal').modal('show');
+        });
+
+    })(jQuery);
+</script>
+@endpush
+
+@section('content')
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-12">
@@ -89,6 +147,9 @@
                                     {{translate('Status')}}
                                 </th>
                                 <th>
+                                    {{translate('Assign to')}}
+                                 </th>
+                                <th>
                                     {{translate('Options')}}
                                 </th>
                             </tr>
@@ -111,10 +172,8 @@
                                             <h5 class="fs-13 mb-1">
                                                 {{ $user->name}}
                                             </h5>
-
                                         </div>
                                     </td>
-
                                     <td>
                                         {{$user->email}}
                                     </td>
@@ -145,6 +204,38 @@
                                     <td>
                                         {{str_replace('_', ' ', $user->status) ?? translate($user->status)}}
                                     </td>
+                                    {{-- Assign to --}}
+                                    <td>
+                                        <div class="avatar-group">
+                                            {{-- @forelse($user->agents as $agent)
+                                                <div class="avatar-group-item material-shadow">
+                                                    <a href="javascript:void(0)" class="d-inline-block custom-tooltip">
+                                                        <span class="tooltip-text">
+                                                            {{$agent->name}}
+                                                        </span>
+                                                        <img src="{{getImageUrl(getFilePaths()['profile']['admin']['path']."/". $agent->image)}}"
+                                                            alt="{{$agent->name}}"
+                                                            class="rounded-circle avatar-xxs">
+                                                    </a>
+                                                </div>
+                                            @empty
+                                                <span class="text-muted">{{translate('No agents assigned')}}</span>
+                                            @endforelse --}}
+
+                                            <div class="avatar-group-item material-shadow" data-bs-toggle="tooltip" data-bs-placement="top">
+                                                <a href="javascript:void(0);" class="assign-user custom--tooltip" data-user-id='{{$user->id}}'>
+                                                    <span class="tooltip-text">
+                                                        {{ translate("Assign") }}
+                                                    </span>
+                                                    <div class="avatar-xxs">
+                                                        <span class="avatar-title rounded-circle bg-info text-white">
+                                                            +
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td>
                                         <div class="hstack gap-3">
                                             <a target="_blank" href="{{route('admin.user.login', $user->id)}}" class=" fs-18 link-success"><i class="ri-login-box-line"></i></a>
@@ -170,9 +261,6 @@
 	</div>
 
 @include('modal.delete_modal')
-
-
-
 
 <div class="modal fade" id="updatePassword"  data-bs-keyboard="false" tabindex="-1"  aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg scorllable-modal">
@@ -235,10 +323,51 @@
 	</div>
 </div>
 
+<!-- Assign User Modal -->
+<div class="modal fade modal-custom-bg" id="assignUserModal" tabindex="-1" aria-labelledby="assignUserModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{route('admin.user.assign_agent')}}" method="post">
+                @csrf
+                <div class="modal-header p-3">
+                    <h5 class="modal-title" >{{translate('Assign User to Agent')}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input class="assign-user-id" hidden type="text" name="user_id" value="">
+                    <div class="mb-3">
+                        <label class="form-label" for="assign-agent">
+                            {{translate('Assign to')}}
+                            <span class="text-danger"> *</span>
+                        </label>
+                        <select name="agent_id" id="assign-agent" required class="form-select">
+                            @forelse($agents as $agent)
+                                <option value="{{$agent->id}}">
+                                    {{ $agent->name }}
+                                </option>
+                            @empty
+                                <option disabled>{{translate('No agents available')}}</option>
+                            @endforelse
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">{{translate("Message")}}:</label>
+                        <textarea class="form-control" name="short_note" id="message-text" placeholder="{{translate("Write Short Note Here")}} ...... "></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{translate('Close')}}</button>
+                    <button type="submit" class="btn btn-primary">{{translate('Assign')}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @push('script-include')
-    <script src="{{asset('assets/global/js/jquery.dataTables.min.js') }}"></script>
+    {{-- <script src="{{asset('assets/global/js/jquery.dataTables.min.js') }}"></script> --}}
     <script src="{{asset('assets/global/js/dataTables.bootstrap5.min.js') }}"></script>
     <script src="{{asset('assets/global/js/dataTables.responsive.min.js') }}"></script>
 @endpush
