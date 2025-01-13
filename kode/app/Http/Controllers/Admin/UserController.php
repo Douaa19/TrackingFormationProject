@@ -300,36 +300,36 @@ class UserController extends Controller
 
 
     public function assignAgent(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'agent_id' => 'required|exists:admins,id',
-        ]);
+{
+    $request->validate([
+        'user_id' => 'required|exists:users,id',
+        'agent_id' => 'required|exists:admins,id',
+    ]);
 
-        try{
-            DB::beginTransaction();
+    try {
+        DB::beginTransaction();
 
-            $exists = DB::table('agent_participant')
-                ->where('id_agent', $request->agent_id)
-                ->where('id_participent', $request->user_id)
-                ->exists();
+        $exists = DB::table('agent_participant')
+            ->where('id_agent', $request->agent_id)
+            ->where('id_participant', $request->user_id)
+            ->exists();
 
-            if (!$exists) {
-                // Insert new assignment
-                DB::table('agent_participant')->insert([
-                    'id_agent' => $request->agent_id,
-                    'id_participent' => $request->user_id,
-                    'created_at' => now(),
-                    'updated_at' => now()
-                ]);
-            };
-
-            DB::commit();
-
-            return redirect()->back()->with('success', translate('User successfully assigned to agent'));
-        } catch (\Exception $e) {
-            DB::rollback();
-            return redirect()->back()->with('error', translate('Error assigning user to agent'));
+        if (!$exists) {
+            DB::table('agent_participant')->insert([
+                'id_agent' => $request->agent_id,
+                'id_participant' => $request->user_id,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
         }
+
+        DB::commit();
+
+        return redirect()->back()->with('success', translate('User successfully assigned to agent'));
+    } catch (\Exception $e) {
+        DB::rollback();
+        return redirect()->back()->with('error', translate('Error assigning user to agent: ') . $e->getMessage());
     }
+}
+
 }

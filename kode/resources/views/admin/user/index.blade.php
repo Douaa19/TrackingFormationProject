@@ -32,6 +32,16 @@
    </style>
 @endpush
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 @push('script-push')
 <script>
     (function($){
@@ -327,37 +337,33 @@
 <div class="modal fade modal-custom-bg" id="assignUserModal" tabindex="-1" aria-labelledby="assignUserModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{route('admin.user.assign_agent')}}" method="post">
+            <form action="{{ route('admin.user.assign_agent') }}" method="post">
                 @csrf
                 <div class="modal-header p-3">
-                    <h5 class="modal-title" >{{translate('Assign User to Agent')}}</h5>
+                    <h5 class="modal-title">{{ translate('Assign User to Agent') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input class="assign-user-id" hidden type="text" name="user_id" value="">
+                    <input class="assign-user-id" hidden type="text" name="user_id" value="{{ $user->id ?? '' }}">
                     <div class="mb-3">
                         <label class="form-label" for="assign-agent">
-                            {{translate('Assign to')}}
+                            {{ translate('Assign to') }}
                             <span class="text-danger"> *</span>
                         </label>
                         <select name="agent_id" id="assign-agent" required class="form-select">
                             @forelse($agents as $agent)
-                                <option value="{{$agent->id}}">
+                                <option value="{{ $agent->id }}">
                                     {{ $agent->name }}
                                 </option>
                             @empty
-                                <option disabled>{{translate('No agents available')}}</option>
+                                <option disabled>{{ translate('No agents available') }}</option>
                             @endforelse
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">{{translate("Message")}}:</label>
-                        <textarea class="form-control" name="short_note" id="message-text" placeholder="{{translate("Write Short Note Here")}} ...... "></textarea>
-                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{translate('Close')}}</button>
-                    <button type="submit" class="btn btn-primary">{{translate('Assign')}}</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ translate('Close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ translate('Assign') }}</button>
                 </div>
             </form>
         </div>
