@@ -259,45 +259,57 @@
                         @endforeach
                     </div>
                     <div class="row">
-                    @if ($data['agent_user'])
-                        <div class="col-xl-6">
-                            <div class="card">
-                                <div class="card-header">
+                        @if ($data['agent_user'])
+                            <div class="col-xl-6">
+                                <div class="card">
+                                    <div class="card-header">
                                     <h4 class="card-title mb-0">
                                         {{translate('Agent Information')}}
                                     </h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-4">
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
                                             <div class="mb-3">
                                                 <label class="form-label">
                                                     {{translate('Agent Name')}}
                                                 </label>
                                                 <p class="text-muted mb-0">{{$data['agent_user']['agent']['name']}}</p>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
+                                            </div>
+                                            <div class="col-md-4">
                                             <div class="mb-3">
                                                 <label class="form-label">
                                                     {{translate('Agent Email')}}
                                                 </label>
                                                 <p class="text-muted mb-0">{{$data['agent_user']['agent']['email']}}</p>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
+                                            </div>
+                                            <div class="col-md-4">
                                             <div class="mb-3">
                                                 <label class="form-label">
                                                     {{translate('Agent Phone')}}
                                                 </label>
                                                 <p class="text-muted mb-0">{{$data['agent_user']['agent']['phone']}}</p>
                                             </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endif
+                        @else
+                            <div class="col-xl-6">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <p class="fs-6 text-uppercase text-muted mb-0">
+                                                {{ translate("You haven't been assigned to any agent at the moment! Please check again later.") }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
 
                 </div>
