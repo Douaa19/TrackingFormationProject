@@ -46,7 +46,8 @@
                             </div>
                         </div>
                     </div> --}}
-                    <div class="row">
+
+                    <div class="row col-xl-6">
                         <div class="col-xl">
                             <div class="card">
                                 {{-- <form action="{{route('user.dashboard')}}" method="get" id="filter-form">
@@ -221,30 +222,84 @@
                         </div> --}}
 
                     </div>
-                    <div class="col mx-2">
-                        <div class="row justify-content-start gap-0">
+                    <div class="row justify-content-around gap-0">
+                        @php
+                            $trainingType = $data['user']['training_type'];
+                            $phases = $data['traningsAndStatus'][$trainingType];
+                            $currentStatus = $data['user']['status'];
+                            $statusReached = false;
+                        @endphp
+
+                        @foreach ($phases as $index => $phase)
+                            @php
+                                // Determine the class for the background color
+                                if ($phase == $currentStatus) {
+                                    $cardClass = 'bg-warning'; // Current status
+                                    $statusReached = true; // Mark the current status as reached
+                                } elseif (!$statusReached) {
+                                    $cardClass = 'bg-success'; // Before the current status
+                                } else {
+                                    $cardClass = 'bg-white'; // After the current status
+                                }
+                            @endphp
+
                             <div class="col-xl-2 col-md-4 m-0 p-0">
-                                <div class="card card-animate">
+                                <div class="card card-animate {{ $cardClass }}">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
                                             <div class="flex-grow-1 overflow-hidden">
-                                                <p
-                                                    class="text-uppercase fw-medium text-muted text-truncate mb-0">
-                                                    {{translate('Qualification Phase')}}
+                                                <p class="text-uppercase fw-medium text-truncate mb-0 {{ $phase == $currentStatus ? 'text-white' : ($cardClass == 'bg-success' ? 'text-white' : 'text-muted') }}">
+                                                    {{ translate(ucwords(str_replace('_', ' ', $phase))) }}
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="d-flex align-items-end justify-content-between mt-4">
-                                            <div>
-                                                <h2 class="fs-22 mb-4">
-                                                    {{ $data['user']['training_type'] }}
-                                                </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="row">
+                    @if ($data['agent_user'])
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title mb-0">
+                                        {{translate('Agent Information')}}
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label class="form-label">
+                                                    {{translate('Agent Name')}}
+                                                </label>
+                                                <p class="text-muted mb-0">{{$data['agent_user']['agent']['name']}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label class="form-label">
+                                                    {{translate('Agent Email')}}
+                                                </label>
+                                                <p class="text-muted mb-0">{{$data['agent_user']['agent']['email']}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label class="form-label">
+                                                    {{translate('Agent Phone')}}
+                                                </label>
+                                                <p class="text-muted mb-0">{{$data['agent_user']['agent']['phone']}}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    @endif
                     </div>
+
                 </div>
             </div>
         </div>

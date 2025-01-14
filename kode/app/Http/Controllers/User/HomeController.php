@@ -12,6 +12,7 @@ use App\Models\CustomNotifications;
 use App\Models\Department;
 use App\Models\SupportTicket;
 use App\Models\TicketStatus;
+use App\Models\AgentParticipant;
 use App\Rules\General\FileExtentionCheckRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -140,9 +141,14 @@ class HomeController extends Controller
 
         $data['user'] = auth_user('web');
 
-        $data['traningsAndTypes'] = [
-            'planned_training' => []
+        $data['traningsAndStatus'] = [
+            'planned_training' => ['qualification_phase', 'administrative_preliminary_phase', 'validation_phase', 'construction_phase', 'repayment_phase'],
+            'no_planned_training' => ['qualification_phase', 'engineering_phase_(GIAC)', 'phase_(CSF)', 'construction_phase', 'repayment_phase'],
         ];
+
+        $data['agent_user'] = AgentParticipant::with('agent')
+        ->where('user_id', auth_user('web')->id)
+        ->first();
 
         return $data;
 
