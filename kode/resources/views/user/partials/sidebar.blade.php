@@ -57,7 +57,7 @@
                     </li>
                 @endif
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link
                         {{request()->routeIs('user.ticket.*')?'active' :''}}
                     "href="{{route('user.ticket.list')}}">
@@ -65,7 +65,7 @@
                             {{translate('Manage Ticket')}}
                         </span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link menu-link
