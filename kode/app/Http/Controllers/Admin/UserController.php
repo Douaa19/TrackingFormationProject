@@ -290,14 +290,26 @@ class UserController extends Controller
     public function phaseUsers(string $training_type, string $phase): View
     {
         $title = "Manage Users for" . ucfirst(str_replace('_', '', $training_type)) . " - " . ucfirst($phase);
+        $data['tests'] = AgentParticipant::where('agent_id', auth_user()->id)
+        ->select('user_id')
+        ->get();
 
-        $users = User::where('training_type', $training_type)
-                        ->where('status', $phase)
-                        ->get();
-        $agents = Admin::where('agent', StatusEnum::true->status())->get();
-        $agentsUsers = AgentParticipant::all();
+        $userIds = $data['tests']->pluck('user_id');
 
-        return view('admin.user.index', compact('title', 'users', 'agents', 'agentsUsers'));
+
+        if(auth_user()->agent){
+            $users = User::whereIn('id', $userIds)
+                    ->where('training_type', $training_type)
+                    ->where('status', $phase)
+                    ->get();
+        }else{
+            $users = User::where('training_type', $training_type)
+            ->where('status', $phase)
+            ->get();
+        }
+
+
+        return view('admin.user.index', compact('title', 'users'));
     }
 
 
