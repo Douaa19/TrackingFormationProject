@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Admin;
+use App\Models\AgentParticipant;
 use App\Rules\General\FileExtentionCheckRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,6 +14,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Pusher\Pusher;
+
 class UserController extends Controller
 {
 
@@ -19,12 +24,15 @@ class UserController extends Controller
      * get all user
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
 
         $title = "Manage User";
         $users = User::all();
-        return view('admin.user.index', compact('title', 'users'));
+        $agents = Admin::where('agent', StatusEnum::true->status())->get();
+        $agentsUsers = AgentParticipant::all();
+
+        return view('admin.user.index', compact('title', 'users', 'agents', 'agentsUsers'));
 
     }
 
@@ -240,14 +248,11 @@ class UserController extends Controller
         $message = translate('User Not Found');
         $user    =  User::where('id',$id)->first();
         if($user){
-            if($user->status    == (StatusEnum::true)->status()){
-                $user->verified = (StatusEnum::true)->status();
-                $user->save();
-                Auth::guard('web')->loginUsingId($user->id);
-                return redirect()->route('user.dashboard')
-                ->with('success',translate('SuccessFully Login As a User'));
-            }
-            $message = translate('Active User Status Then Try Again');
+            $user->verified = (StatusEnum::true)->status();
+            $user->save();
+            Auth::guard('web')->loginUsingId($user->id);
+            return redirect()->route('user.dashboard')
+            ->with('success',translate('SuccessFully Login As a User'));
         }
         return back()->with('error',  $message);
     }
@@ -289,11 +294,44 @@ class UserController extends Controller
         $users = User::where('training_type', $training_type)
                         ->where('status', $phase)
                         ->get();
+        $agents = Admin::where('agent', StatusEnum::true->status())->get();
+        $agentsUsers = AgentParticipant::all();
 
-        return view('admin.user.index', compact('title', 'users'));
+        return view('admin.user.index', compact('title', 'users', 'agents', 'agentsUsers'));
     }
 
 
+    public function assignAgent(Request $request): RedirectResponse
+{
+    $request->validate([
+        'user_id' => 'required|exists:users,id',
+        'agent_id' => 'required|exists:admins,id',
+    ]);
 
+    try {
+        DB::beginTransaction();
+
+        $exists = DB::table('agent_participant')
+            ->where('id_agent', $request->agent_id)
+            ->where('id_participant', $request->user_id)
+            ->exists();
+
+        if (!$exists) {
+            DB::table('agent_participant')->insert([
+                'id_agent' => $request->agent_id,
+                'id_participant' => $request->user_id,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+
+        DB::commit();
+
+        return redirect()->back()->with('success', translate('User successfully assigned to agent'));
+    } catch (\Exception $e) {
+        DB::rollback();
+        return redirect()->back()->with('error', translate('Error assigning user to agent: ') . $e->getMessage());
+    }
+}
 
 }

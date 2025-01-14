@@ -62,7 +62,7 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
                     Route::post('/update', 'passwordUpdate')->name('password.update');
                 });
 
-               //notifications control route 
+               //notifications control route
                 Route::get('/notificatios/settings','notificationSettings')->name('notification.settings');
                 Route::post('/notificatios/settings','updateNotificationSettings')->name('update.notification.settings');
                 Route::get('/notifications','notification')->name('notifications');
@@ -98,6 +98,7 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
                 Route::post('/password/update', [UserController::class, 'passwordUpdate'])->name('password.update');
                 Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
                 Route::get('/training/{training_type}/phase/{phase}/list', [UserController::class, 'phaseUsers'])->name('phase.list');
+                Route::post('/assign-agent', [UserController::class, 'assignAgent'])->name('assign_agent');
             });
 
             //General Setting
@@ -164,7 +165,7 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
 
             //agent section
             Route::controller(AgentController::class)->prefix("/agent")->name('agent.')->group(function(){
-                
+
                 Route::get('/list','index')->name('index');
                 Route::get('/create','create')->name('create');
                 Route::post('/store','store')->name('store');
@@ -180,7 +181,7 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
                 Route::post('/delete/message','deleteMessage')->name('delete.message');
                 Route::post('/block/user','blockUser')->name('block.user');
                 Route::post('/delete/conversation','deleteConversation')->name('delete.conversation');
-                
+
             });
 
              //agent group section
@@ -195,7 +196,7 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
                 Route::get('/login/{id}','login')->name('login');
                 Route::get('/destroy/{id}','destroy')->name('destroy');
 
-            
+
             });
 
             //Mail Configuration
@@ -223,7 +224,7 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
                     Route::get('incoming/configuration/destroy/{id}','destroy')->name('incoming.destroy');
 
                 });
-            
+
                 Route::controller(EmailTemplateController::class)->prefix('templates/')->name("templates.")->group(function (){
 
                     Route::get('list','index')->name('index');
@@ -237,14 +238,14 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
 
                 //sms gateway route
                 Route::controller(SmsGatewayController::class)->group(function (){
-                    
+
                     Route::get('/gateway','index')->name('gateway.index');
                     Route::get('gateway/edit/{id}','edit')->name('gateway.edit');
                     Route::post('gateway/update/{id}','update')->name('gateway.update');
                     Route::post('default/gateway', 'defaultGateway')->name('default.gateway');
                     Route::get('global/template','globalSMSTemplate')->name('global.template');
                 });
-              
+
                 // sms temaplate route
                 Route::controller(SmsTemplateController::class)->prefix('templates/')->name("template.")->group(function (){
 
@@ -252,13 +253,13 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
                     Route::get('edit/{id}','edit')->name('edit');
                     Route::post('update/{id}','update')->name('update');
                 });
-   
+
 
             });
 
 
             Route::middleware(['agent:system_configuration'])->prefix('security/')->name('security.')->group(function (){
-                #security section 
+                #security section
                 Route::controller(SecurityController::class)->group(function(){
 
                     #ip section
@@ -292,7 +293,7 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
                 Route::post('/update','update')->name('update');
                 Route::get('/destroy/{id}','destroy')->name('destroy');
                 Route::post('/status-update','statusUpdate')->name('status.update');
-                
+
                 Route::get('/add-conditon','addCondition')->name('add.conditon');
 
             });
@@ -334,12 +335,11 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
                 Route::post('/update/notifications','updateNotification')->name('update.notification');
                 Route::post('/add/note','addNote')->name('add.note');
 
-
             });
 
             //canned replay route
             Route::middleware(['agent:manage_tickets'])->prefix('tickets/canned-reply/')->name('canned.reply.')->controller(CannedController::class)->group(function (){
-                
+
                 Route::get('/list','index')->name('list');
                 Route::get('/edit/{id}','edit')->name('edit');
                 Route::post('/store','store')->name('store');
@@ -493,12 +493,12 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
 
             });
 
-            
+
             Route::controller(SystemUpdateController::class)->middleware(["sanitizer"])->group(function () {
                 Route::get('/system-update',"init")->name('system.update.init');
                 Route::post('/update',"update")->name('system.update');
-            });  
+            });
 
 	});
-  
+
 });

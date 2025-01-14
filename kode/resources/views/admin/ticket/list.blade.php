@@ -41,9 +41,7 @@
     </thead>
 
     <tbody>
-
         @forelse ($tickets as $ticket)
-
 
             <tr class="{{ $ticket->status == @$default->id ? "unread" :""}}">
                 <td>
@@ -99,7 +97,7 @@
                 </td>
 
                 <td>
-                 
+
                         @php
                             $url = getImageUrl(getFilePaths()['profile']['user']['path'].'/'.@$ticket->user->image);
                             if(filter_var(@$ticket->user->image, FILTER_VALIDATE_URL) !== false){
@@ -110,10 +108,10 @@
                             <span class="me-1">
                                 <img src="{{   $url }}" class="w-30 h-30 rounded-circle" alt="{{@$user->image}}">
                             </span>
-    
+
                             {{($ticket->name ?? 'N/A')}}
                         </div>
-                    
+
                 </td>
 
                 <td>
@@ -124,11 +122,11 @@
 
                         if (strpos($lastMessage, '<img') !== false && strip_tags($lastMessage) === '') {
                             $lastMessage = "Replied with images only";
-                        } 
-        
+                        }
+
                        $lastMessage = strip_tags($lastMessage);
 
-  
+
                     @endphp
 
                     <div class="ticket-summary">
@@ -153,59 +151,50 @@
                          {{  $source  }}
                     </span>
 
-         
+
                 </td>
 
                 <td>
+                    <div class="avatar-group">
+                        @foreach ($ticket->agents as $agent )
+                            <div class="avatar-group-item material-shadow">
+                                @if(auth_user('admin')->agent == 0)
+                                    <a href="{{route('admin.ticket.agent',$agent?->id)}}" class="d-inline-block custom--tooltip"    >
+                                        <span class="tooltip-text">
+                                            {{@$agent->name}}
+                                        </span>
+                                        <img src="{{getImageUrl(getFilePaths()['profile']['admin']['path']."/". $agent->image) }}"  class="rounded-circle avatar-xxs">
+                                    </a>
+                                @else
+                                    <a href="javascript:void(0)" class="d-inline-block custom--tooltip" >
+                                        <span class="tooltip-text">
+                                            {{@$agent->name}}
+                                        </span>
+                                        <img src="{{getImageUrl(getFilePaths()['profile']['admin']['path']."/". $agent->image) }}"  class="rounded-circle avatar-xxs">
+                                    </a>
+                                @endif
+                            </div>
+                        @endforeach
 
-                        <div class="avatar-group">
-
-                            @foreach ($ticket->agents as $agent )
-                                
-                                <div class="avatar-group-item material-shadow">
-
-                                    @if(auth_user('admin')->agent == 0)
-                                        <a href="{{route('admin.ticket.agent',$agent?->id)}}" class="d-inline-block custom--tooltip"    >
-                                            <span class="tooltip-text">
-                                                {{@$agent->name}}
-                                           </span>
-                                            <img src="{{getImageUrl(getFilePaths()['profile']['admin']['path']."/". $agent->image) }}"  class="rounded-circle avatar-xxs">
-                                        </a>
-                                    @else
-                                        <a href="javascript:void(0)" class="d-inline-block custom--tooltip" >
-                                            <span class="tooltip-text">
-                                                {{@$agent->name}}
-                                           </span>
-                                            <img src="{{getImageUrl(getFilePaths()['profile']['admin']['path']."/". $agent->image) }}"  class="rounded-circle avatar-xxs">
-                                        </a>
-                                    @endif
-                                </div>
-                            @endforeach
-
-                            @php
-                               $agentIds = json_encode($ticket->agents->pluck('id')->toArray());
-                            @endphp
-
+                        @php
+                            $agentIds = json_encode($ticket->agents->pluck('id')->toArray());
+                        @endphp
 
                         @if(check_agent('assign_tickets'))
                             <div class="avatar-group-item material-shadow" data-bs-toggle="tooltip" data-bs-placement="top" >
                                 <a href="javascript: void(0);" class="assign-ticket custom--tooltip" data-ticket-id='{{$ticket->id}}' data-agents="{{$agentIds}}">
-
                                     <span class="tooltip-text">
                                         {{ translate("Assign") }}
                                     </span>
-
                                     <div class="avatar-xxs">
-                                        
                                         <span class="avatar-title rounded-circle bg-info text-white">
-                                           +
+                                            +
                                         </span>
                                     </div>
                                 </a>
                             </div>
                         @endif
-                     
-                        </div>
+                    </div>
 
                 </td>
 

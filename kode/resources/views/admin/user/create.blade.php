@@ -96,10 +96,10 @@
 
                         <div class="col-xl-6 col-lg-6">
                             <div class="mt-3" >
-                                <label for="garageName" class="form-label">
-                                    {{translate('Garage Name')}} <span  class="text-danger">*</span>
+                                <label for="companyName" class="form-label">
+                                    {{translate('Company Name')}} <span  class="text-danger">*</span>
                                 </label>
-                                <input required type="text" name="garage_name" value="{{old('garage_name')}}"  class="form-control" placeholder="{{translate("Enter your Garage Name")}}" id="garageName">
+                                <input required type="text" name="garage_name" value="{{old('garage_name')}}"  class="form-control" placeholder="{{translate("Enter your Garage Name")}}" id="companyName">
                             </div>
                             <div class="mt-3" >
                                 <label for="revenue" class="form-label">
@@ -113,13 +113,13 @@
                                 </label>
 
                                 <select required class="form-select" name="traning_type" id="traning_type">
-                                    <option  value="direct_training_(CSF)">{{translate('Direct Training')}} (CSF)</option>
-                                    <option  value="engineering_training_(GIAC+CSF)">{{translate('Engineering + Training')}} (GIAC + CSF)</option>
+                                    <option  value="planned_training">{{translate('Planned Training')}}</option>
+                                    <option  value="no_planned_training">{{translate('No Planned Training')}}</option>
                                 </select>
                             </div>
                             <div class="mt-3" >
                                 <label for="tranings" class="form-label capitalize">
-                                    {{translate('Trainings')}} <span class="text-danger">*</span>
+                                    {{translate('Training Topic')}} <span class="text-danger">*</span>
                                 </label>
 
                                 <select require class="form-select" name="traning" id="tranings">
@@ -194,7 +194,7 @@
 
 <script>
     const translations = {
-        'direct_training_(CSF)': [
+        'planned_training': [
             { value: 'confirmation', text: @json(__('Confirmation')) },
             { value: 'qualification_phase', text: @json(__('Qualification Phase')) },
             { value: 'administrative_preliminary_phase', text: @json(__('Administrative Preliminary Phase')) },
@@ -202,7 +202,7 @@
             { value: 'construction_phase', text: @json(__('Construction Phase')) },
             { value: 'repayment_phase', text: @json(__('Repayment Phase')) }
         ],
-        'engineering_training_(GIAC+CSF)': [
+        'no_planned_training': [
             { value: 'confirmation', text: @json(__('Confirmation')) },
             { value: 'qualification_phase', text: @json(__('Qualification Phase')) },
             { value: 'engineering_phase_(GIAC)', text: @json(__('Engineering Phase (GIAC)')) },
@@ -233,7 +233,7 @@
                 // Add a default "Select City" option
                 const defaultOption = document.createElement('option');
                 defaultOption.value = '';
-                defaultOption.textContent = 'Select City';
+                defaultOption.textContent = '{{ translate("Select City") }}';
                 defaultOption.disabled = true;
                 defaultOption.selected = true;
                 selectElement.appendChild(defaultOption);
