@@ -56,7 +56,7 @@
                                 </form> --}}
                                 <div class="card-header align-items-center d-flex gap-3">
                                     <h3 class="card-title text-18 mb-0 flex-grow-1">
-                                        {{translate('Training')}}: {{Str::title((str_replace('_', ' ', $data['user']['training_type']) ?? translate($data['user']['training_type'])))}}
+                                        {{ translate(Str::title(str_replace('_', ' ', $data['user']['training_type'] ?? translate($data['user']['training_type'])))) }}
                                     </h3>
 
                                     <a href="{{route('user.dashboard')}}" class=" me-2 btn link-success btn-icon btn-sm reset-table res fs-18">
