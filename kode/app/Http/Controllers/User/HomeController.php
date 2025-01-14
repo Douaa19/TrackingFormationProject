@@ -140,6 +140,10 @@ class HomeController extends Controller
 
         $data['user'] = auth_user('web');
 
+        $data['traningsAndTypes'] = [
+            'planned_training' => []
+        ];
+
         return $data;
 
     }

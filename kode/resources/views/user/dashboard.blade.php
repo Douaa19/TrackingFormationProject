@@ -54,23 +54,14 @@
                                     <input type="hidden" name="filter" id="filterValue">
 
                                 </form> --}}
-                                <div class="card-header align-items-center d-flex flex-col gap-3">
-                                    <h4 class="card-title mb-0 flex-grow-1">
-                                        {{translate('Training')}}
-                                    </h4>
-                                    <h3 class="cmb-0 flex-grow-1">
-                                        <h5>{{ $data['user']['training'] }}</h5>
-                                    </h3>
-                                    <h3 class="cmb-0 flex-grow-1">
-                                        <h5>{{ $data['user']['training_type'] }}</h5>
-                                    </h3>
-                                    <h3 class="cmb-0 flex-grow-1">
-                                        <h5>{{ $data['user']['status'] }}</h5>
+                                <div class="card-header align-items-center d-flex gap-3">
+                                    <h3 class="card-title text-18 mb-0 flex-grow-1">
+                                        {{translate('Training')}}: {{Str::title((str_replace('_', ' ', $data['user']['training_type']) ?? translate($data['user']['training_type'])))}}
                                     </h3>
 
-                                    {{-- <a href="{{route('user.dashboard')}}" class=" me-2 btn link-success btn-icon btn-sm reset-table res fs-18">
+                                    <a href="{{route('user.dashboard')}}" class=" me-2 btn link-success btn-icon btn-sm reset-table res fs-18">
                                         <i class="ri-refresh-line align-bottom"></i>
-                                    </a> --}}
+                                    </a>
 
                                     {{-- <div class="flex-shrink-0">
 
@@ -101,7 +92,6 @@
                                         </div>
                                     </div> --}}
                                 </div><!-- end card header -->
-
                                 {{-- <div class="card-body">
                                         <div class="table-responsive pb-2">
                                             <table
@@ -230,6 +220,30 @@
                             </div>
                         </div> --}}
 
+                    </div>
+                    <div class="col mx-2">
+                        <div class="row justify-content-start gap-0">
+                            <div class="col-xl-2 col-md-4 m-0 p-0">
+                                <div class="card card-animate">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1 overflow-hidden">
+                                                <p
+                                                    class="text-uppercase fw-medium text-muted text-truncate mb-0">
+                                                    {{translate('Qualification Phase')}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-end justify-content-between mt-4">
+                                            <div>
+                                                <h2 class="fs-22 mb-4">
+                                                    {{ $data['user']['training_type'] }}
+                                                </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
