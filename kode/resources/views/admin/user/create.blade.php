@@ -196,19 +196,19 @@
     const translations = {
         'planned_training': [
             { value: 'confirmation', text: @json(__('Confirmation')) },
-            { value: 'qualification_phase', text: @json(__('Qualification Phase')) },
-            { value: 'administrative_preliminary_phase', text: @json(__('Administrative Preliminary Phase')) },
-            { value: 'validation_phase', text: @json(__('Validation Phase')) },
-            { value: 'construction_phase', text: @json(__('Construction Phase')) },
-            { value: 'repayment_phase', text: @json(__('Repayment Phase')) }
+            { value: 'Phase Qualification', text: @json(__('Qualification Phase')) },
+            { value: 'Phase Administrative Préalable', text: @json(__('Administrative Preliminary Phase')) },
+            { value: 'Phase Validation', text: @json(__('Validation Phase')) },
+            { value: 'Phase Réalisation', text: @json(__('Construction Phase')) },
+            { value: 'Phase Remboursement', text: @json(__('Repayment Phase')) }
         ],
         'no_planned_training': [
             { value: 'confirmation', text: @json(__('Confirmation')) },
-            { value: 'qualification_phase', text: @json(__('Qualification Phase')) },
-            { value: 'engineering_phase_(GIAC)', text: @json(__('Engineering Phase (GIAC)')) },
-            { value: 'phase_(CSF)', text: @json(__('Phase (CSF)')) },
-            { value: 'construction_phase', text: @json(__('Construction Phase')) },
-            { value: 'repayment_phase', text: @json(__('Repayment Phase')) }
+            { value: 'Phase Qualification', text: @json(__('Qualification Phase')) },
+            { value: 'Phase Ingénierie (GIAC)', text: @json(__('Engineering Phase (GIAC)')) },
+            { value: 'Phase CSF', text: @json(__('Phase (CSF)')) },
+            { value: 'Phase Réalisation', text: @json(__('Construction Phase')) },
+            { value: 'rPhase Remboursements', text: @json(__('Repayment Phase')) }
         ]
     };
 </script>
