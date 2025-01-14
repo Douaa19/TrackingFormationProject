@@ -24,10 +24,10 @@
 
 
 
-                    <a href="{{route('ticket.create')}}" class="btn btn-primary btn-sm  waves ripple-light">
+                    {{-- <a href="{{route('ticket.create')}}" class="btn btn-primary btn-sm  waves ripple-light">
                         <i class="ri-add-line align-bottom me-1"></i>
                             {{translate('Create Ticket')}}
-                    </a>
+                    </a> --}}
 
                 </div>
             </div>
@@ -190,10 +190,10 @@
                                 if(filter_var(auth_user('web')->image, FILTER_VALIDATE_URL) !== false){
                                     $url = auth_user('web')->image;
                                 }
-              
 
 
-                            
+
+
                             @endphp
 
                             <img class="rounded-circle header-profile-user" src="{{$url}}"
