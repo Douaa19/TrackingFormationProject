@@ -14,6 +14,7 @@ use App\Models\SupportMessage;
 use App\Models\SupportTicket;
 use App\Models\TicketStatus;
 use App\Models\User;
+use App\Models\Agent_Participants;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
@@ -35,7 +36,11 @@ class AdminController extends Controller
 
 
         $title   = "Dashboard";
-        $data    = $this->getDashboardData($request);
+        if(auth_user()->agent){
+            $data    = $this->getDashboardData($request);
+        }else{
+            $data    = $this->getDashboardDataAdmin($request);
+        }
         return view('admin.dashboard', compact('title','data'));
     }
 
@@ -43,7 +48,334 @@ class AdminController extends Controller
      * get dashboard data
      */
 
-     public function getDashboardData($request =  null) :array{
+     public function getDashboardData($request =  null) :array {
+
+
+        $currentYear = date("Y");
+
+
+
+        $data['tests'] = Agent_Participants::where('agent_id', auth_user()->id)
+        ->select('user_id')
+        ->get();
+    
+        $userIds = $data['tests']->pluck('user_id');  // Extract only the user_id column
+    
+        $data['direct_training_users'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'direct_training_(CSF)')
+        ->count();
+    
+        $data['direct_training_total_revenue'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'direct_training_(CSF)')
+        ->sum('revenue');
+    
+        $data['direct_training_users_phase_1'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'direct_training_(CSF)')
+        ->where('status', 'Phase Qualification')
+        ->count();
+    
+        $data['direct_training_users_phase_2'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'direct_training_(CSF)')
+        ->where('status', 'Phase Administrative Préalable')
+        ->count();
+    
+        $data['direct_training_users_phase_3'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'direct_training_(CSF)')
+        ->where('status', 'Phase Validation')
+        ->count();
+    
+        $data['direct_training_users_phase_4'] = User::whereIn('id', $userIds)
+        ->where('status', 'Phase Réalisation')
+        ->count();
+    
+        $data['direct_training_users_phase_5'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'direct_training_(CSF)')
+        ->where('status', 'Phase Remboursement')
+        ->count();
+    
+        $data['engineering_training_users'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'engineering_training_(GIAC+CSF)')
+        ->count();
+    
+    $data['engineering_training_users_total_revenue'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'engineering_training_(GIAC+CSF)')
+        ->sum('revenue');
+    
+    $data['engineering_training_users_phase_1'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'engineering_training_(GIAC+CSF)')
+        ->where('status', 'Phase Qualification')
+        ->count();
+    
+    $data['engineering_training_users_phase_2'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'engineering_training_(GIAC+CSF)')
+        ->where('status', 'Phase Ingénierie (GIAC)')
+        ->count();
+    
+    $data['engineering_training_users_phase_3'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'engineering_training_(GIAC+CSF)')
+        ->where('status', 'Phase CSF')
+        ->count();
+    
+    $data['engineering_training_users_phase_4'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'engineering_training_(GIAC+CSF)')
+        ->where('status', 'Phase Réalisation')
+        ->count();
+    
+    $data['engineering_training_users_phase_5'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'engineering_training_(GIAC+CSF)')
+        ->where('status', 'Phase Remboursement')
+        ->count();
+    
+    $data['total_user'] = User::filter($request)->count();
+    $data['total_categories'] = Category::filter($request)->count();
+    $data['total_article'] = Article::filter($request)->count();
+    $data['total_subscribers'] = Subscriber::filter($request)->count();
+    $data['total_agent'] = Admin::where('agent', StatusEnum::true->status())
+        ->filter($request)
+        ->count();
+    
+    /** total ticket */
+    $totalTickets = SupportTicket::agent()
+        ->whereYear('created_at', $currentYear)
+        ->filter($request)
+        ->count();
+    
+    $prevTickets = SupportTicket::agent()
+        ->whereYear('created_at', $currentYear - 1)
+        ->filter($request)
+        ->count();
+    $data['total_tickets'] = $totalTickets;
+    
+    $ticketIncrease = round($totalTickets - $prevTickets);
+    
+    $data['total_tickets_increase'] = ($prevTickets > 0)
+        ? round(($ticketIncrease / $prevTickets) * 100, 2)
+        : 0;
+    
+    /** pending ticket */
+    $totalPendingTickets = SupportTicket::agent()
+        ->pending()
+        ->whereYear('created_at', $currentYear)
+        ->filter($request)
+        ->count();
+    
+    $prevPendingTickets = SupportTicket::agent()
+        ->pending()
+        ->whereYear('created_at', $currentYear - 1)
+        ->filter($request)
+        ->count();
+    
+    $data['total_pending_tickets'] = $totalPendingTickets;
+    
+    $pendingTicketIncrease = round($totalPendingTickets - $prevPendingTickets);
+    
+    $data['total_pending_tickets_increase'] = ($prevPendingTickets > 0)
+        ? round(($pendingTicketIncrease / $prevPendingTickets) * 100, 2)
+        : 0;
+    
+
+
+         /** solved ticket */
+
+         $totalSolvedTickets = SupportTicket::agent()
+                                    ->solved()
+                                    ->whereYear('created_at', $currentYear)
+                                    ->filter($request)
+                                    ->count();
+
+         $prevSolvedTickets = SupportTicket::agent()
+                                    ->solved()
+                                    ->whereYear('created_at', $currentYear-1)
+                                    ->filter($request)
+                                    ->count();
+
+         $data['total_solved_tickets'] = $totalSolvedTickets;
+
+         $ticketIncrese = round($totalSolvedTickets-$prevSolvedTickets) ;
+
+         $data['total_solved_tickets_increase'] = ($prevSolvedTickets > 0)
+                                                            ? round(($ticketIncrese /  $prevSolvedTickets ) * 100, 2)
+                                                            : 0;
+
+
+
+         $data['total_opened_tickets'] = SupportTicket::agent()
+                                                        ->opend()
+                                                        ->whereYear('created_at', $currentYear)
+                                                        ->filter($request)
+                                                        ->count();
+
+
+
+        /** closed ticket */
+
+        $totalClosedTickets = SupportTicket::agent()
+                                    ->closed()
+                                    ->whereYear('created_at', $currentYear)
+                                    ->filter($request)
+                                    ->count();
+
+        $prevClosedTickets = SupportTicket::agent()
+                                    ->closed()
+                                    ->whereYear('created_at', $currentYear-1)
+                                    ->filter($request)
+                                    ->count();
+
+        $data['total_closed_tickets'] = $totalClosedTickets;
+
+
+
+
+        $data['ticket_status_counter'] =  TicketStatus::withCount(['tickets'=> function($q) use($currentYear ,$request){
+                                                        return $q->agent()
+                                                                ->whereYear('created_at', $currentYear)
+                                                                ->filter($request);
+        }])->whereIn('id',[EnumsTicketStatus::PENDING->value,EnumsTicketStatus::SOLVED->value ,EnumsTicketStatus::CLOSED->value])
+           ->lazyById(100,'id')
+           ->map(function(TicketStatus $status) use($currentYear){
+
+                $url = match ($status->id) {
+                    EnumsTicketStatus::SOLVED->value => route("admin.ticket.solved"),
+                    EnumsTicketStatus::CLOSED->value => route("admin.ticket.closed"),
+                    default => route("admin.ticket.pending"),
+                };
+
+                $counter_key = match ($status->id) {
+                    EnumsTicketStatus::SOLVED->value => 'total_solved_tickets',
+                    EnumsTicketStatus::CLOSED->value => 'total_closed_tickets',
+                    default => 'total_pending_tickets',
+                };
+
+                $increase_key = match ($status->id) {
+                    EnumsTicketStatus::SOLVED->value => 'total_solved_tickets_increase',
+                    EnumsTicketStatus::CLOSED->value => 'total_closed_tickets_increase',
+                    default => 'total_pending_tickets_increase',
+                };
+
+                return (object)[
+                    'id'            => $status->id,
+                    'count'         => $status->tickets_count,
+                    'name'          => $status->name,
+                    'url'           => $url,
+                    'current_year'  => $currentYear,
+                    'counter_key'   => $counter_key,
+                    'increase_key'  => $increase_key,
+                ];
+        })->all();
+
+
+
+        $ticketIncrese = round($totalClosedTickets-$prevClosedTickets) ;
+
+        $data['total_closed_tickets_increase'] = ($prevClosedTickets > 0)
+                    ? round(($ticketIncrese /  $prevClosedTickets ) * 100, 2)
+                    : 0;
+
+
+
+        $data['ticket_by_category']  = Category::withCount(['tickets as tickets_count' => function($q) use($request){
+
+               $q->agent()->filter($request);
+
+        }])
+        ->having('tickets_count', '>', 0)
+        ->orderBy('tickets_count','desc')
+        ->pluck("tickets_count",'name',)
+        ->mapWithKeys(function ($count, $name) {
+            $name = limit_words(get_translation($name),15) ;
+            return [$name => $count];
+        })
+        ->toArray();
+
+        $data['ticket_by_user']  = User::withCount(['tickets as tickets_count' => function($q)  use($request){
+            $q->agent()->filter($request);
+        }])
+                                                ->having('tickets_count', '>', 0)
+                                                ->orderBy('tickets_count','desc')
+                                                ->pluck("tickets_count",'name',)
+                                                ->toArray();
+
+
+        $data['latest_ticket'] = SupportTicket::agent()
+                                                ->latest("created_at")
+                                                ->with('messages')
+                                                ->filter($request)
+                                                ->take(5)
+                                                ->get();
+
+        $data['latest_pending_ticket'] =  SupportTicket::agent()
+                                                ->filter($request)
+                                                ->latest()
+                                                ->pending()
+                                                ->take(10)
+                                                ->get();
+
+
+
+
+
+        $data['latest_messages'] =  SupportMessage::with('admin')->agent()
+                                                ->filter($request)
+                                                ->latest()
+                                                ->take(10)
+                                                ->get();
+
+
+
+
+        $ticketsByYear = sortByMonth( SupportTicket::agent()
+                                                ->filter($request)
+                                                ->selectRaw("MONTHNAME(created_at) as months, count(*) as total")
+                                                ->whereYear('created_at', '=',date("Y"))
+                                                ->groupBy('months')
+                                                ->pluck('total', 'months')
+                                                ->toArray());
+
+
+
+
+        $openedTicket = sortByMonth( SupportTicket::agent()
+                                                ->filter($request)
+                                                ->opend()
+                                                ->selectRaw("MONTHNAME(created_at) as months, count(*) as total")
+                                                ->whereYear('created_at', '=',date("Y"))
+                                                ->groupBy('months')
+                                                ->pluck('total', 'months')
+                                                ->toArray());
+
+
+
+
+        $closedByYear = sortByMonth( SupportTicket::agent()
+                                                ->filter($request)
+                                                ->closed()
+                                                ->selectRaw("MONTHNAME(created_at) as months, count(*) as total")
+                                                ->whereYear('created_at', '=',date("Y"))
+                                                ->groupBy('months')
+                                                ->pluck('total', 'months')
+                                                ->toArray());
+
+
+
+
+        $ticketTypes = [
+            "tickets"  => $ticketsByYear,
+            "open"     => $openedTicket,
+            "closed"   => $closedByYear,
+
+        ];
+
+
+
+        $data['ticket_mix_graph'] = $this->formatCounter($ticketTypes);
+
+
+        return $data;
+
+     }
+
+
+     public function getDashboardDataAdmin($request =  null) :array{
 
 
         $currentYear = date("Y");
@@ -53,36 +385,36 @@ class AdminController extends Controller
         $data['direct_training_users'] = User::where('training_type', 'direct_training_(CSF)')->count();
         $data['direct_training_total_revenue'] = User::where('training_type', 'direct_training_(CSF)')->sum('revenue');
         $data['direct_training_users_phase_1'] = User::where('training_type', 'direct_training_(CSF)')
-            ->where('status', 'qualification_phase')
+            ->where('status', 'Phase Qualification')
             ->count();
         $data['direct_training_users_phase_2'] = User::where('training_type', 'direct_training_(CSF)')
-            ->where('status', 'administrative_preliminary_phase')
+            ->where('status', 'Phase Administrative Préalable')
             ->count();
         $data['direct_training_users_phase_3'] = User::where('training_type', 'direct_training_(CSF)')
-            ->where('status', 'validation_phase')
+            ->where('status', 'Phase Validation')
             ->count();
         $data['direct_training_users_phase_4'] = User::where('training_type', 'direct_training_(CSF)')
-            ->where('status', 'construction_phase')
+            ->where('status', 'Phase Réalisation')
             ->count();
         $data['direct_training_users_phase_5'] = User::where('training_type', 'direct_training_(CSF)')
-            ->where('status', 'repayment_phase')
+            ->where('status', 'Phase Remboursement')
             ->count();
         $data['engineering_training_users'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')->count();
         $data['engineering_training_users_total_revenue'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')->sum('revenue');
         $data['engineering_training_users_phase_1'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
-            ->where('status', 'qualification_phase')
+            ->where('status', 'Phase Qualification')
             ->count();
         $data['engineering_training_users_phase_2'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
-            ->where('status', 'engineering_phase_(GIAC)')
+            ->where('status', 'Phase Ingénierie (GIAC)')
             ->count();
         $data['engineering_training_users_phase_3'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
-            ->where('status', 'phase_(CSF)')
+            ->where('status', 'Phase CSF')
             ->count();
         $data['engineering_training_users_phase_4'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
-            ->where('status', 'construction_phase')
+            ->where('status', 'Phase Réalisation')
             ->count();
         $data['engineering_training_users_phase_5'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
-            ->where('status', 'repayment_phase')
+            ->where('status', 'Phase Remboursement')
             ->count();
         $data['total_user']        = User::filter($request)->count();
         $data['total_categories']  = Category::filter($request)->count();
@@ -130,7 +462,7 @@ class AdminController extends Controller
 
         $data['total_pending_tickets'] = $totalPendingTickets;
 
-        $ticketIncrese = round($totalPendingTickets-$prevPendingTickets) ;
+        $ticketIncrese = round($totalPendingTickets-$prevPendingTickets);
 
         $data['total_pending_tickets_increase'] = ($prevPendingTickets > 0)
                                                             ? round(($ticketIncrese /  $prevPendingTickets ) * 100, 2)
@@ -336,7 +668,6 @@ class AdminController extends Controller
         return $data;
 
      }
-
 
 
      public function formatCounter(array $ticketTypes) : array{

@@ -9,13 +9,11 @@ class Agent_Participants extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['agent_id', 'participant_id'];
+    protected $fillable = ['agent_id', 'user_id'];
 
     public function user()
     {
         return $this->hasOne(User::class);
     }
-
-
 
 }

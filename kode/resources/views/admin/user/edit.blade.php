@@ -87,6 +87,28 @@
                             </div>
 
                         </div>
+                        <div class="col-xl-6 col-lg-6">
+                        <div>
+    <label for="phone" class="form-label">
+        {{ translate('Status') }}
+        <span class="text-danger">*</span>
+    </label>
+    
+    <select class="form-select" aria-label="Default select example" name="status" id="">
+    @foreach($optionsStatus as $option)
+            @php
+                if ($option === $user->status) {
+                    echo '<option value="'.$option.'" selected>'.$option.'</option>';
+                } else {
+                    echo '<option value="'.$option.'">'.$option.'</option>';
+                }
+            @endphp
+        @endforeach
+    </select>
+</div>
+
+
+                        </div>
 
                         @if(site_settings('geo_location') == 'map_base' && site_settings('auto_ticket_assignment')  == App\Enums\StatusEnum::true->status())
                         <div class="col-xl-12 col-lg-12">
