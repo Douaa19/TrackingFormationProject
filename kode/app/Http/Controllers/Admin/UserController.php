@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\AgentParticipant;
+
 use App\Rules\General\FileExtentionCheckRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -136,11 +137,32 @@ class UserController extends Controller
      * @param int|string $id
      * @return  View
      */
-    public function edit(int |string $id) :View
+    public function edit(int | string $id) :View
     {
+
        $title ='update user';
        $user  = User::where('id',$id)->first();
-       return view('admin.user.edit', compact('title', 'user'));
+       $optionsStatus = [];
+       if($user->training_type == "direct_training_(CSF)" ){
+            $optionsStatus =   [
+            'Phase Qualification',
+            'Phase Administrative Préalable',
+            'Phase Validation',
+            'Phase Réalisation',
+            'Phase Remboursement'
+            ];
+        }else{
+            $optionsStatus =   [
+                'Phase Qualification',
+                'Phase Ingénierie (GIAC)',
+                'Phase CSF',
+                'Phase Réalisation',
+                'Phase Remboursement'
+            ];
+        }
+    //    dd($optionsStatus);
+       return view('admin.user.edit', compact('title', 'user','optionsStatus'));
+
     }
 
     /**
@@ -154,6 +176,7 @@ class UserController extends Controller
 
         $this->validate($request, [
             'name'    => 'required|max:255',
+            'status'    => 'required|max:255',
             'email'   => 'required|max:255|unique:users,email,'.request()->id,
             'phone'   => 'required|max:100|unique:users,phone,'.request()->id,
             'image'   => [new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))],
@@ -171,6 +194,7 @@ class UserController extends Controller
         $address_data    =  (new AgentController())->get_address($request);
         $user            =  User::where('id',request()->id)->first();
         $user->name      =  $request->name;
+        $user->status      =  $request->status;
         $user->email     =  $request->email;
         $user->phone     =  $request->phone;
         $user->address   =  json_encode($address_data);
@@ -289,15 +313,31 @@ class UserController extends Controller
 
     public function phaseUsers(string $training_type, string $phase): View
     {
+
+
         $title = "Manage Users for" . ucfirst(str_replace('_', '', $training_type)) . " - " . ucfirst($phase);
+        $data['tests'] = Agent_Participants::where('agent_id', auth_user()->id)
+        ->select('user_id')
+        ->get();
+    
+        $userIds = $data['tests']->pluck('user_id'); 
+        
+        
+        if(auth_user()->agent){
+            $users = User::whereIn('id', $userIds)
+                    ->where('training_type', $training_type)
+                    ->where('status', $phase)
+                    ->get();
+        }else{
+            $users = User::where('training_type', $training_type)
+            ->where('status', $phase)
+            ->get();
+        }
+        
 
-        $users = User::where('training_type', $training_type)
-                        ->where('status', $phase)
-                        ->get();
-        $agents = Admin::where('agent', StatusEnum::true->status())->get();
-        $agentsUsers = AgentParticipant::all();
+        return view('admin.user.index', compact('title', 'users'));
 
-        return view('admin.user.index', compact('title', 'users', 'agents', 'agentsUsers'));
+
     }
 
 

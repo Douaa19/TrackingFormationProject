@@ -100,6 +100,9 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
-
+    public function agent_Participants()
+    {
+        return $this->hasOne(Agent_Participants::class);
+    }
   
 }
