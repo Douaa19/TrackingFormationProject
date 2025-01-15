@@ -142,7 +142,7 @@ class UserController extends Controller
        $title ='update user';
        $user  = User::where('id',$id)->first();
        $optionsStatus = [];
-       if($user->training_type == "direct_training_(CSF)" ){
+       if($user->training_type == "direct_training_(CSF)" ) {
             $optionsStatus =   [
             'Phase Qualification',
             'Phase Administrative Préalable',
@@ -271,11 +271,14 @@ class UserController extends Controller
         $message = translate('User Not Found');
         $user    =  User::where('id',$id)->first();
         if($user){
-            $user->verified = (StatusEnum::true)->status();
-            $user->save();
-            Auth::guard('web')->loginUsingId($user->id);
-            return redirect()->route('user.dashboard')
-            ->with('success',translate('SuccessFully Login As a User'));
+            if($user->status    == (StatusEnum::true)->status()){
+                $user->verified = (StatusEnum::true)->status();
+                $user->save();
+                Auth::guard('web')->loginUsingId($user->id);
+                return redirect()->route('user.dashboard')
+                ->with('success',translate('SuccessFully Login As a User'));
+            }
+            $message = translate('Active User Status Then Try Again');
         }
         return back()->with('error',  $message);
     }
@@ -336,6 +339,7 @@ class UserController extends Controller
         $agentsUsers = AgentParticipant::all();
 
         return view('admin.user.index', compact('title', 'users','agents','agentsUsers'));
+
     }
 
 
@@ -371,6 +375,5 @@ class UserController extends Controller
             return redirect()->back()->with('error', translate('Error assigning user to agent: ') . $e->getMessage());
         }
     }
-
 
 }

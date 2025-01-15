@@ -152,7 +152,7 @@ $agent_boolean = auth_user()->agent;
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in planned training -->
-                                                    {{$data['planned_training_total_revenue']}} DHS</h5>
+                                                    {{$data['direct_training_total_revenue']}} DHS</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -184,7 +184,7 @@ $agent_boolean = auth_user()->agent;
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['planned_training_users_phase_1']) }}
+                                                {{ num_short($data['direct_training_users_phase_1']) }}
                                             </h2>
 
                                             <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'Phase Qualification'])}}" class="text-decoration-underline">
@@ -218,7 +218,7 @@ $agent_boolean = auth_user()->agent;
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['planned_training_users_phase_2']) }}
+                                                {{ num_short($data['direct_training_users_phase_2']) }}
                                             </h2>
 
                                             <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'Phase Administrative Préalable'])}}" class="text-decoration-underline">
@@ -252,7 +252,7 @@ $agent_boolean = auth_user()->agent;
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['planned_training_users_phase_3']) }}
+                                                {{ num_short($data['direct_training_users_phase_3']) }}
                                             </h2>
 
                                             <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'Phase Validation'])}}" class="text-decoration-underline">
@@ -286,7 +286,7 @@ $agent_boolean = auth_user()->agent;
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['planned_training_users_phase_4']) }}
+                                                {{ num_short($data['direct_training_users_phase_4']) }}
                                             </h2>
 
                                             <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'Phase Réalisation'])}}" class="text-decoration-underline">
@@ -320,7 +320,7 @@ $agent_boolean = auth_user()->agent;
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['planned_training_users_phase_5']) }}
+                                                {{ num_short($data['direct_training_users_phase_5']) }}
                                             </h2>
 
                                             <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'Phase Remboursement'])}}" class="text-decoration-underline">
@@ -354,7 +354,7 @@ $agent_boolean = auth_user()->agent;
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in no planned training -->
-                                                    {{ translate('Total Clients') }} {{$data['no_planned_training_users']}}
+                                                    {{ translate('Total Clients') }} {{$data['engineering_training_users']}}
                                                 </h5>
                                             </div>
                                         </div>
@@ -381,7 +381,7 @@ $agent_boolean = auth_user()->agent;
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
                                                     <!-- Total of clinets in no planned training -->
-                                                    {{$data['no_planned_training_users_total_revenue']}} DHS</h5>
+                                                    {{$data['engineering_training_users_total_revenue']}} DHS</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -413,7 +413,7 @@ $agent_boolean = auth_user()->agent;
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['no_planned_training_users_phase_1']) }}
+                                                {{ num_short($data['engineering_training_users_phase_1']) }}
                                             </h2>
 
                                             <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'Phase Qualification'])}}" class="text-decoration-underline">
@@ -447,7 +447,7 @@ $agent_boolean = auth_user()->agent;
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['no_planned_training_users_phase_2']) }}
+                                                {{ num_short($data['engineering_training_users_phase_2']) }}
                                             </h2>
 
                                             <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'Phase Ingénierie (GIAC)'])}}" class="text-decoration-underline">
@@ -481,7 +481,7 @@ $agent_boolean = auth_user()->agent;
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['no_planned_training_users_phase_3']) }}
+                                                {{ num_short($data['engineering_training_users_phase_3']) }}
                                             </h2>
 
                                             <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'Phase CSF'])}}" class="text-decoration-underline">
@@ -515,7 +515,7 @@ $agent_boolean = auth_user()->agent;
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['no_planned_training_users_phase_4']) }}
+                                                {{ num_short($data['engineering_training_users_phase_4']) }}
                                             </h2>
 
                                             <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'Phase Réalisation'])}}" class="text-decoration-underline">
@@ -549,7 +549,7 @@ $agent_boolean = auth_user()->agent;
                                     <div class="d-flex align-items-end justify-content-between mt-4">
                                         <div>
                                             <h2 class="fs-22 mb-4">
-                                                {{ num_short($data['no_planned_training_users_phase_5']) }}
+                                                {{ num_short($data['engineering_training_users_phase_5']) }}
                                             </h2>
 
                                             <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'Phase Remboursement'])}}" class="text-decoration-underline">

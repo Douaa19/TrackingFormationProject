@@ -32,6 +32,6 @@ class CreateAgentParticipantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agent__participants');
+        Schema::dropIfExists('agent_participants');
     }
 }

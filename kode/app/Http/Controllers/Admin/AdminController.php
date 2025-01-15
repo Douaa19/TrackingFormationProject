@@ -14,7 +14,7 @@ use App\Models\SupportMessage;
 use App\Models\SupportTicket;
 use App\Models\TicketStatus;
 use App\Models\User;
-use App\Models\Agent_Participants;
+use App\Models\AgentParticipant;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
@@ -55,7 +55,7 @@ class AdminController extends Controller
 
 
 
-        $data['tests'] = Agent_Participants::where('agent_id', auth_user()->id)
+        $data['tests'] = AgentParticipant::where('agent_id', auth_user()->id)
         ->select('user_id')
         ->get();
     
