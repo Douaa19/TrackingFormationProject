@@ -75,7 +75,7 @@
 @endpush
 
 @section('content')
-<div class="container-fluid">
+	<div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -168,113 +168,113 @@
                     </thead>
                     <tbody>
                         @forelse($users as $user)
-                                                <tr>
-                                                    <td>
-                                                        {{$loop->iteration}}
-                                                    </td>
-                                                    <td class="d-flex">
-                                                        @php
-                                                            $url = getImageUrl(getFilePaths()['profile']['user']['path'] . '/' . $user->image, getFilePaths()['profile']['user']['size']);
-                                                            if (filter_var($user->image, FILTER_VALIDATE_URL) !== false) {
-                                                                $url = $user->image;
-                                                            }
-                                                        @endphp
-                                                        <img src="{{ $url }}" alt="{{$user->image}}" class="avatar-xs rounded-3 me-2">
-                                                        <div>
-                                                            <h5 class="fs-13 mb-1">
-                                                                {{ $user->name}}
-                                                            </h5>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        {{$user->email}}
-                                                    </td>
-                                                    <td>
-                                                        {{$user->phone ? $user->phone : "N/A"}}
-                                                    </td>
-                                                    <td>
-                                                        {{$user->whatsapp_number ? $user->whatsapp_number : "N/A"}}
-                                                    </td>
-                                                    <td>
-                                                        {{$user->city}}
-                                                    </td>
-                                                    <td>
-                                                        {{$user->cnss}}
-                                                    </td>
-                                                    <td>
-                                                        {{$user->garage_name}}
-                                                    </td>
-                                                    <td>
-                                                        {{$user->revenue ? $user->revenue : 0}}
-                                                    </td>
-                                                    <td>
-                                                        {{str_replace('_', ' ', $user->training_type) ?? translate($user->training_type)}}
-                                                    </td>
-                                                    <td>
-                                                        {{str_replace('_', ' ', $user->training) ?? translate($user->training)}}
-                                                    </td>
-                                                    <td>
-                                                        {{str_replace('_', ' ', $user->status) ?? translate($user->status)}}
-                                                    </td>
-                                                    {{-- Assign to --}}
-                                                    <td>
-                                                        <div class="avatar-group">
-                                                            @php
-                                                                // Check if $agentsUsers is set before using it
-                                                                $isAssigned = isset($agentsUsers) && $agentsUsers->contains(function ($agentUser) use ($user) {
-                                                                    return $agentUser->user_id == $user->id;
-                                                                });
-                                                            @endphp
+                                                                                <tr>
+                                                                            <td>
+                                                                                {{$loop->iteration}}
+                                                                            </td>
+                                                                            <td class="d-flex">
+                                                                                @php
+                                                                                    $url = getImageUrl(getFilePaths()['profile']['user']['path'] . '/' . $user->image, getFilePaths()['profile']['user']['size']);
+                                                                                    if (filter_var($user->image, FILTER_VALIDATE_URL) !== false) {
+                                                                                        $url = $user->image;
+                                                                                    }
+                                                                                @endphp
+                                                                                <img src="{{ $url }}" alt="{{$user->image}}" class="avatar-xs rounded-3 me-2">
+                                                                                <div>
+                                                                                    <h5 class="fs-13 mb-1">
+                                                                                        {{ $user->name}}
+                                                                                    </h5>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                {{$user->email}}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{$user->phone ? $user->phone : "N/A"}}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{$user->whatsapp_number ? $user->whatsapp_number : "N/A"}}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{$user->city}}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{$user->cnss}}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{$user->garage_name}}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{$user->revenue ? $user->revenue : 0}}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{str_replace('_', ' ', $user->training_type) ?? translate($user->training_type)}}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{str_replace('_', ' ', $user->training) ?? translate($user->training)}}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{str_replace('_', ' ', $user->status) ?? translate($user->status)}}
+                                                                            </td>
+                                                                            {{-- Assign to --}}
+                                                                            <td>
+                                                                                <div class="avatar-group">
+                                                                                    @php
+                                                                                        // Check if $agentsUsers is set before using it
+                                                                                        $isAssigned = isset($agentsUsers) && $agentsUsers->contains(function ($agentUser) use ($user) {
+                                                                                            return $agentUser->user_id == $user->id;
+                                                                                        });
+                                                                                    @endphp
 
-                                                            @if ($isAssigned)
-                                                                @foreach ($agentsUsers as $agentUser)
-                                                                    @if ($agentUser->user_id == $user->id)
-                                                                        <div class="avatar-group-item material-shadow" data-bs-toggle="tooltip"
-                                                                            data-bs-placement="top">
-                                                                            <a href="javascript:void(0)" class="assign-user custom--tooltip">
-                                                                                <span class="tooltip-text">
-                                                                                    {{ $agentUser->agent->name ?? 'Unknown Agent' }}
-                                                                                </span>
-                                                                                <img src="{{ getImageUrl(getFilePaths()['profile']['admin']['path'] . '/' . $agentUser->agent->image) }}"
-                                                                                    alt="{{ $agentUser->id_agent }}" class="rounded-circle avatar-xxs">
-                                                                            </a>
-                                                                        </div>
-                                                                    @endif
-                                                                @endforeach
-                                                            @else
-                                                                <div class="avatar-group-item material-shadow" data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top">
-                                                                    <a href="javascript:void(0);" class="assign-user custom--tooltip"
-                                                                        data-user-id="{{ $user->id }}">
-                                                                        <span class="tooltip-text">
-                                                                            {{ translate("Assign") }}
-                                                                        </span>
-                                                                        <div class="avatar-xxs">
-                                                                            <span class="avatar-title rounded-circle bg-info text-white">
-                                                                                +
-                                                                            </span>
-                                                                        </div>
-                                                                    </a>
-                                                                </div>
-                                                            @endif
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="hstack gap-3">
-                                                            <a target="_blank" href="{{route('admin.user.login', $user->id)}}"
-                                                                class=" fs-18 link-success"><i class="ri-login-box-line"></i></a>
-                                                            <a href="javascript:void(0);" data-id="{{$user->id}}"
-                                                                class="update-password fs-18 link-danger">
-                                                                <i class="ri-key-2-line"></i>
-                                                            </a>
-                                                            <a href="{{route('admin.user.edit', $user->id)}}" class=" fs-18 link-warning"><i
-                                                                    class="ri-pencil-fill"></i></a>
-                                                            <a href="javascript:void(0);" data-href="{{route('admin.user.delete', $user->id)}}"
-                                                                class="delete-item fs-18 link-danger">
-                                                                <i class="ri-delete-bin-line"></i></a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                                                    @if ($isAssigned)
+                                                                                        @foreach ($agentsUsers as $agentUser)
+                                                                                            @if ($agentUser->user_id == $user->id)
+                                                                                                <div class="avatar-group-item material-shadow" data-bs-toggle="tooltip"
+                                                                                                    data-bs-placement="top">
+                                                                                                    <a href="javascript:void(0)" class="assign-user custom--tooltip">
+                                                                                                        <span class="tooltip-text">
+                                                                                                            {{ $agentUser->agent->name ?? 'Unknown Agent' }}
+                                                                                                        </span>
+                                                                                                        <img src="{{ getImageUrl(getFilePaths()['profile']['admin']['path'] . '/' . $agentUser->agent->image) }}"
+                                                                                                            alt="{{ $agentUser->id_agent }}" class="rounded-circle avatar-xxs">
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            @endif
+                                                                                        @endforeach
+                                                                                    @else
+                                                                                        <div class="avatar-group-item material-shadow" data-bs-toggle="tooltip"
+                                                                                            data-bs-placement="top">
+                                                                                            <a href="javascript:void(0);" class="assign-user custom--tooltip"
+                                                                                                data-user-id="{{ $user->id }}">
+                                                                                                <span class="tooltip-text">
+                                                                                                    {{ translate("Assign") }}
+                                                                                                </span>
+                                                                                                <div class="avatar-xxs">
+                                                                                                    <span class="avatar-title rounded-circle bg-info text-white">
+                                                                                                        +
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    @endif
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="hstack gap-3">
+                                                                                    <a target="_blank" href="{{route('admin.user.login', $user->id)}}"
+                                                                                        class=" fs-18 link-success"><i class="ri-login-box-line"></i></a>
+                                                                                    <a href="javascript:void(0);" data-id="{{$user->id}}"
+                                                                                        class="update-password fs-18 link-danger">
+                                                                                        <i class="ri-key-2-line"></i>
+                                                                                    </a>
+                                                                                    <a href="{{route('admin.user.edit', $user->id)}}" class=" fs-18 link-warning"><i
+                                                                                            class="ri-pencil-fill"></i></a>
+                                                                                    <a href="javascript:void(0);" data-href="{{route('admin.user.delete', $user->id)}}"
+                                                                                        class="delete-item fs-18 link-danger">
+                                                                                        <i class="ri-delete-bin-line"></i></a>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
                         @empty
 
                             @include('admin.partials.not_found')
@@ -367,7 +367,7 @@
                         </label>
                         <select name="agent_id" id="assign-agent" required class="form-select">
                             @forelse($agents as $agent)
-                                <option value="{{ $agent->id }}">
+                                        <option value="{{ $agent->id }}">
                                     {{ $agent->name }}
                                 </option>
                             @empty
