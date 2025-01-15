@@ -11,6 +11,7 @@ use App\Jobs\SendEmailJob;
 use App\Jobs\SendSmsJob;
 use App\Models\Admin;
 use App\Models\Chat;
+use App\Models\AgentParticipant;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Pusher\Pusher;
@@ -25,10 +26,30 @@ class ChatController extends Controller
      */
     public function chat() :\Illuminate\View\View | RedirectResponse{
 
-        $title  = 'User Chat list';
-        if(site_settings('chat_module') == (StatusEnum::false)->status())  return back()->with('error',translate('Chat Module Is Disable For Now'));
-        $agents = Admin::active()->get();
-        return view('user.chat.list',compact('agents','title'));
+        $title = 'User Chat list';
+
+        if (site_settings('chat_module') == StatusEnum::false->status()) {
+            return back()->with('error', translate('Chat Module Is Disabled For Now'));
+        }
+
+        $user = auth()->user();
+
+        $agentParticipant = AgentParticipant::where('user_id', $user->id)->first();
+
+        if (!$agentParticipant) {
+
+            return back()->with('error', translate('No agent is assigned to you.'));
+        }
+
+        $agent = Admin::where('id', $agentParticipant->agent_id)
+                      ->active()
+                      ->first();
+
+        if (!$agent) {
+            return back()->with('error', translate('Agent details not found.'));
+        }
+
+        return view('user.chat.list', compact('agent', 'title'));
     }
 
     /**
@@ -46,8 +67,8 @@ class ChatController extends Controller
         $blocked         = false;
         $agent           = Admin::where('id',$request->agent_id)->first();
 
-        $block_list_user =  $agent->blocked_user 
-                                  ? json_decode( $agent->blocked_user,true) 
+        $block_list_user =  $agent->blocked_user
+                                  ? json_decode( $agent->blocked_user,true)
                                   : [] ;
 
         if(in_array(auth_user('web')->id,  $block_list_user)){
@@ -60,7 +81,7 @@ class ChatController extends Controller
                                 ->update([
                                     "seen"       => (StatusEnum::true)->status()
                                 ]);
-        
+
         $chat_messages = Chat::with(['agent','user'])
                                 ->where('user_id',auth_user('web')->id)
                                 ->where('admin_id', $agent->id)
@@ -83,13 +104,13 @@ class ChatController extends Controller
                     'muted'         => true,
                     'admin_seen_id' => $agent->id,
                     'user_seen_by'  => auth_user('web')->id
-                ]; 
+                ];
                 $pusher->trigger($pusher_settings['chanel'], $pusher_settings['event'], $push_data);
             } catch (\Throwable $th) {
-                
+
             }
 
-        
+
         return json_encode([
                 'is_blocked'       => $blocked,
                 'status'           => true,
@@ -130,7 +151,7 @@ class ChatController extends Controller
         $muted_user      = $agent->muted_user ? json_decode( $agent->muted_user,true): [] ;
 
 
-    
+
         $muted       = true;
 
         if(in_array(auth_user('web')->id,  $block_list_user)){
@@ -141,10 +162,10 @@ class ChatController extends Controller
         }
         if(!in_array(auth_user('web')->id,  $muted_user))    $muted       = false;
 
- 
 
 
-        
+
+
         $pusher_settings        =  json_decode(site_settings('pusher_settings'),true);
         $options = array(
             'cluster'           => $pusher_settings['app_cluster'],
@@ -161,7 +182,7 @@ class ChatController extends Controller
             'user_id'           => auth_user('web')->id,
             'agent_id'          => $request->agent_id,
             'message_for'       => 'admin',
-        ]; 
+        ];
 
 
         if(!$muted)  $push_data ['play_audio_for_chat'] = true;
@@ -186,22 +207,22 @@ class ChatController extends Controller
                 "name" => auth_user('web')->name,
                 "link" => route('admin.chat.list'),
             ]);
-    
+
             if($notification){
                 $push_data ['notifications_data'] = [
-    
+
                     'data'             => json_decode($notification->data,true),
                     'notification_for' => $notification->notification_for,
                     'notify_id'        => $notification->notify_id,
                     'for'              => "new_chat",
-                ] ; 
+                ] ;
             }
-        
-    
-    
+
+
+
             $pusher->trigger($pusher_settings['chanel'], $pusher_settings['event'], $push_data);
          } catch (\Throwable $th) {
-           
+
          }
 
 
@@ -258,7 +279,7 @@ class ChatController extends Controller
             }
 
 
-        
+
         }
 
         return $notification;
@@ -281,7 +302,7 @@ class ChatController extends Controller
                 'message' => translate("Agent Not Found")
             ]);
         }
-        
+
         $chat = Chat::where('id',$request->message_id)->where('user_id',auth_user('web')->id)->where('admin_id',$request->agent_id)->first();
         if($chat){
             if($chat->deleted_by_admin == (StatusEnum::true)->status() ){
@@ -294,7 +315,7 @@ class ChatController extends Controller
             return json_encode([
                 'status'   => true,
                 'message'  => translate("Message Deleted"),
-                'agent_id' => $agent->id 
+                'agent_id' => $agent->id
             ]);
         }
 
@@ -368,7 +389,7 @@ class ChatController extends Controller
             "status"           => $status,
             "message"         => $message,
         ]);
-  
+
     }
 
 

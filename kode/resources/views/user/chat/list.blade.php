@@ -22,13 +22,15 @@
                 <div class="chat-message-list">
                     <ul class="nav list-unstyled chat-list chat-user-list d-block" role="tablist">
 
-                        @foreach($agents as $agent)
+                        {{-- @foreach($agents as $agent) --}}
                             <li class="nav-item " role="presentation">
-             
+
                                 @php
                                     $unreadMessages = $agent->unread(auth_user('web')->id);
                                 @endphp
-                                <a href="javascript:void(0)" class=" {{$unreadMessages > 0 ? "unread-msg-user" :""  }}  nav-link agent-chat" data-id="{{$agent->id}}" id="{{$agent->id}}" >
+                                <a href="javascript:void(0)" class="
+                                {{$unreadMessages > 0 ? "unread-msg-user" :""  }}
+                                nav-link agent-chat" data-id="{{$agent->id}}" id="{{$agent->id}}" >
                                     <div class="d-flex align-items-center">
                                         <div class="flex-shrink-0 chat-user-img online align-self-center me-2 ms-0">
                                             <div class="avatar-xxs">
@@ -51,7 +53,7 @@
                                     </div>
                                 </a>
                             </li>
-                        @endforeach
+                        {{-- @endforeach --}}
 
                     </ul>
                 </div>
@@ -270,13 +272,13 @@
                     $('.blocked-message').addClass('d-none');
                     $('#send-message').removeClass('d-none')
                     $('.chat-input').removeClass('d-none')
-                  
+
                 }
                 scroll_bottom();
             }
             else{
                 $('.no-message').removeClass('d-none')
-            
+
             }
 
         }).catch( ex => {
@@ -284,7 +286,7 @@
             $("#elmLoader").addClass('d-none');
             $('.pusher-error').addClass('text-danger')
             $('.pusher-error').html("{{translate('Pusher configuration Error!!')}}")
-       
+
         })
 
     }
@@ -311,7 +313,7 @@
                     scroll_bottom()
                     $('#chat-conversation').html(response.chat_html)
                     $('.chat-input').val('');
-         
+
                     if(!response.status){
 
                         toastr(response.message,'danger')
@@ -338,11 +340,11 @@
                         toastr(error.message,'danger')
                     }
                 },
-               
+
 
                 complete: function() {
                    $('#send-message').html($btnHtml);
-    
+
                 }
             })
     });
