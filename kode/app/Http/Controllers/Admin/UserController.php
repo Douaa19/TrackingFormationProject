@@ -32,7 +32,8 @@ class UserController extends Controller
         $users = User::all();
         $agents = Admin::where('agent', StatusEnum::true->status())->get();
         $agentsUsers = AgentParticipant::all();
-
+        dd("test");
+        dd($agentsUsers);
         return view('admin.user.index', compact('title', 'users', 'agents', 'agentsUsers'));
 
     }
@@ -143,7 +144,7 @@ class UserController extends Controller
        $title ='update user';
        $user  = User::where('id',$id)->first();
        $optionsStatus = [];
-       if($user->training_type == "direct_training_(CSF)" ){
+       if($user->training_type == "direct_training_(CSF)" ) {
             $optionsStatus =   [
             'Phase Qualification',
             'Phase Administrative Préalable',
@@ -272,11 +273,14 @@ class UserController extends Controller
         $message = translate('User Not Found');
         $user    =  User::where('id',$id)->first();
         if($user){
-            $user->verified = (StatusEnum::true)->status();
-            $user->save();
-            Auth::guard('web')->loginUsingId($user->id);
-            return redirect()->route('user.dashboard')
-            ->with('success',translate('SuccessFully Login As a User'));
+            if($user->status    == (StatusEnum::true)->status()){
+                $user->verified = (StatusEnum::true)->status();
+                $user->save();
+                Auth::guard('web')->loginUsingId($user->id);
+                return redirect()->route('user.dashboard')
+                ->with('success',translate('SuccessFully Login As a User'));
+            }
+            $message = translate('Active User Status Then Try Again');
         }
         return back()->with('error',  $message);
     }
@@ -316,7 +320,7 @@ class UserController extends Controller
 
 
         $title = "Manage Users for" . ucfirst(str_replace('_', '', $training_type)) . " - " . ucfirst($phase);
-        $data['tests'] = Agent_Participants::where('agent_id', auth_user()->id)
+        $data['tests'] = AgentParticipant::where('agent_id', auth_user()->id)
         ->select('user_id')
         ->get();
     
@@ -333,45 +337,45 @@ class UserController extends Controller
             ->where('status', $phase)
             ->get();
         }
+        $agents = Admin::where('agent', StatusEnum::true->status())->get();
+        $agentsUsers = AgentParticipant::all();
         
-
-        return view('admin.user.index', compact('title', 'users'));
-
+        return view('admin.user.index', compact('title', 'users','agents','agentsUsers'));
 
     }
 
 
     public function assignAgent(Request $request): RedirectResponse
-{
-    $request->validate([
-        'user_id' => 'required|exists:users,id',
-        'agent_id' => 'required|exists:admins,id',
-    ]);
-
-    try {
-        DB::beginTransaction();
-
-        $exists = DB::table('agent_participant')
-            ->where('id_agent', $request->agent_id)
-            ->where('id_participant', $request->user_id)
-            ->exists();
-
-        if (!$exists) {
-            DB::table('agent_participant')->insert([
-                'id_agent' => $request->agent_id,
-                'id_participant' => $request->user_id,
-                'created_at' => now(),
-                'updated_at' => now()
-            ]);
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'agent_id' => 'required|exists:admins,id',
+        ]);
+    
+        try {
+            DB::beginTransaction();
+    
+            $exists = DB::table('agent_participants')
+                ->where('agent_id', $request->agent_id)
+                ->where('user_id', $request->user_id)
+                ->exists();
+    
+            if (!$exists) {
+                DB::table('agent_participants')->insert([
+                    'agent_id' => $request->agent_id,
+                    'user_id' => $request->user_id,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+            }
+    
+            DB::commit();
+    
+            return redirect()->back()->with('success', translate('User successfully assigned to agent'));
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', translate('Error assigning user to agent: ') . $e->getMessage());
         }
-
-        DB::commit();
-
-        return redirect()->back()->with('success', translate('User successfully assigned to agent'));
-    } catch (\Exception $e) {
-        DB::rollback();
-        return redirect()->back()->with('error', translate('Error assigning user to agent: ') . $e->getMessage());
     }
-}
 
 }
