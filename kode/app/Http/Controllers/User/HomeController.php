@@ -142,8 +142,8 @@ class HomeController extends Controller
         $data['user'] = auth_user('web');
 
         $data['traningsAndStatus'] = [
-            'planned_training' => ['qualification_phase', 'administrative_preliminary_phase', 'validation_phase', 'construction_phase', 'repayment_phase'],
-            'no_planned_training' => ['qualification_phase', 'engineering_phase_(GIAC)', 'phase_(CSF)', 'construction_phase', 'repayment_phase'],
+            'planned_training' => ['Phase Qualification', 'Phase Administrative Préalable', 'Phase Validation', 'Phase Réalisation', 'Phase Remboursement'],
+            'no_planned_training' => ['Phase Qualification', 'Phase Ingénierie (GIAC)', 'Phase CSF', 'Phase Réalisation', 'Phase Remboursement'],
         ];
 
         $data['agent_user'] = AgentParticipant::with('agent')

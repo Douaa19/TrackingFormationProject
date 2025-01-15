@@ -195,7 +195,7 @@
 <script>
     const translations = {
         'planned_training': [
-            { value: 'confirmation', text: @json(__('Confirmation')) },
+            { value: 'Confirmation', text: @json(__('Confirmation')) },
             { value: 'Phase Qualification', text: @json(__('Qualification Phase')) },
             { value: 'Phase Administrative Préalable', text: @json(__('Administrative Preliminary Phase')) },
             { value: 'Phase Validation', text: @json(__('Validation Phase')) },
@@ -203,7 +203,7 @@
             { value: 'Phase Remboursement', text: @json(__('Repayment Phase')) }
         ],
         'no_planned_training': [
-            { value: 'confirmation', text: @json(__('Confirmation')) },
+            { value: 'Confirmation', text: @json(__('Confirmation')) },
             { value: 'Phase Qualification', text: @json(__('Qualification Phase')) },
             { value: 'Phase Ingénierie (GIAC)', text: @json(__('Engineering Phase (GIAC)')) },
             { value: 'Phase CSF', text: @json(__('Phase (CSF)')) },
