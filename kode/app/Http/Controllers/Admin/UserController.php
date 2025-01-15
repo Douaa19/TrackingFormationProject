@@ -271,14 +271,9 @@ class UserController extends Controller
         $message = translate('User Not Found');
         $user    =  User::where('id',$id)->first();
         if($user){
-            if($user->status    == (StatusEnum::true)->status()){
-                $user->verified = (StatusEnum::true)->status();
-                $user->save();
                 Auth::guard('web')->loginUsingId($user->id);
                 return redirect()->route('user.dashboard')
                 ->with('success',translate('SuccessFully Login As a User'));
-            }
-            $message = translate('Active User Status Then Try Again');
         }
         return back()->with('error',  $message);
     }

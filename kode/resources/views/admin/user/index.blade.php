@@ -75,7 +75,7 @@
 @endpush
 
 @section('content')
-	<div class="container-fluid">
+<div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -168,7 +168,7 @@
                     </thead>
                     <tbody>
                         @forelse($users as $user)
-                                                        <tr>
+                                                <tr>
                                                     <td>
                                                         {{$loop->iteration}}
                                                     </td>
@@ -228,18 +228,18 @@
 
                                                             @if ($isAssigned)
                                                                 @foreach ($agentsUsers as $agentUser)
-                                                                                    @if ($agentUser->user_id == $user->id)
-                                                                                        <div class="avatar-group-item material-shadow" data-bs-toggle="tooltip"
-                                                                                            data-bs-placement="top">
-                                                                                            <a href="javascript:void(0)" class="assign-user custom--tooltip">
-                                                                                                <span class="tooltip-text">
-                                                                                                    {{ $agentUser->agent->name ?? 'Unknown Agent' }}
-                                                                                                </span>
-                                                                                                <img src="{{ getImageUrl(getFilePaths()['profile']['admin']['path'] . '/' . $agentUser->agent->image) }}"
-                                                                                                    alt="{{ $agentUser->id_agent }}" class="rounded-circle avatar-xxs">
-                                                                                            </a>
-                                                                                        </div>
-                                                                                    @endif
+                                                                    @if ($agentUser->user_id == $user->id)
+                                                                        <div class="avatar-group-item material-shadow" data-bs-toggle="tooltip"
+                                                                            data-bs-placement="top">
+                                                                            <a href="javascript:void(0)" class="assign-user custom--tooltip">
+                                                                                <span class="tooltip-text">
+                                                                                    {{ $agentUser->agent->name ?? 'Unknown Agent' }}
+                                                                                </span>
+                                                                                <img src="{{ getImageUrl(getFilePaths()['profile']['admin']['path'] . '/' . $agentUser->agent->image) }}"
+                                                                                    alt="{{ $agentUser->id_agent }}" class="rounded-circle avatar-xxs">
+                                                                            </a>
+                                                                        </div>
+                                                                    @endif
                                                                 @endforeach
                                                             @else
                                                                 <div class="avatar-group-item material-shadow" data-bs-toggle="tooltip"
@@ -367,7 +367,7 @@
                         </label>
                         <select name="agent_id" id="assign-agent" required class="form-select">
                             @forelse($agents as $agent)
-                                    <option value="{{ $agent->id }}">
+                                <option value="{{ $agent->id }}">
                                     {{ $agent->name }}
                                 </option>
                             @empty
