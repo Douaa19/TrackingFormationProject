@@ -25,8 +25,8 @@
 
                         <div class="chat-message-list mb-3">
                             <ul class="nav list-unstyled chat-list chat-user-list d-block" role="tablist">
-                                @foreach($chats as $chat)
-
+                                {{$chats}}
+                                {{-- @foreach($chats as $chat)
                                     @php
                                         $unreadMessages = $chat->user->unread(auth_user()->id);
                                     @endphp
@@ -54,7 +54,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                @endforeach
+                                @endforeach --}}
                             </ul>
                         </div>
 
@@ -522,13 +522,13 @@
                         toastr(error.message,'danger')
                     }
                 },
-          
+
             complete: function() {
               $('#send-message').html($btnHtml);
-   
+
             },
         })
-        
+
     });
 
     //send message  method
@@ -591,7 +591,7 @@
             data:  $('#block-form').serialize(),
             dataType:"json",
             success: function (response) {
-            
+
                 var status ='danger';
                 if(response.status){
                     status ='success';
@@ -600,7 +600,7 @@
                     $('.chat-input').removeClass('d-none')
 
                     $('#send-message').removeClass('d-none')
-            
+
                 }else{
 
                     $('.blocked-message').removeClass('d-none');
@@ -615,7 +615,7 @@
                 toastr('{{translate("Validation Error")}}','danger')
             },
         });
-       
+
         e.preventDefault()
     })
 
