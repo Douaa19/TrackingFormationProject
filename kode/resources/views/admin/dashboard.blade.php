@@ -11,7 +11,7 @@ $agent_boolean = auth_user()->agent;
                     @php
                        $currentYear = \Carbon\Carbon::now()->year;
                     @endphp
-                    
+
                     @php
                        $currentYear = \Carbon\Carbon::now()->year;
                     @endphp
@@ -123,7 +123,7 @@ $agent_boolean = auth_user()->agent;
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
 
-                                                    
+
                                                     {{ translate('Total Clients') }} {{$data['direct_training_users']}}
 
                                                 </h5>
@@ -134,7 +134,7 @@ $agent_boolean = auth_user()->agent;
                             </div>
                         </div>
                         @if($agent_boolean == 0)
-                        
+
                         <div class="col-xl-2 col-md-4 m-0 p-0">
                             <div class="card crm-widget">
                                 <div class="card-body p-0">
@@ -191,7 +191,7 @@ $agent_boolean = auth_user()->agent;
                                             </h2>
 
                                             <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(CSF)', 'phase' => 'Phase Qualification'])}}" class="text-decoration-underline">
-                                                {{translate("View All")}} 
+                                                {{translate("View All")}}
 
                                             </a>
                                         </div>
@@ -512,7 +512,7 @@ $agent_boolean = auth_user()->agent;
                                         </div>
                                         {{-- <div class="flex-shrink-0">
                                             <h5 class="text-success fs-14 mb-0">
-                                                <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
+                                                <i class="x-gmdi-support-agent"></i>
                                                 {{ num_short($data['total_tickets_increase']) }}%
                                             </h5>
                                         </div> --}}

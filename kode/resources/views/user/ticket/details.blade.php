@@ -21,135 +21,21 @@
                                 <div class="ticket-details-body">
                                     <ul class="list-group list-group-flush ticket-detail-list">
                                         <li class="list-group-item">
-                                            <span>
-                                               {{ translate('Ticket Number') }}
-                                            </span>
-                                            <small class="fs-12 badge rounded-pill bg-primary"> {{ $ticket->ticket_number }}
-                                            </small>
-                                        </li>
 
                                         <li class="list-group-item">
-                                            <span>{{translate("User Name")}} </span>
+                                            <span class="fw-bold">{{translate("User Name")}} </span>
                                              <small> {{$admin[0]->name}} </small>
                                         </li>
 
                                         <li class="list-group-item">
-                                            <span>{{translate("User Email")}} </span>
+                                            <span class="fw-bold">{{translate("Email")}} </span>
                                             <small> {{$admin[0]->email}} </small>
                                         </li>
-
                                         <li class="list-group-item">
-                                            <span> {{translate("Category")}}</span>
-                                            <small> {{@get_translation($ticket->category->name)}}</small>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span> {{translate("Product")}}</span>
-                                            <small> {{@($ticket->department->name ?? "-")}}</small>
-                                        </li>
-
-                                        <li class="list-group-item">
-                                            <span>
-                                                {{translate('Create Date')}}
-                                            </span>
-                                            <small>
-                                                {{getTimeDifference($ticket->created_at)}}
-                                            </small>
-                                        </li>
-
-                                        <li class="list-group-item">
-                                            <span>
-                                                {{translate('Last Activity')}}
-                                            </span>
-                                            <small>
-                                                {{@getTimeDifference($ticket->messages->first()->created_at)}}
-
-                                            </small>
+                                            <span class="fw-bold">{{translate("Phone Number")}} </span>
+                                            <small> {{$admin[0]->phone}} </small>
                                         </li>
                                     </ul>
-                                </div>
-                            </div>
-
-                            <div class="ticket-details-item">
-                                <h5>
-                                    {{ translate('Custom Ticket Data') }}
-                                </h5>
-
-                                <div class="ticket-details-body">
-                                    @php
-                                       $customData = json_decode($ticket->ticket_data,true);
-                                    @endphp
-
-                                    <ul class="list-group list-group-flush ticket-detail-list">
-                                        @forelse($customData as $key=>$data)
-                                            <li class="list-group-item">
-                                                <span>
-                                                    {{ ucfirst(str_replace('_', ' ', $key)) }}:
-                                                </span>
-                                                <small>
-                                                    @php
-
-                                                          if(is_array( $data))  $data = implode(",", $data);
-                                                    @endphp
-                                                    {{ $data }}
-                                                </small>
-                                            </li>
-                                        @empty
-                                            <li class="list-group-item justify-content-center">
-                                                <div class="text-center">
-                                                    {{translate('No file Found')}}
-                                                </div>
-                                            </li>
-                                        @endforelse
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="ticket-details-item mb-0">
-                                <h5>
-                                    {{translate("Main Ticket Attachment")}}
-                                </h5>
-
-                                <div class="ticket-details-body">
-                                    @php
-                                        $files = $ticket->messages->first() ?  json_decode($ticket->messages->first()->file, true) :[];
-                                    @endphp
-
-                                    @if($files)
-                                        @forelse($files as $file)
-                                            <div class="d-flex align-items-center border border-dashed p-2 rounded">
-                                                <div class="flex-shrink-0 avatar-sm">
-                                                    <div class="avatar-title bg-light rounded">
-                                                        <i class="ri-file-zip-line fs-20 text-primary"></i>
-                                                    </div>
-                                                </div>
-
-                                                <div class="hstack gap-3 fs-16">
-
-
-                                                    @php
-                                                        $fileURL = getImageUrl(getFilePaths()['ticket']['path']."/".$file);
-                                                        $isImage = isImageUrl($fileURL);
-                                                    @endphp
-
-                                                    <a  href="{{getImageUrl(getFilePaths()['ticket']['path']."/".$file)}}"  class="download-attach {{$isImage ? 'file-v-preview' :'' }} ">
-                                                        <i class="ri-download-2-line"></i>
-                                                        <span>{{translate('File-').$loop->index+1..".".pathinfo($file, PATHINFO_EXTENSION)}}</span>
-                                                    </a>
-
-
-
-                                                </div>
-                                            </div>
-                                        @empty
-                                            <div class="text-center">
-                                                {{ translate('No file Found') }}
-                                            </div>
-                                        @endforelse
-                                    @else
-                                        <div class="text-center">
-                                            {{ translate('No file Found') }}
-                                        </div>
-                                    @endif
                                 </div>
                             </div>
                         </div>
