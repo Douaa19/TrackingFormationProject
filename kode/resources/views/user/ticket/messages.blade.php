@@ -3,7 +3,8 @@
         $files = $message->file ? json_decode($message->file, true) : [];
     @endphp
 
-    <div class="reply-item">
+    <div
+        class="reply-item  @if(!$message->admin_id) replay-form-user @endif @if($message->is_note == 1) alert mb-0 alert-warning @endif">
         <div class="item-header">
             <div class="d-flex align-items-center justify-content-between flex-wrap w-100 gap-1">
                 <div class="author-area">
