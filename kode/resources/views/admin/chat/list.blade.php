@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid">
 
-    
+
 
     <div class="chat-wrapper d-lg-flex gap-2">
         <div class="chat-leftsidebar p-3 ">
@@ -25,7 +25,6 @@
                             <ul class="nav list-unstyled chat-list chat-user-list d-block" role="tablist">
                                 @foreach($chats as $chat)
 
-                                    
                                     <li class="nav-item " role="presentation">
                                         <a class="nav-link  user-chat-section" href="javascript:void(0)" >
                                             <div class="d-flex align-items-center">
@@ -42,7 +41,7 @@
 
                                                 <div class="ms-auto unread-notifications- {{$unreadMessages > 0 ? "" :"d-none"  }} ">
                                                     <span class="badge badge-soft-dark rounded p-1 unread-message-counter-{{@$chat->user->id}}">
-                                                        
+
                                                     </span>
                                                 </div>
                                             </div>
@@ -96,7 +95,7 @@
 
                                                 <div class="ms-auto unread-notifications-anonymous-{{@$user->id}} {{$unreadMessages > 0 ? "" :"d-none"  }} ">
                                                     <span class="badge badge-soft-dark rounded p-1 unread-message-counter-anonymous-{{@$user->id}}">
-                                                        
+
                                                     </span>
                                                 </div>
 
@@ -514,13 +513,13 @@
                         toastr(error.message,'danger')
                     }
                 },
-          
+
             complete: function() {
               $('#send-message').html($btnHtml);
-   
+
             },
         })
-        
+
     });
 
     //send message  method
@@ -583,7 +582,7 @@
             data:  $('#block-form').serialize(),
             dataType:"json",
             success: function (response) {
-            
+
                 var status ='danger';
                 if(response.status){
                     status ='success';
@@ -592,7 +591,7 @@
                     $('.chat-input').removeClass('d-none')
 
                     $('#send-message').removeClass('d-none')
-            
+
                 }else{
 
                     $('.blocked-message').removeClass('d-none');
@@ -607,7 +606,7 @@
                 toastr('{{translate("Validation Error")}}','danger')
             },
         });
-       
+
         e.preventDefault()
     })
 

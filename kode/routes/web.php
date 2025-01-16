@@ -57,7 +57,7 @@ Route::middleware($globalMiddleware)->group(function () {
                 Route::prefix('passwords')->name('password.')->group(function () {
                     Route::post('/update', 'passwordUpdate')->name('update');
                 });
-                
+
                 //notification route
                 Route::get('/notificatios/settings','notificationSettings')->name('notification.settings');
                 Route::post('/notificatios/settings','updateNotificationSettings')->name('update.notification.settings');
@@ -65,7 +65,7 @@ Route::middleware($globalMiddleware)->group(function () {
                 Route::post('/read-notification','readNotification')->name('read.notification');
 
             });
-        
+
             // user chat route
             Route::controller(ChatController::class)->prefix('chat')->name('chat.')->group(function(){
 
@@ -81,7 +81,7 @@ Route::middleware($globalMiddleware)->group(function () {
 
             /** tickets route */
             Route::prefix('tickets/')->name('ticket.')->controller(UserTicketController::class)->group(function (){
-                
+
                 Route::any('/','index')->name('list');
                 Route::any('/messages','messages')->name('messages');
                 Route::get('/mark','mark')->name('mark');
@@ -131,7 +131,7 @@ Route::middleware($globalMiddleware)->group(function () {
     });
 
     Route::controller(FrontendController::class)->group(function(){
-        
+
         Route::get('/','index')->name('home');
         Route::any('/articles/{slug?}/{id?}','articles')->name('articles');
         Route::any('/article/search','articleSearch')->name('article.search');
