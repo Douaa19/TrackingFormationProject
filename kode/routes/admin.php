@@ -331,7 +331,7 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
                 Route::get('/mute/{ticket_number}','makeMute')->name('make.mute');
                 Route::post('/update/message/body','updateMessage')->name('update.message');
                 Route::any('/saveDraft','saveDraft')->name('save.draft');
-                
+
                 /** newly addded route */
                 Route::post('/update/notifications','updateNotification')->name('update.notification');
                 Route::post('/add/note','addNote')->name('add.note');

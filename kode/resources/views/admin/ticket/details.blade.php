@@ -179,7 +179,7 @@
                                         <i class="ri-bar-chart-horizontal-fill align-bottom"></i>
                                     </button>
 
-                                    <a href="{{route('admin.ticket.list')}}"
+                                    <a href="{{route('admin.ticket.testmsg')}}"
                                         class="btn btn-primary waves ripple-light d-flex align-items-center gap-2 lh-1">
                                         <i class="ri-arrow-go-back-fill align-bottom fs-5"></i>
                                         {{translate("Back")}}

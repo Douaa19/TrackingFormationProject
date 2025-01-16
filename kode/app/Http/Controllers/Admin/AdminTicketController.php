@@ -829,11 +829,11 @@ class AdminTicketController extends Controller
      * Merge two tickets
      *
      * @param Request $request
-     
+
      */
     public function testmsg(Request $request)  {
 
-        
+
         $agentId = auth_user()->id; // Get the authenticated agent's ID
 
         // Fetch all participants for the agent
