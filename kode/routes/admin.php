@@ -306,6 +306,7 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
                 Route::any('/','index')->name('list');
                 Route::any('/messages','messages')->name('messages');
                 Route::get('/pending/list','index')->name('pending');
+                Route::get('/testmsg','testmsg')->name('testmsg');
                 Route::get('/solved/list','index')->name('solved');
                 Route::get('/closed/list','index')->name('closed');
                 Route::get('/create','create')->name('create');
@@ -330,7 +331,7 @@ Route::middleware(['sanitizer',"dos.security"])->prefix('admin')->name('admin.')
                 Route::get('/mute/{ticket_number}','makeMute')->name('make.mute');
                 Route::post('/update/message/body','updateMessage')->name('update.message');
                 Route::any('/saveDraft','saveDraft')->name('save.draft');
-
+                
                 /** newly addded route */
                 Route::post('/update/notifications','updateNotification')->name('update.notification');
                 Route::post('/add/note','addNote')->name('add.note');

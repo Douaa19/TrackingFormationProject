@@ -5,9 +5,7 @@
 @section('content')
 <div class="container-fluid">
 
-    @php
-        $pusher_settings  =  json_decode(site_settings('pusher_settings'),true);
-    @endphp
+    
 
     <div class="chat-wrapper d-lg-flex gap-2">
         <div class="chat-leftsidebar p-3 ">
@@ -27,11 +25,9 @@
                             <ul class="nav list-unstyled chat-list chat-user-list d-block" role="tablist">
                                 @foreach($chats as $chat)
 
-                                    @php
-                                        $unreadMessages = $chat->user->unread(auth_user()->id);
-                                    @endphp
+                                    
                                     <li class="nav-item " role="presentation">
-                                        <a class="nav-link {{$unreadMessages > 0 ? "unread-msg-user" :""  }} user-chat-section" data-id="{{$chat->user->id}}" id="{{$chat->user->id}}" href="javascript:void(0)" >
+                                        <a class="nav-link  user-chat-section" href="javascript:void(0)" >
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-shrink-0 chat-user-img online align-self-center me-2 ms-0">
                                                     <div class="avatar-xxs">
@@ -44,11 +40,9 @@
                                                     </p>
                                                 </div>
 
-                                                <div class="ms-auto unread-notifications-{{@$chat->user->id}} {{$unreadMessages > 0 ? "" :"d-none"  }} ">
+                                                <div class="ms-auto unread-notifications- {{$unreadMessages > 0 ? "" :"d-none"  }} ">
                                                     <span class="badge badge-soft-dark rounded p-1 unread-message-counter-{{@$chat->user->id}}">
-                                                        @if($unreadMessages > 0)
-                                                        {{$unreadMessages}}
-                                                        @endif
+                                                        
                                                     </span>
                                                 </div>
                                             </div>
@@ -102,9 +96,7 @@
 
                                                 <div class="ms-auto unread-notifications-anonymous-{{@$user->id}} {{$unreadMessages > 0 ? "" :"d-none"  }} ">
                                                     <span class="badge badge-soft-dark rounded p-1 unread-message-counter-anonymous-{{@$user->id}}">
-                                                        @if($unreadMessages > 0)
-                                                          {{$unreadMessages}}
-                                                        @endif
+                                                        
                                                     </span>
                                                 </div>
 

@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\AgentParticipant;
+use App\Models\SupportTicket;
+use App\Models\AgentTicket;
 
 use App\Rules\General\FileExtentionCheckRule;
 use Illuminate\Http\Request;
@@ -17,10 +19,16 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Pusher\Pusher;
+use App\Http\Services\TicketService;
+
 
 class UserController extends Controller
 {
 
+    public function __construct(private TicketService $ticketService) {
+
+
+    }
     /**
      * get all user
      * @return View
@@ -32,8 +40,8 @@ class UserController extends Controller
         $users = User::all();
         $agents = Admin::where('agent', StatusEnum::true->status())->get();
         $agentsUsers = AgentParticipant::all();
-        dd("test");
-        dd($agentsUsers);
+       
+        
         return view('admin.user.index', compact('title', 'users', 'agents', 'agentsUsers'));
 
     }
@@ -353,6 +361,9 @@ class UserController extends Controller
         ]);
     
         try {
+
+                
+
             DB::beginTransaction();
     
             $exists = DB::table('agent_participants')
@@ -366,6 +377,25 @@ class UserController extends Controller
                     'user_id' => $request->user_id,
                     'created_at' => now(),
                     'updated_at' => now()
+                ]);
+                $userExists = SupportTicket::where('user_id', $request->user_id )->exists();
+                // if(!$userExists){
+
+                // }
+                $ticket  = new SupportTicket();
+                $ticket->user_id  =  $request->user_id ;
+                $ticket->department_id  =  1;
+                $ticket->ticket_data = json_encode((object)[]);
+                $ticket->status = 2;
+                $ticket->save();
+                $NewTicketId = $ticket->id;
+                $ticket->ticket_number   =  $this->ticketService->getTicketNumber($ticket->id);
+                $ticket->saveQuietly();
+                AgentTicket::create([
+                    "agent_id"    => $request->agent_id ,
+                    "ticket_id"   => $NewTicketId,
+                    // "short_notes" => $request->short_note ? $request->short_note : $sortNotes ,
+                    "assigned_by" =>  auth_user()->id,
                 ]);
             }
     

@@ -187,7 +187,7 @@
                             <div class="card card-height-100">
                                 <div class="card-header align-items-center d-flex gap-3 flex-wrap">
                                     <h4 class="card-title mb-0 flex-grow-1">
-                                        {{translate('Ticket By Category')}}
+                                        {{translate('Ticket By Category') }}
                                     </h4>
 
                                 </div><!-- end card header -->

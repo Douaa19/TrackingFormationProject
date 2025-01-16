@@ -83,6 +83,12 @@
                             <i class="bx bx-cog"></i> <span>{{translate('Notification Settings')}}</span>
                         </a>
                 </li>
+                
+                <li class="nav-item">
+                        <a class="nav-link menu-link " href="{{route('user.ticket.view',$ticket->ticket_number)}}">
+                        <i class='bx bx-chat'></i>{{translate('discuter avec ocf')}}</span>
+                        </a>
+                </li>
 
             </ul>
         </div>

@@ -12,6 +12,7 @@ use App\Jobs\SendEmailJob;
 use App\Models\Admin;
 use App\Models\AgentResponse;
 use App\Models\AgentTicket;
+use App\Models\AgentParticipant;
 use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Department;
@@ -19,6 +20,7 @@ use App\Models\FloatingChat;
 use App\Models\Priority;
 use App\Models\Subscriber;
 use App\Models\SupportMessage;
+
 use App\Models\SupportTicket;
 use App\Models\TicketStatus as ModelsTicketStatus;
 use App\Models\User;
@@ -821,4 +823,40 @@ class AdminTicketController extends Controller
 
 
     }
+
+
+    /**
+     * Merge two tickets
+     *
+     * @param Request $request
+     
+     */
+    public function testmsg(Request $request)  {
+
+        
+        $agentId = auth_user()->id; // Get the authenticated agent's ID
+
+        // Fetch all participants for the agent
+        $participants = AgentParticipant::with('user')
+    ->where('agent_id', $agentId)
+    ->get();
+
+// Fetch ticket numbers for all participants and group by user_id
+$ticketNumbers = SupportTicket::whereIn('user_id', $participants->pluck('user_id'))
+    ->get(['user_id', 'ticket_number'])
+    ->groupBy('user_id');
+
+// Add ticket numbers to participants
+$participants = $participants->map(function ($participant) use ($ticketNumbers) {
+    $participant->ticket_numbers = $ticketNumbers->get($participant->user_id)?->pluck('ticket_number') ?? collect();
+    return $participant;
+});
+
+
+return view('admin.chat.lischat', compact('participants'));
+
+
+    }
+
+
 }

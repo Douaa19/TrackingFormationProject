@@ -70,11 +70,13 @@ Route::middleware($globalMiddleware)->group(function () {
             Route::controller(ChatController::class)->prefix('chat')->name('chat.')->group(function(){
 
                 Route::get('/list','chat')->name('list');
+                Route::get('/listchat','chatlist')->name('listchat');
                 Route::post('/agent/chat','agentChat')->name('agent');
                 Route::post('/send/message','sendMessage')->name('send.message');
                 Route::post('/delete/message','deleteMessage')->name('delete.message');
                 Route::post('/delete/conversation','deleteConversation')->name('delete.conversation');
                 Route::post('/mute/agent','muteAgent')->name('mute.agent');
+
             });
 
             /** tickets route */

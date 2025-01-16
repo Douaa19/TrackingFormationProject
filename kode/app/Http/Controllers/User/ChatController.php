@@ -10,6 +10,8 @@ use App\Http\Utility\SendNotification;
 use App\Jobs\SendEmailJob;
 use App\Jobs\SendSmsJob;
 use App\Models\Admin;
+use App\Models\SupportTicket;
+use App\Models\AgentParticipant;
 use App\Models\Chat;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,12 +25,25 @@ class ChatController extends Controller
      * Displays the chat page with the list of active users.
      *
      */
-    public function chat() :\Illuminate\View\View | RedirectResponse{
+    public function chat() :\Illuminate\View\View | RedirectResponse {
 
         $title  = 'User Chat list';
         if(site_settings('chat_module') == (StatusEnum::false)->status())  return back()->with('error',translate('Chat Module Is Disable For Now'));
         $agents = Admin::active()->get();
         return view('user.chat.list',compact('agents','title'));
+    }
+
+    public function chatlist() :\Illuminate\View\View | RedirectResponse {
+        
+        $title  = 'User Chat list with ocf';
+        if(site_settings('chat_module') == (StatusEnum::false)->status())  return back()->with('error',translate('Chat Module Is Disable For Now'));
+        // $agents = Admin::active()->get();
+        $agent = AgentParticipant::where('user_id', auth_user('web')->id)
+        ->select('agent_id')
+        ->get();
+        $ticketNumbers = SupportTicket::where('user_id', auth_user('web')->id)->pluck('ticket_number');
+
+        return view('user.chat.listchat',compact('agent','title','ticketNumbers'));
     }
 
     /**

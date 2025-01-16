@@ -42,7 +42,7 @@
 
                 @if(site_settings('chat_module') == App\Enums\StatusEnum::true->status())
                     <li class="nav-item">
-                        <a class="nav-link menu-link {{request()->routeIs('admin.chat.list') ? 'active' : ''}}" href="{{route('admin.chat.list')}}">
+                        <a class="nav-link menu-link {{url()->current() === url('admin/tickets/testmsg') ? 'active' : ''}}" href="{{ url('admin/tickets/testmsg') }}">
                             <i class="ri-message-2-line"></i> <span>{{translate('Messenger')}}</span>
                         </a>
                     </li>
@@ -55,7 +55,7 @@
                 @endif
 
 
-                @if(check_agent('manage_tickets'))
+                <!-- @if(check_agent('manage_tickets'))
                     <li class="nav-item">
 
                         <a class="nav-link menu-link {{   (!request()->routeIs('admin.ticket.*') || !request()->routeIs('admin.canned.*') ||  !request()->routeIs('admin.category.*') || !request()->routeIs('admin.priority.*')) && request()->routeIs('admin.ticket.pending') ?"collapsed" :""  }}  " @if($pending_tickets > 0)  data-toggle="tooltip" data-placement="top" title="{{translate('Pending Tickets: ').$pending_tickets}}" @endif     href="#manageTicket" data-bs-toggle="collapse" role="button"
@@ -99,7 +99,7 @@
                         </div>
                     </li>
 
-                @endif
+                @endif -->
 
                 @if( check_agent('system_configuration') || check_agent('manage_tickets') || check_agent('manage_category') ||  check_agent('manage_priorites'))
 

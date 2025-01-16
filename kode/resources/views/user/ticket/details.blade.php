@@ -11,10 +11,10 @@
                         <div class="ticket-detail-scroll" data-simplebar>
                             <div class="ticket-details-item">
                                 <div class="mb-4">
-                                    @include('frontend.partials.operating_hour')
+                                    
                                 </div>
                                 <h5>
-                                    {{ translate('Ticket Details') }}
+                                    {{ translate('Agent Details') }}
                                 </h5>
 
 
@@ -30,12 +30,12 @@
 
                                         <li class="list-group-item">
                                             <span>{{translate("User Name")}} </span>
-                                             <small>{{ $ticket->name }}</small>
+                                             <small> {{$admin[0]->name}} </small>
                                         </li>
 
                                         <li class="list-group-item">
                                             <span>{{translate("User Email")}} </span>
-                                            <small>{{$ticket->email}}</small>
+                                            <small> {{$admin[0]->email}} </small>
                                         </li>
 
                                         <li class="list-group-item">
@@ -178,7 +178,8 @@
 
                                         <div class="col-md">
                                             <h4 class="fw-semibold" id="ticket-title">
-                                                {{ $ticket->ticket_number }} - {{ limit_words($ticket->subject, 25) }} </h4>
+                                            {{$admin[0]->name}}
+                                        </h4>
 
                                             <div class="hstack gap-2 flex-wrap">
                                                 <div class="text-muted"><i class="ri-bug-line align-bottom me-1"></i><span

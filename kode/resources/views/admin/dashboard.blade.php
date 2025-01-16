@@ -17,7 +17,7 @@ $agent_boolean = auth_user()->agent;
                     @endphp
                     @php
                     if($agent_boolean == 1){
-                        $extra = "hello our agent";
+                        $extra = "";
                     }else{
                         $extra = "";
                     }
@@ -117,7 +117,7 @@ $agent_boolean = auth_user()->agent;
                                                     <div class="flex-grow-1 ms-3">
                                                         <h2 class="mb-0">
 
-                                                        {{ translate('Planned Training') }}
+                                                        {{ translate('Formation directe (csf)') }}
                                                         </h2>
                                                     </div>
                                                 </div>
@@ -133,6 +133,8 @@ $agent_boolean = auth_user()->agent;
                                 </div>
                             </div>
                         </div>
+                        @if($agent_boolean == 0)
+                        
                         <div class="col-xl-2 col-md-4 m-0 p-0">
                             <div class="card crm-widget">
                                 <div class="card-body p-0">
@@ -159,6 +161,7 @@ $agent_boolean = auth_user()->agent;
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
 
                     <div class="row justify-content-around gap-0">
@@ -348,7 +351,7 @@ $agent_boolean = auth_user()->agent;
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
                                                         <h2 class="mb-0">
-                                                        {{ translate('No Planned Training') }}
+                                                        {{ translate('Ingénierie + Formation') }}
                                                         </h2>
                                                     </div>
                                                 </div>
@@ -362,6 +365,7 @@ $agent_boolean = auth_user()->agent;
                                 </div>
                             </div>
                         </div>
+                        @if($agent_boolean == 0)
                         <div class="col-xl-2 col-md-4 m-0 p-0">
                             <div class="card crm-widget">
                                 <div class="card-body p-0">
@@ -388,6 +392,7 @@ $agent_boolean = auth_user()->agent;
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
 
                     <div class="row justify-content-around gap-0">

@@ -7,6 +7,7 @@ use App\Enums\StatusEnum;
 use App\Enums\TicketStatus;
 use App\Http\Services\TicketService;
 use App\Models\Admin;
+use App\Models\AgentParticipant;
 use App\Models\Category;
 use App\Models\SupportMessage;
 use App\Models\SupportTicket;
@@ -136,6 +137,11 @@ class UserTicketController extends Controller
       public  function view(string $id) :View | RedirectResponse
       {
 
+        $AdminId = AgentParticipant::where('user_id', auth_user('web')->id)->value('agent_id');
+
+        
+        $admin = Admin::where('id',$AdminId)->get();
+       
         $title = 'View Ticket';
 
         $ticket = SupportTicket::with(['agents','category' ,'messages','linkedPriority'])
@@ -162,7 +168,7 @@ class UserTicketController extends Controller
 
 
  
-        return view('user.ticket.details',compact('title','ticket'));
+        return view('user.ticket.details',compact('title','ticket','admin'));
 
       }
 

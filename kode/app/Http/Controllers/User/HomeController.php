@@ -26,10 +26,12 @@ class HomeController extends Controller
      */
     public function dashboard(Request $request) :View
     {
-    
+        $ticketNumbers = SupportTicket::where('user_id', auth_user('web')->id)->value('ticket_number');
+        // dd($ticketNumbers);
         $title = "User dashboard";
         $data  = $this->getDashboardData($request);
-        return view('user.dashboard', compact('title','data'));
+
+        return view('user.dashboard', compact('title','data','ticketNumbers'));
     }
 
     public function envatoPurchaseList(): View
@@ -150,7 +152,7 @@ class HomeController extends Controller
         $data['latest_ticket']            =  SupportTicket::with(['user'])->where('user_id',auth_user('web')->id)->filter($request)->latest()->take(5)->get();
         return $data;
 
-     }
+    }
 
 
     public function profile() :View
