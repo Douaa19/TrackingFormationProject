@@ -2,23 +2,28 @@
     <div class="brand-logo">
         <a href="{{route('user.dashboard')}}" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ getImageUrl(getFilePaths()['site_logo']['path']."/".site_settings('site_logo_sm')) }}" alt="{{site_settings('site_logo_sm')}}" height="22">
+                <img src="{{ getImageUrl(getFilePaths()['site_logo']['path'] . "/" . site_settings('site_logo_sm')) }}"
+                    alt="{{site_settings('site_logo_sm')}}" height="22">
             </span>
             <span class="logo-lg">
-                <img src="{{ getImageUrl(getFilePaths()['site_logo']['path']."/".site_settings('site_logo_lg')) }}" alt="{{site_settings('site_logo_lg')}}" width="180">
+                <img src="{{ getImageUrl(getFilePaths()['site_logo']['path'] . "/" . site_settings('site_logo_lg')) }}"
+                    alt="{{site_settings('site_logo_lg')}}" width="180">
             </span>
         </a>
 
         <a href="{{route('user.dashboard')}}" class="logo logo-light">
             <span class="logo-sm">
-                <img src="{{ getImageUrl(getFilePaths()['site_logo']['path']."/".site_settings('site_logo_sm')) }}" alt="{{site_settings('site_logo_sm')}}" height="22">
+                <img src="{{ getImageUrl(getFilePaths()['site_logo']['path'] . "/" . site_settings('site_logo_sm')) }}"
+                    alt="{{site_settings('site_logo_sm')}}" height="22">
             </span>
             <span class="logo-lg">
-                <img src="{{ getImageUrl(getFilePaths()['site_logo']['path']."/".site_settings('site_logo_lg')) }}" alt="{{site_settings('site_logo_lg')}}" width="180">
+                <img src="{{ getImageUrl(getFilePaths()['site_logo']['path'] . "/" . site_settings('site_logo_lg')) }}"
+                    alt="{{site_settings('site_logo_lg')}}" width="180">
             </span>
         </a>
 
-        <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+        <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
+            id="vertical-hover">
             <i class="ri-record-circle-line"></i>
         </button>
     </div>
@@ -31,45 +36,49 @@
                 <li class="menu-title"><span>{{translate('Menu')}}</span></li>
 
                 <li class="nav-item">
-                    <a target="_blank" class="nav-link menu-link {{request()->routeIs('home') ? 'active' : ''}}" href="{{route('home')}}">
-                        <i class='bx bx-world' ></i> <span>{{translate('Home')}}</span>
+                    <a target="_blank" class="nav-link menu-link {{request()->routeIs('home') ? 'active' : ''}}"
+                        href="{{route('home')}}">
+                        <i class='bx bx-world'></i> <span>{{translate('Home')}}</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{request()->routeIs('user.dashboard') ? 'active' : ''}}" href="{{route('user.dashboard')}}">
+                    <a class="nav-link menu-link {{request()->routeIs('user.dashboard') ? 'active' : ''}}"
+                        href="{{route('user.dashboard')}}">
                         <i class="bx bxs-dashboard"></i> <span>{{translate('Dashboard')}}</span>
                     </a>
                 </li>
-                @if(site_settings(key:'envato_verification',default:0) == 1)
+                @if(site_settings(key: 'envato_verification', default: 0) == 1)
                     <li class="nav-item">
-                        <a class="nav-link menu-link {{request()->routeIs('user.envato.purchase.*') ? 'active' : ''}}" href="{{route('user.envato.purchase.list')}}">
+                        <a class="nav-link menu-link {{request()->routeIs('user.envato.purchase.*') ? 'active' : ''}}"
+                            href="{{route('user.envato.purchase.list')}}">
                             <i class='bx bx-shopping-bag'></i> <span>{{translate('Envato Purchases')}}</span>
                         </a>
                     </li>
                 @endif
 
-                @if(site_settings('chat_module') == App\Enums\StatusEnum::true->status())
-                    <li class="nav-item">
-                        <a class="nav-link menu-link {{request()->routeIs('user.chat.list') ? 'active' : ''}}" href="{{route('user.chat.list')}}">
-                            <i class='bx bx-chat'></i> <span>{{translate('Chat')}}</span>
-                        </a>
-                    </li>
-                @endif
-
+                {{-- @if(site_settings('chat_module') == App\Enums\StatusEnum::true->status())
                 <li class="nav-item">
+                    <a class="nav-link menu-link {{request()->routeIs('user.chat.list') ? 'active' : ''}}"
+                        href="{{route('user.chat.list')}}">
+                        <i class='bx bx-chat'></i> <span>{{translate('Chat')}}</span>
+                    </a>
+                </li>
+                @endif --}}
+
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link
-                        {{request()->routeIs('user.ticket.*')?'active' :''}}
-                    "href="{{route('user.ticket.list')}}">
-                    <i class='bx bxs-paper-plane' ></i> <span>
+                        {{request()->routeIs('user.ticket.*') ? 'active' : ''}}
+                    " href="{{route('user.ticket.list')}}">
+                        <i class='bx bxs-paper-plane'></i> <span>
                             {{translate('Manage Ticket')}}
                         </span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link menu-link
-                        {{request()->routeIs('user.canned.*')?'active' :''}}
+                        {{request()->routeIs('user.canned.*') ? 'active' : ''}}
                     " href="{{route('user.canned.reply.list')}}">
                         <i class="ri-translate"></i> <span>
                             {{translate('Canned Reply')}}
@@ -79,15 +88,23 @@
 
 
                 <li class="nav-item">
-                        <a class="nav-link menu-link {{request()->routeIs('user.notification.settings') ? 'active' : ''}}" href="{{route('user.notification.settings')}}">
-                            <i class="bx bx-cog"></i> <span>{{translate('Notification Settings')}}</span>
-                        </a>
+                    <a class="nav-link menu-link {{request()->routeIs('user.notification.settings') ? 'active' : ''}}"
+                        href="{{route('user.notification.settings')}}">
+                        <i class="bx bx-cog"></i> <span>{{translate('Notification Settings')}}</span>
+                    </a>
                 </li>
-                
+
                 <li class="nav-item">
-                        <a class="nav-link menu-link " href="{{route('user.ticket.view',$ticket->ticket_number)}}">
-                        <i class='bx bx-chat'></i>{{translate('discuter avec ocf')}}</span>
+                    @if(isset($data['user_ticket']))
+                        <a class="nav-link menu-link"
+                            href="{{ route('user.ticket.view', $data['user_ticket']->ticket_number) }}">
+                            <i class='bx bx-chat'></i> {{ translate('discuter avec ocf') }}
                         </a>
+                    @else
+                        <a class="nav-link menu-link" href="#">
+                            <i class='bx bx-chat'></i> {{ translate('discuter avec ocf') }}
+                        </a>
+                    @endif
                 </li>
 
             </ul>

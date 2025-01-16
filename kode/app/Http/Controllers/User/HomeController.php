@@ -7,6 +7,7 @@ use App\Enums\StatusEnum;
 use App\Enums\TicketStatus as EnumsTicketStatus;
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Controller;
+use App\Models\AgentParticipant;
 use App\Models\Category;
 use App\Models\CustomNotifications;
 use App\Models\Department;
@@ -21,7 +22,7 @@ use Illuminate\Contracts\View\View;
 class HomeController extends Controller
 {
 
-    /** 
+    /**
      * use dashboard
      */
     public function dashboard(Request $request) :View
@@ -31,7 +32,7 @@ class HomeController extends Controller
         $title = "User dashboard";
         $data  = $this->getDashboardData($request);
 
-        return view('user.dashboard', compact('title','data','ticketNumbers'));
+        return view('user.dashboard', compact('title','data'));
     }
 
     public function envatoPurchaseList(): View
@@ -53,9 +54,9 @@ class HomeController extends Controller
                                                 values: $groupedPurchases->pluck('envato_item_id')  ->toArray())
                                         ->map(callback: function(Department $department) use( $groupedPurchases): Department{
                                             $latestPurchase = ($groupedPurchases->where('envato_item_id',$department->envato_item_id)->first());
-                                            if($latestPurchase) $department->latest_purchase  = $latestPurchase; 
+                                            if($latestPurchase) $department->latest_purchase  = $latestPurchase;
                                             return $department;
-                                        })->all(); 
+                                        })->all();
 
 
         return view('user.envato.purchase.list', compact('title', 'user', 'groupedPurchases','productPurchases'));
@@ -124,11 +125,11 @@ class HomeController extends Controller
                                 'total_ticket'  => $status->tickets_count,
                             ];
                             })->all();
-        
 
 
-    
-        
+
+
+
 
 
         $data['ticket_by_category']       = Category::withCount(['tickets as tickets_count' => function($q){
@@ -149,7 +150,19 @@ class HomeController extends Controller
         ->pluck('total', 'months')
         ->toArray());
 
-        $data['latest_ticket']            =  SupportTicket::with(['user'])->where('user_id',auth_user('web')->id)->filter($request)->latest()->take(5)->get();
+        $data['user_ticket'] = SupportTicket::with(['user'])->where('user_id',auth_user('web')->id)->first();
+
+        $data['user'] = auth_user('web');
+
+        $data['trainingsAndStatus'] = [
+            'direct_training_(CSF)' => ['Phase Qualification', 'Phase Administrative Préalable', 'Phase Validation', 'Phase Réalisation', 'Phase Remboursement'],
+            'engineering_training_(GIAC+CSF)' => ['Phase Qualification', 'Phase Ingénierie (GIAC)', 'Phase CSF', 'Phase Réalisation', 'Phase Remboursement'],
+        ];
+
+        $data['agent_user'] = AgentParticipant::with('agent')
+        ->where('user_id', auth_user('web')->id)
+        ->first();
+
         return $data;
 
     }
@@ -235,7 +248,7 @@ class HomeController extends Controller
         return back()->with('success', translate("Password changed successfully"));
     }
 
-    
+
 
     /**
      * get user notifications settings
@@ -270,7 +283,7 @@ class HomeController extends Controller
             }
         }
         auth_user('web')->notification_settings =  json_encode( $user_notifications);
-        auth_user('web')->save();   
+        auth_user('web')->save();
         return back()->with('success',translate('Notifications Settings Updated'));
     }
 
@@ -313,11 +326,11 @@ class HomeController extends Controller
         ->where('notification_for',NotifyStatus::USER)->update([
             "is_read" =>  (StatusEnum::true)->status()
         ]);
-        
+
         $notifications =  CustomNotifications::where("notify_id",auth_user('web')->id)
         ->where('is_read' ,(StatusEnum::true)->status())
         ->where('notification_for',NotifyStatus::USER)->latest()->paginate(paginateNumber());
-        
+
         return view('notification',compact('title','notifications','layout'));
      }
 
@@ -343,7 +356,7 @@ class HomeController extends Controller
 
 
 
-    
+
 
 
 }
