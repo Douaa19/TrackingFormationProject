@@ -11,7 +11,7 @@
                         <div class="ticket-detail-scroll" data-simplebar>
                             <div class="ticket-details-item">
                                 <div class="mb-4">
-                                    
+
                                 </div>
                                 <h5>
                                     {{ translate('Agent Details') }}
@@ -62,6 +62,7 @@
                                             </span>
                                             <small>
                                                 {{@getTimeDifference($ticket->messages->first()->created_at)}}
+
                                             </small>
                                         </li>
                                     </ul>
@@ -121,21 +122,21 @@
                                                         <i class="ri-file-zip-line fs-20 text-primary"></i>
                                                     </div>
                                                 </div>
-                                         
+
                                                 <div class="hstack gap-3 fs-16">
 
-                        
+
                                                     @php
                                                         $fileURL = getImageUrl(getFilePaths()['ticket']['path']."/".$file);
                                                         $isImage = isImageUrl($fileURL);
                                                     @endphp
-                            
+
                                                     <a  href="{{getImageUrl(getFilePaths()['ticket']['path']."/".$file)}}"  class="download-attach {{$isImage ? 'file-v-preview' :'' }} ">
                                                         <i class="ri-download-2-line"></i>
                                                         <span>{{translate('File-').$loop->index+1..".".pathinfo($file, PATHINFO_EXTENSION)}}</span>
                                                     </a>
 
-                                       
+
 
                                                 </div>
                                             </div>
@@ -163,6 +164,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-md-auto">
                                             <div>
+
                                                 @php
                                                     $url = getImageUrl(getFilePaths()['profile']['user']['path'].'/'.auth_user('web')->image,getFilePaths()['profile']['user']['size']);
                                                     if(filter_var(auth_user('web')->image, FILTER_VALIDATE_URL) !== false){
@@ -261,7 +263,7 @@
                                     <a href="{{route('ticket.open',$ticket->id)}}" class="btn py-0 fs-16 text-body">
                                         <span>{{translate("Reopen")}}</span>
                                         <i class="ri-folder-open-line link-success"></i>
-                                        
+
                                     </a>
                                  @endif
 
@@ -298,21 +300,21 @@
                         </div>
 
 
-                        
+
                         <div class="card-body border-bottom envato--card d-none">
 
                             @php
                                 $payload =  $ticket->envato_payload;
-                                $item    =  @$payload->item; 
-                            
+                                $item    =  @$payload->item;
+
                             @endphp
-                            
+
                             <div class="container-fluid p-4 border mb-4 ">
-                            
+
                                 <h4 class="border-bottom mb-4 pb-3">
                                     {{translate("Envato verification")}}
                                 </h4>
-                            
+
                                 @if($payload && $item)
                                     <div class="row">
                                         <div class="col-lg-12">
@@ -333,9 +335,10 @@
                                                                         <div>
                                                                             <h4 class="fw-bold"> {{  $item->name }}</h4>
                                                                             <div class="hstack gap-3 flex-wrap">
-                                                                                <div><i class="ri-building-line align-bottom me-1"></i> 
+                                                                                <div><i class="ri-building-line align-bottom me-1"></i>
                                                                                     <a data-bs-toggle="tooltip" data-bs-placement="top" title="{{translate('Author')}}" target="_blank" href="{{$item->author_url}}">
                                                                                         {{ $item->author_username  }}
+                                                                                        iiuyiuyiu iuiguiug
                                                                                     </a>
                                                                                 </div>
                                                                                 <div class="vr"></div>
@@ -346,25 +349,25 @@
                                                                                         {{ translate('View item') }}
                                                                                     </a>
                                                                                 </div>
-                                                                            
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        
+
                                                         </div>
-                            
-                                                       
+
+
                                                     </div>
-                            
+
                                                 </div>
                                             </div>
-                            
+
                                         </div>
-                            
+
                                     </div>
-                            
+
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="tab-content text-muted">
@@ -394,56 +397,56 @@
                                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                         {{ translate("License") }}    <span class="badge bg-success"> {{$payload->license }} </span>
                                                                     </li>
-                        
+
                                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        
-                                                                        {{ translate("Support type") }}    @if($ticket->is_support_expired == 1) 
-                                                                                                                <span class="badge bg-danger"> {{ translate('Expired')  }} 
-                                                                                                                </span> 
-                                                                                                            @else 
-                                                                                                                <span class="badge bg-secondary"> {{ translate('Valid')  }} 
-                                                                                                                </span> 
+
+                                                                        {{ translate("Support type") }}    @if($ticket->is_support_expired == 1)
+                                                                                                                <span class="badge bg-danger"> {{ translate('Expired')  }}
+                                                                                                                </span>
+                                                                                                            @else
+                                                                                                                <span class="badge bg-secondary"> {{ translate('Valid')  }}
+                                                                                                                </span>
                                                                                                             @endif
                                                                     </li>
-                        
+
                                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                         @php
-                                                            
+
                                                                                 if($payload->supported_until){
                                                                                     $supported_until   = \Carbon\Carbon::parse($payload->supported_until);
                                                                                     $expiredDate       = $supported_until->format('l, F j, Y \a\t g:i A');
                                                                                 }
-                                                                
+
                                                                         @endphp
-                                                                        {{ translate("Support until") }}    @if($payload->supported_until) 
-                                                                                                            <span class="badge bg-success"> {{$expiredDate}} </span> 
-                                                                                                            @else 
-                                                                                                            <span>  N/A </span> 
+                                                                        {{ translate("Support until") }}    @if($payload->supported_until)
+                                                                                                            <span class="badge bg-success"> {{$expiredDate}} </span>
+                                                                                                            @else
+                                                                                                            <span>  N/A </span>
                                                                                                             @endif
                                                                     </li>
-                        
-                                                                    
+
+
                                                                 </ul>
-                                            
-                                
+
+
                                                             </div>
-                                                            
-                                                        
+
+
                                                         </div>
                                                     </div>
-                                                
-                        
+
+
                                                 </div>
-                            
-                       
-                                
+
+
+
                                             </div>
                                         </div>
-                            
+
                                     </div>
-                    
+
                                 @endif
-                            
+
                             </div>
 
                         </div>

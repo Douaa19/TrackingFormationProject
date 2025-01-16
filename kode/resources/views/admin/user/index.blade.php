@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@php
+    $agent_boolean = auth_user()->agent;
+@endphp
 @push('style-include')
     <link rel="stylesheet" href="{{asset('assets/global/css/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{asset('assets/global/css/responsive.bootstrap.min.css') }}">
@@ -106,6 +109,7 @@
 						</div>
 					</div>
 
+                    @if($agent_boolean == 0)
                     <div class="col-sm-auto">
                         <div class="d-flex flex-wrap align-items-start gap-2">
                             <a href="{{route('admin.user.create')}}"  class="btn btn-success add-btn waves ripple-light"
@@ -114,6 +118,7 @@
                             </a>
                         </div>
                     </div>
+                    @endif
 
 				</div>
 			</div>
