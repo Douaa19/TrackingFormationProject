@@ -206,13 +206,13 @@
                                         {{$user->revenue ? $user->revenue : 0}}
                                     </td>
                                     <td>
-                                        {{str_replace('_', ' ', $user->training_type) ?? translate($user->training_type)}}
+                                        {{ $user->training_type === 'direct_training_(CSF)' ? translate('Planned training') : translate('No Planned Training') }}
                                     </td>
                                     <td>
-                                        {{str_replace('_', ' ', $user->training) ?? translate($user->training)}}
+                                        {{translate(str_replace('_', ' ', $user->training) ?? translate($user->training))}}
                                     </td>
                                     <td>
-                                        {{str_replace('_', ' ', $user->status) ?? translate($user->status)}}
+                                        {{translate(str_replace('_', ' ', $user->status) ?? translate($user->status))}}
                                     </td>
                                     {{-- Assign to --}}
                                     <td>
