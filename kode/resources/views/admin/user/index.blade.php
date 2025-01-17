@@ -76,6 +76,17 @@
 </script>
 @endpush
 
+@php
+$training_topics_array = [
+    'ebva_training'=> 'EBVA Training',
+    'diagnosis_training'=> 'Diagnosis Training',
+    'towing_training'=> 'Towing Training',
+    'adas_training'=> 'ADAS Training',
+    'preparation_for_the_electrical_activation_of_ev_charging_infrastructures'=> 'Preparation for the electrical activation of EV charging infrastructures',
+    'preparation_for_VE/VH_electrical_clearance'=> 'Preparation for VE/VH Electrical Clearance',
+]
+@endphp
+
 @section('content')
 	<div class="container-fluid">
 		<div class="row">
@@ -214,7 +225,10 @@
                                         {{ $user->training_type === 'direct_training_(CSF)' ? translate('Planned Training') : translate('No Planned Training') }}
                                     </td>
                                     <td>
-                                        {{str_replace('_', ' ', $user->training) ?? translate($user->training)}}
+                                        @if(array_key_exists($user->training, $training_topics_array))
+                                            {{ translate($training_topics_array[$user->training]) }}
+                                        @endif
+                                        {{-- {{str_replace('_', ' ', $user->training) ?? translate($user->training)}} --}}
                                     </td>
                                     <td>
                                         {{str_replace('_', ' ', $user->status) ?? translate($user->status)}}
