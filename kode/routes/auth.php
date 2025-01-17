@@ -35,10 +35,16 @@ Route::middleware(['auth','maintenance.mode'])->name('user.')->group(function ()
   //SOCIAL LOGIN CONTROLLER
 
 Route::middleware(['maintenance.mode'])->group(function () {
-    
+
     Route::controller(SocialAuthController::class)->name('social.')->group(function () {
         Route::get('login/{medium}', 'redirectToOauth')->name('login');
         Route::get('login/{medium}/callback', 'handleOauthCallback')->name('login.callback');
+
+        Route::get('login/facebook', [SocialAuthController::class, 'redirectToOauth'])->name('facebook.login');
+        Route::get('login/facebook/callback', [SocialAuthController::class, 'handleOauthCallback'])->name('facebook.callback');
+
+        Route::get('login/google', [SocialAuthController::class, 'redirectToOauth'])->name('google.login');
+        Route::get('login/google/callback', [SocialAuthController::class, 'handleOauthCallback'])->name('google.callback');
     });
 });
 
