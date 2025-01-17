@@ -32,7 +32,7 @@ class SocialAuthController extends Controller
     }
 
     private function redirectToEnvatoOauth() {
-        
+
         $client_id    = json_decode(site_settings('social_login'), true)['envato_oauth']['client_id'] ?? null;
         $redirect_uri = route('social.login.callback', 'envato');
         $state        = Str::random(40);
@@ -59,9 +59,9 @@ class SocialAuthController extends Controller
         }
 
         $user = User::where('email',$userOauth->email)->first();
-        
+
         if(!$user){
-            
+
             $address_data =  get_ip_info();
             $userAgent   = request()->header('User-Agent');
             $address_data ['browser_name'] = browser_name($userAgent);
@@ -87,7 +87,7 @@ class SocialAuthController extends Controller
             $user->image = @$userOauth->avatar;
             $user->save();
         }
-        
+
         Auth::guard('web')->login($user);
         return redirect()->route('user.dashboard')->with('success',translate('Login Success'));
     }
@@ -105,7 +105,7 @@ class SocialAuthController extends Controller
             return back()->with('error', translate('Invalid Authentication Request'));
         }
         $client_id     = json_decode(site_settings('social_login'), true)['envato_oauth']['client_id'] ?? null;
-        $client_secret = json_decode(site_settings('social_login'), true)['envato_oauth']['client_secret'] ?? null;;
+        $client_secret = json_decode(site_settings('social_login'), true)['envato_oauth']['client_secret'] ?? null;
         $redirect_uri  = route('social.login.callback', 'envato');
         $access_token  = $this->getUserAccessToken($code, $client_id, $client_secret);
         $user_name_response    = $this->getUserName($access_token);
@@ -116,7 +116,7 @@ class SocialAuthController extends Controller
         }
         $user = $this->addEnvatoUser($user_name_response['username'], $user_email_response['email'], $user_details_response['account']);
         if($user) {
-            
+
             $user = $this->storeEnvatoPurchases($user, $access_token);
             Auth::guard('web')->login($user);
             return redirect()->route('user.dashboard')->with('success', translate('Login Success'));
@@ -124,7 +124,7 @@ class SocialAuthController extends Controller
 
             return back()->with('error', translate('Something went wrong'));
         }
-        
+
     }
 
     private function addEnvatoUser($username, $email, $details) {
@@ -134,7 +134,7 @@ class SocialAuthController extends Controller
             $userAgent = request()->header('User-Agent');
             $address_data['browser_name'] = browser_name($userAgent);
             $address_data['device_name'] = get_divice_type($userAgent);
-    
+
             $userData = [
                 'name' => $username,
                 'email' => $email,
@@ -145,16 +145,16 @@ class SocialAuthController extends Controller
                 'longitude' => Arr::get($address_data, 'lon'),
                 'latitude' => Arr::get($address_data, 'lat'),
             ];
-    
+
             $user = User::updateOrCreate(
                 ['o_auth_id' => $username],
                 $userData
             );
-    
+
             if (site_settings('default_notification') == StatusEnum::true->status()) {
                 set_default_notifications($user);
             }
-    
+
             return $user;
         } catch (\Exception $e) {
             \Log::error('Error in addEnvatoUser: ' . $e->getMessage());
@@ -169,11 +169,11 @@ class SocialAuthController extends Controller
     private function storeEnvatoPurchases(User $user, string $access_token) {
 
         $response = $this->getUserPurchaseList($access_token);
-        if (!$response->successful()) { 
+        if (!$response->successful()) {
 
-            return; 
+            return;
         }
-    
+
         $purchases  = Arr::get($response->json(), 'results', []);
         $formattedPurchases = [];
         foreach ($purchases as $purchase) {
@@ -186,7 +186,7 @@ class SocialAuthController extends Controller
                 'supported_until'   => Arr::get($purchase, 'supported_until'),
                 'purchase_code'  => $purchaseCode,
             ];
-           
+
             $formattedPurchases[] = $formattedPurchase;
         }
         $user->envato_purchases = $formattedPurchases;
