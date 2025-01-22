@@ -15,6 +15,7 @@
                 @php
                     $currentYear = \Carbon\Carbon::now()->year;
                 @endphp
+
                 @php
                     if ($agent_boolean == 1) {
                         $extra = "";
@@ -106,30 +107,25 @@
                     </div>
                 </div>
 
-                <div class="row justify-content-start gap-0 h-auto">
+                <div class="row justify-content-start align-items-center gap-0 h-full">
                     <div class="col-xl-5">
                         <div class="card crm-widget">
                             <div class="card-body p-0">
                                 <div class="row row-cols-lg-3 row-cols-sm-2 row-cols-1">
-
                                     <div class="col col-xl crm-widget-card">
                                         <div class="py-4 px-3">
                                             <div class="d-flex align-items-center mb-1">
                                                 <div class="flex-shrink-0">
-                                                    <i class="link-secondary ri-group-line display-6 "></i>
+                                                    <i class="link-secondary ri-group-line display-6"></i>
                                                 </div>
                                                 <div class="flex-grow-1 ms-3">
                                                     <h2 class="mb-0">
-
-                                                        {{ translate('Formation directe (csf)') }}
+                                                        {{ translate('Ingénierie + Formation') }}
                                                     </h2>
                                                 </div>
                                             </div>
                                             <h5 class="text-muted text-uppercase fs-5 mt-2">
-
-
-                                                {{ translate('Total Clients') }} {{$data['direct_training_users']}}
-
+                                                {{ translate('Total Clients') }} {{$data['engineering_training_users']}}
                                             </h5>
                                         </div>
                                     </div>
@@ -137,19 +133,17 @@
                             </div>
                         </div>
                     </div>
-                    @if($agent_boolean == 0)
 
-                        <div class="col-xl-2 col-md-4 m-0 p-0">
+                    @if($agent_boolean == 0)
+                        <div class="col-xl-2 col-md-4">
                             <div class="card crm-widget">
                                 <div class="card-body p-0">
                                     <div class="row row-cols-lg-3 row-cols-sm-2 row-cols-1">
-
                                         <div class="col col-xl crm-widget-card">
                                             <div class="py-4 px-3">
                                                 <div class="d-flex align-items-center mb-1">
                                                     <div class="flex-shrink-0">
-                                                        <i
-                                                            class="link-secondary ri-money-dollar-circle-line display-6 "></i>
+                                                        <i class="link-secondary ri-money-dollar-circle-line display-6"></i>
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
                                                         <h2 class="mb-0">
@@ -158,8 +152,7 @@
                                                     </div>
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
-                                                    <!-- Total of clinets in planned training -->
-                                                    {{$data['direct_training_total_revenue']}} DHS
+                                                    {{$data['engineering_training_users_total_revenue']}} DHS
                                                 </h5>
                                             </div>
                                         </div>
@@ -168,7 +161,33 @@
                             </div>
                         </div>
                     @endif
+
+                    <div class="col-xl-2 col-md-4">
+                        <div class="card card-animate">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-grow-1 overflow-hidden">
+                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
+                                            {{translate('Confirmation Phase')}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-end justify-content-between mt-1">
+                                    <div>
+                                        <h2 class="fs-22 mb-4">
+                                            {{ num_short($data['engineering_training_users_phase_0']) }}
+                                        </h2>
+                                        <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'confirmation'])}}"
+                                            class="text-decoration-underline">
+                                            {{translate("View All")}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
 
                 <div class="row justify-content-around gap-0">
                     <div class="col-xl-2 col-md-4 m-0 p-0">
@@ -343,12 +362,11 @@
                     </div>
                 </div>
 
-                <div class="row justify-content-start gap-0 h-auto">
+                <div class="row justify-content-start align-items-center gap-0 h-full">
                     <div class="col-xl-5">
                         <div class="card crm-widget">
                             <div class="card-body p-0">
                                 <div class="row row-cols-lg-3 row-cols-sm-2 row-cols-1">
-
                                     <div class="col col-xl crm-widget-card">
                                         <div class="py-4 px-3">
                                             <div class="d-flex align-items-center mb-1">
@@ -362,7 +380,6 @@
                                                 </div>
                                             </div>
                                             <h5 class="text-muted text-uppercase fs-5 mt-2">
-                                                <!-- Total of clinets in no planned training -->
                                                 {{ translate('Total Clients') }} {{$data['engineering_training_users']}}
                                             </h5>
                                         </div>
@@ -371,18 +388,17 @@
                             </div>
                         </div>
                     </div>
+
                     @if($agent_boolean == 0)
-                        <div class="col-xl-2 col-md-4 m-0 p-0">
+                        <div class="col-xl-2 col-md-4">
                             <div class="card crm-widget">
                                 <div class="card-body p-0">
                                     <div class="row row-cols-lg-3 row-cols-sm-2 row-cols-1">
-
                                         <div class="col col-xl crm-widget-card">
                                             <div class="py-4 px-3">
                                                 <div class="d-flex align-items-center mb-1">
                                                     <div class="flex-shrink-0">
-                                                        <i
-                                                            class="link-secondary ri-money-dollar-circle-line display-6 "></i>
+                                                        <i class="link-secondary ri-money-dollar-circle-line display-6"></i>
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
                                                         <h2 class="mb-0">
@@ -391,7 +407,6 @@
                                                     </div>
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
-                                                    <!-- Total of clinets in no planned training -->
                                                     {{$data['engineering_training_users_total_revenue']}} DHS
                                                 </h5>
                                             </div>
@@ -401,7 +416,34 @@
                             </div>
                         </div>
                     @endif
+
+                    <div class="col-xl-2 col-md-4">
+                        <div class="card card-animate">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-grow-1 overflow-hidden">
+                                        <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
+                                            {{translate('Confirmation Phase')}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-end justify-content-between mt-1">
+                                    <div>
+                                        <h2 class="fs-22 mb-4">
+                                            {{ num_short($data['engineering_training_users_phase_0']) }}
+                                        </h2>
+                                        <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'confirmation'])}}"
+                                            class="text-decoration-underline">
+                                            {{translate("View All")}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+
 
                 <div class="row justify-content-around gap-0">
                     <div class="col-xl-2 col-md-4 m-0 p-0">
@@ -576,240 +618,8 @@
                     </div>
                 </div>
 
-
-                <!-- Table -->
-                {{-- <div class="row">
-
-                    <div class="col-xl">
-                        <div class="card">
-                            <form hidden action="{{ route('admin.dashboard') }}" method="get" id="filter-form">
-                                <input type="hidden" name="filter" id="filterValue">
-                            </form>
-
-                            <div class="card-header align-items-center d-flex gap-3 flex-wrap">
-                                <h4 class="card-title mb-0 flex-grow-1">
-                                    {{ translate('Latest Tickets') }}
-                                </h4>
-
-                                <div class="flex-shrink-0">
-                                    <a href="{{route('admin.ticket.export','pdf')}}" class="btn btn-soft-info btn-sm">
-                                        <i class="ri-download-fill align-middle"></i>
-
-                                        {{translate("Download PDF")}}
-                                    </a>
-                                </div>
-                            </div><!-- end card header -->
-
-                            <!-- Table Users -->
-                            <div class="card-body">
-                                <div class="table-responsive pb-2">
-                                    <table class="table table-border table-centered align-middle table-nowrap mb-0">
-                                        <thead class="text-muted table-light">
-                                            <tr>
-                                                <th scope="col">
-                                                    {{ translate('Ticket Id') }}
-                                                </th>
-                                                <th scope="col">
-                                                    {{ translate('Name') }}
-                                                </th>
-                                                <th scope="col">
-                                                    {{ translate('Email') }}
-                                                </th>
-                                                <th scope="col">
-                                                    {{ translate('Creation Time') }}
-                                                </th>
-                                                <th scope="col">
-                                                    {{ translate('Subject') }}
-                                                </th>
-                                                <th scope="col">
-                                                    {{ translate('Status') }}
-                                                </th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            @forelse($data['latest_ticket'] as $ticket)
-                                            <tr>
-                                                <td>
-                                                    <a href="{{ route('admin.ticket.view', $ticket->ticket_number) }}"
-                                                        class="fw-medium link-primary">
-                                                        {{ $ticket->ticket_number }}
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0 me-2">
-                                                            <img src="{{ getImageUrl(getFilePaths()['profile']['user']['path'] . '/' . @$ticket->user->image) }}"
-                                                                alt="{{@$ticket->user->image}}"
-                                                                class="avatar-xs rounded-circle" />
-                                                        </div>
-                                                        <div class="flex-grow-1">
-                                                            {{ limit_words($ticket->name, 10) }}
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    {{ limit_words($ticket->email,10) }}
-                                                </td>
-                                                <td>
-                                                    <span class="text-info">
-                                                        {{ @getTimeDifference($ticket->created_at) }}
-                                                    </span>
-
-                                                </td>
-                                                <td>
-                                                    {{ limit_words($ticket->subject, 10) }}
-                                                </td>
-
-                                                <td>
-                                                    @php echo
-                                                    ticket_status($ticket->ticketStatus->name,$ticket->ticketStatus->color_code)
-                                                    @endphp
-
-                                                </td>
-
-                                            </tr>
-                                            @empty
-                                            @include('admin.partials.not_found')
-                                            @endforelse
-
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
-
-        <!--  -->
-        {{-- <div class="col-auto layout-rightside-col d-block">
-            <div class="overlay"></div>
-            <div class="layout-rightside">
-                <div class="sidebar-widget">
-                    <h5 class="widget-title">
-                        {{ translate('Pending Tickets') }}
-                    </h5>
-
-                    @if($data['latest_pending_ticket']->count() != 0)
-
-                    <div class="widget-body" data-simplebar>
-                        <ul class="activity-list">
-
-                            @foreach($data['latest_pending_ticket'] as $pendingTicket)
-
-                            <li class="mb-0">
-
-                                <div class="acitivity-item py-3 d-flex">
-                                    <div class="flex-shrink-0">
-                                        <div class="avatar-xs acitivity-avatar">
-                                            <div class="avatar-title rounded-circle bg-secondary">
-                                                <i class="ri-chat-settings-line"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-2">
-                                        <h6 class="mb-1 lh-base">
-                                            {{limit_words($pendingTicket->name,10)}}
-                                            <a href="{{ route('admin.ticket.view', $pendingTicket->ticket_number) }}"
-                                                class="link-secondary"> {{limit_words($pendingTicket->subject,20)}}</a>
-                                        </h6>
-                                        <p class="text-muted mb-2">
-                                            {{limit_words(strip_tags($pendingTicket->message),20)}} </p>
-                                        <small class="mb-0 text-muted">{{ @getTimeDifference($pendingTicket->created_at)
-                                            }}</small>
-                                    </div>
-                                </div>
-
-                            </li>
-
-
-
-                            @endforeach
-
-                        </ul>
-                    </div>
-                    @else
-                    @include('admin.partials.not_found')
-                    @endif
-                </div>
-
-                <div class="sidebar-widget">
-                    <h5 class="widget-title">
-                        {{ translate('Top Categories By Tickets') }}
-                    </h5>
-                    @php
-
-                    $ticketCategories = [];
-                    if(count($data['ticket_by_category']) != 0){
-                    $ticketCategories = array_slice($data['ticket_by_category'], 0, 7) ;
-                    }
-
-                    @endphp
-
-                    @if(count($ticketCategories) != 0 )
-                    <div class="widget-body style-two">
-
-                        <ul class="category-list">
-
-                            @foreach( $ticketCategories as $k => $v)
-
-                            <li>
-                                <span>
-                                    {{limit_words($k,10)}}
-                                </span><span>({{$v}})</span>
-                            </li>
-
-                            @endforeach
-                        </ul>
-                    </div>
-                    @else
-                    @include('admin.partials.not_found')
-                    @endif
-                </div>
-
-                <div class="sidebar-widget">
-                    <h5 class="widget-title">
-                        {{ translate('Latest Agent Replies') }}
-                    </h5>
-
-                    @if($data['latest_messages']->count() != 0)
-                    <div class="widget-body" data-simplebar>
-                        <ul class="review-list">
-
-                            @foreach($data['latest_messages'] as $message)
-                            @if($message->admin)
-                            <li>
-                                <div class="image">
-                                    <img src="{{getImageUrl(getFilePaths()['profile']['admin']['path']." /".
-                                        @$message->admin->image) }}"
-                                    alt="{{@$message->admin->image}}">
-                                </div>
-                                <div class="content">
-                                    <p> {{limit_words(strip_tags($message->message),20)}}</p>
-
-                                    <span class="name">
-                                        {{@$message->admin ? $message->admin->name :"N/A"}}
-                                    </span>
-                                </div>
-                            </li>
-                            @endif
-                            @endforeach
-
-
-                        </ul>
-                    </div>
-                    @else
-                    @include('admin.partials.not_found')
-                    @endif
-                </div>
-            </div>
-
-        </div> --}}
     </div>
 </div>
 @endsection

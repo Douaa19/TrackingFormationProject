@@ -58,74 +58,74 @@ class AdminController extends Controller
         $data['tests'] = AgentParticipant::where('agent_id', auth_user()->id)
         ->select('user_id')
         ->get();
-    
+
         $userIds = $data['tests']->pluck('user_id');  // Extract only the user_id column
-    
+
         $data['direct_training_users'] = User::whereIn('id', $userIds)
         ->where('training_type', 'direct_training_(CSF)')
         ->count();
-    
+
         $data['direct_training_total_revenue'] = User::whereIn('id', $userIds)
         ->where('training_type', 'direct_training_(CSF)')
         ->sum('revenue');
-    
+
         $data['direct_training_users_phase_1'] = User::whereIn('id', $userIds)
         ->where('training_type', 'direct_training_(CSF)')
-        ->where('status', 'Phase Qualification')
+        ->where('status', 'confirmation')
         ->count();
-    
+
         $data['direct_training_users_phase_2'] = User::whereIn('id', $userIds)
         ->where('training_type', 'direct_training_(CSF)')
         ->where('status', 'Phase Administrative Préalable')
         ->count();
-    
+
         $data['direct_training_users_phase_3'] = User::whereIn('id', $userIds)
         ->where('training_type', 'direct_training_(CSF)')
         ->where('status', 'Phase Validation')
         ->count();
-    
+
         $data['direct_training_users_phase_4'] = User::whereIn('id', $userIds)
         ->where('status', 'Phase Réalisation')
         ->count();
-    
+
         $data['direct_training_users_phase_5'] = User::whereIn('id', $userIds)
         ->where('training_type', 'direct_training_(CSF)')
         ->where('status', 'Phase Remboursement')
         ->count();
-    
+
         $data['engineering_training_users'] = User::whereIn('id', $userIds)
         ->where('training_type', 'engineering_training_(GIAC+CSF)')
         ->count();
-    
+
     $data['engineering_training_users_total_revenue'] = User::whereIn('id', $userIds)
         ->where('training_type', 'engineering_training_(GIAC+CSF)')
         ->sum('revenue');
-    
+
     $data['engineering_training_users_phase_1'] = User::whereIn('id', $userIds)
         ->where('training_type', 'engineering_training_(GIAC+CSF)')
         ->where('status', 'Phase Qualification')
         ->count();
-    
+
     $data['engineering_training_users_phase_2'] = User::whereIn('id', $userIds)
         ->where('training_type', 'engineering_training_(GIAC+CSF)')
         ->where('status', 'Phase Ingénierie (GIAC)')
         ->count();
-    
+
     $data['engineering_training_users_phase_3'] = User::whereIn('id', $userIds)
         ->where('training_type', 'engineering_training_(GIAC+CSF)')
         ->where('status', 'Phase CSF')
         ->count();
-    
+
     $data['engineering_training_users_phase_4'] = User::whereIn('id', $userIds)
         ->where('training_type', 'engineering_training_(GIAC+CSF)')
         ->where('status', 'Phase Réalisation')
         ->count();
-    
+
     $data['engineering_training_users_phase_5'] = User::whereIn('id', $userIds)
         ->where('training_type', 'engineering_training_(GIAC+CSF)')
         ->where('status', 'Phase Remboursement')
         ->count();
-    
+
     $data['total_user'] = User::filter($request)->count();
     $data['total_categories'] = Category::filter($request)->count();
     $data['total_article'] = Article::filter($request)->count();
@@ -133,46 +133,46 @@ class AdminController extends Controller
     $data['total_agent'] = Admin::where('agent', StatusEnum::true->status())
         ->filter($request)
         ->count();
-    
+
     /** total ticket */
     $totalTickets = SupportTicket::agent()
         ->whereYear('created_at', $currentYear)
         ->filter($request)
         ->count();
-    
+
     $prevTickets = SupportTicket::agent()
         ->whereYear('created_at', $currentYear - 1)
         ->filter($request)
         ->count();
     $data['total_tickets'] = $totalTickets;
-    
+
     $ticketIncrease = round($totalTickets - $prevTickets);
-    
+
     $data['total_tickets_increase'] = ($prevTickets > 0)
         ? round(($ticketIncrease / $prevTickets) * 100, 2)
         : 0;
-    
+
     /** pending ticket */
     $totalPendingTickets = SupportTicket::agent()
         ->pending()
         ->whereYear('created_at', $currentYear)
         ->filter($request)
         ->count();
-    
+
     $prevPendingTickets = SupportTicket::agent()
         ->pending()
         ->whereYear('created_at', $currentYear - 1)
         ->filter($request)
         ->count();
-    
+
     $data['total_pending_tickets'] = $totalPendingTickets;
-    
+
     $pendingTicketIncrease = round($totalPendingTickets - $prevPendingTickets);
-    
+
     $data['total_pending_tickets_increase'] = ($prevPendingTickets > 0)
         ? round(($pendingTicketIncrease / $prevPendingTickets) * 100, 2)
         : 0;
-    
+
 
 
          /** solved ticket */
@@ -369,7 +369,7 @@ class AdminController extends Controller
 
         $data['ticket_mix_graph'] = $this->formatCounter($ticketTypes);
 
-
+        dd($data['direct_training_users_phase_1']);
         return $data;
 
      }
@@ -385,6 +385,9 @@ class AdminController extends Controller
 
         $data['direct_training_users'] = User::where('training_type', 'direct_training_(CSF)')->count();
         $data['direct_training_total_revenue'] = User::where('training_type', 'direct_training_(CSF)')->sum('revenue');
+        $data['direct_training_users_phase_0'] = User::where('training_type', 'direct_training_(CSF)')
+            ->where('status', 'confirmation')
+            ->count();
         $data['direct_training_users_phase_1'] = User::where('training_type', 'direct_training_(CSF)')
             ->where('status', 'Phase Qualification')
             ->count();
@@ -402,6 +405,9 @@ class AdminController extends Controller
             ->count();
         $data['engineering_training_users'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')->count();
         $data['engineering_training_users_total_revenue'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')->sum('revenue');
+        $data['engineering_training_users_phase_0'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
+            ->where('status', 'confirmation')
+            ->count();
         $data['engineering_training_users_phase_1'] = User::where('training_type', 'engineering_training_(GIAC+CSF)')
             ->where('status', 'Phase Qualification')
             ->count();
