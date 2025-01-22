@@ -120,12 +120,12 @@
                                                 </div>
                                                 <div class="flex-grow-1 ms-3">
                                                     <h2 class="mb-0">
-                                                        {{ translate('Ingénierie + Formation') }}
+                                                        {{ translate('Formation directe (CSF)') }}
                                                     </h2>
                                                 </div>
                                             </div>
                                             <h5 class="text-muted text-uppercase fs-5 mt-2">
-                                                {{ translate('Total Clients') }} {{$data['engineering_training_users']}}
+                                                {{ translate('Total Clients') }} {{$data['direct_training_users']}}
                                             </h5>
                                         </div>
                                     </div>
@@ -152,7 +152,7 @@
                                                     </div>
                                                 </div>
                                                 <h5 class="text-muted text-uppercase fs-5 mt-2">
-                                                    {{$data['engineering_training_users_total_revenue']}} DHS
+                                                    {{$data['direct_training_total_revenue']}} DHS
                                                 </h5>
                                             </div>
                                         </div>
@@ -175,9 +175,9 @@
                                 <div class="d-flex align-items-end justify-content-between mt-1">
                                     <div>
                                         <h2 class="fs-22 mb-4">
-                                            {{ num_short($data['engineering_training_users_phase_0']) }}
+                                            {{ num_short($data['direct_training_users_phase_0']) }}
                                         </h2>
-                                        <a href="{{route('admin.user.phase.list', ['training_type' => 'engineering_training_(GIAC+CSF)', 'phase' => 'confirmation'])}}"
+                                        <a href="{{route('admin.user.phase.list', ['training_type' => 'direct_training_(csf)', 'phase' => 'confirmation'])}}"
                                             class="text-decoration-underline">
                                             {{translate("View All")}}
                                         </a>

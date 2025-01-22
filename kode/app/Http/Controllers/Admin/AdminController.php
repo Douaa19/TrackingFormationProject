@@ -69,9 +69,14 @@ class AdminController extends Controller
         ->where('training_type', 'direct_training_(CSF)')
         ->sum('revenue');
 
-        $data['direct_training_users_phase_1'] = User::whereIn('id', $userIds)
+        $data['direct_training_users_phase_0'] = User::whereIn('id', $userIds)
         ->where('training_type', 'direct_training_(CSF)')
         ->where('status', 'confirmation')
+        ->count();
+
+        $data['direct_training_users_phase_1'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'direct_training_(CSF)')
+        ->where('status', 'Phase Qualification')
         ->count();
 
         $data['direct_training_users_phase_2'] = User::whereIn('id', $userIds)
@@ -101,7 +106,17 @@ class AdminController extends Controller
         ->where('training_type', 'engineering_training_(GIAC+CSF)')
         ->sum('revenue');
 
-    $data['engineering_training_users_phase_1'] = User::whereIn('id', $userIds)
+    $data['engineering_training_users_phase_0'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'engineering_training_(GIAC+CSF)')
+        ->where('status', 'confirmation')
+        ->count();
+
+        $data['engineering_training_users_phase_1'] = User::whereIn('id', $userIds)
+        ->where('training_type', 'engineering_training_(GIAC+CSF)')
+        ->where('status', 'Phase Qualification')
+        ->count();
+
+        $data['engineering_training_users_phase_1'] = User::whereIn('id', $userIds)
         ->where('training_type', 'engineering_training_(GIAC+CSF)')
         ->where('status', 'Phase Qualification')
         ->count();
@@ -369,7 +384,6 @@ class AdminController extends Controller
 
         $data['ticket_mix_graph'] = $this->formatCounter($ticketTypes);
 
-        dd($data['direct_training_users_phase_1']);
         return $data;
 
      }
