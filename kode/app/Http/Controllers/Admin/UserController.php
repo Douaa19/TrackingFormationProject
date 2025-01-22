@@ -40,8 +40,8 @@ class UserController extends Controller
         $users = User::all();
         $agents = Admin::where('agent', StatusEnum::true->status())->get();
         $agentsUsers = AgentParticipant::all();
-       
-        
+
+
         return view('admin.user.index', compact('title', 'users', 'agents', 'agentsUsers'));
 
     }
@@ -185,10 +185,15 @@ class UserController extends Controller
 
         $this->validate($request, [
             'name'    => 'required|max:255',
-            'status'    => 'required|max:255',
             'email'   => 'required|max:255|unique:users,email,'.request()->id,
-            'phone'   => 'required|max:100|unique:users,phone,'.request()->id,
             'image'   => [new FileExtentionCheckRule(json_decode(site_settings('mime_types'),true))],
+            'phone'   => 'required|max:100|unique:users,phone,'.request()->id,
+            'whatsapp_number'   => 'required|max:100|',
+            'city'    => 'required|max:255',
+            'cnss'    => 'required|max:255',
+            'status'  => 'required|max:255',
+            'garage_name' => 'required|max:255',
+            'revenue' => 'required|max:255',
             'address' =>  Rule::requiredIf(site_settings("auto_ticket_assignment") == '1' && site_settings('geo_location') == 'map_base'),
         ],
         [
@@ -197,15 +202,26 @@ class UserController extends Controller
             'email.unique'     => translate('Email Feild Must Be Unique'),
             'phone.required'   => translate('Phone Feild Is Required'),
             'phone.unique'     => translate('Phone Feild Must Be Unique'),
+            'whatsapp_number.required'   => translate('Whatsapp Number Feild Is Required'),
+            'city.required'    => translate('Select Your City'),
+            'cnss.required'    => translate('CNSS Feild Is Required'),
+            'status.required'      => translate('Select Status'),
+            'garage_name.required' => translate('Garage Name Feild Is Required'),
+            'revenue.required' => translate('Revenue Feild Is Required'),
             'address.required' => translate('Select Your Address'),
 
         ]);
         $address_data    =  (new AgentController())->get_address($request);
         $user            =  User::where('id',request()->id)->first();
         $user->name      =  $request->name;
-        $user->status      =  $request->status;
         $user->email     =  $request->email;
         $user->phone     =  $request->phone;
+        $user->whatsapp_number =  $request->whatsapp_number ;
+        $user->city      =  $request->city ;
+        $user->cnss      =  $request->cnss ;
+        $user->status    =  $request->status;
+        $user->garage_name =  $request->garage_name;
+        $user->revenue   =  $request->revenue;
         $user->address   =  json_encode($address_data);
         $user->longitude =  isset($address_data['lon']) ?  $address_data['lon'] : null;
         $user->latitude	 =  isset($address_data['lat']) ?  $address_data['lat'] : null;
@@ -281,14 +297,14 @@ class UserController extends Controller
         $message = translate('User Not Found');
         $user    =  User::where('id',$id)->first();
         if($user){
-            if($user->status    == (StatusEnum::true)->status()){
+            // if($user->status    == (StatusEnum::true)->status()){
                 $user->verified = (StatusEnum::true)->status();
                 $user->save();
                 Auth::guard('web')->loginUsingId($user->id);
                 return redirect()->route('user.dashboard')
                 ->with('success',translate('SuccessFully Login As a User'));
-            }
-            $message = translate('Active User Status Then Try Again');
+            // }
+            // $message = translate('Active User Status Then Try Again');
         }
         return back()->with('error',  $message);
     }
@@ -331,10 +347,10 @@ class UserController extends Controller
         $data['tests'] = AgentParticipant::where('agent_id', auth_user()->id)
         ->select('user_id')
         ->get();
-    
-        $userIds = $data['tests']->pluck('user_id'); 
-        
-        
+
+        $userIds = $data['tests']->pluck('user_id');
+
+
         if(auth_user()->agent){
             $users = User::whereIn('id', $userIds)
                     ->where('training_type', $training_type)
@@ -347,7 +363,7 @@ class UserController extends Controller
         }
         $agents = Admin::where('agent', StatusEnum::true->status())->get();
         $agentsUsers = AgentParticipant::all();
-        
+
         return view('admin.user.index', compact('title', 'users','agents','agentsUsers'));
 
     }
@@ -359,18 +375,18 @@ class UserController extends Controller
             'user_id' => 'required|exists:users,id',
             'agent_id' => 'required|exists:admins,id',
         ]);
-    
+
         try {
 
-                
+
 
             DB::beginTransaction();
-    
+
             $exists = DB::table('agent_participants')
                 ->where('agent_id', $request->agent_id)
                 ->where('user_id', $request->user_id)
                 ->exists();
-    
+
             if (!$exists) {
                 DB::table('agent_participants')->insert([
                     'agent_id' => $request->agent_id,
@@ -398,9 +414,9 @@ class UserController extends Controller
                     "assigned_by" =>  auth_user()->id,
                 ]);
             }
-    
+
             DB::commit();
-    
+
             return redirect()->back()->with('success', translate('User successfully assigned to agent'));
         } catch (\Exception $e) {
             DB::rollback();
