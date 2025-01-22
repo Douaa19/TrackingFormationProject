@@ -68,19 +68,30 @@
                         $phases = $data['trainingsAndStatus'][$trainingType];
                         $currentStatus = $data['user']['status'];
                         $statusReached = false;
+                        $isConfirmation = $currentStatus === 'confirmation';
                     @endphp
 
                     @foreach ($phases as $index => $phase)
                                         @php
-                                            // Determine the class for the background color
-                                            if ($phase == $currentStatus) {
-                                                $cardClass = 'bg-warning'; // Current status
-                                                $statusReached = true; // Mark the current status as reached
-                                            } elseif (!$statusReached) {
-                                                $cardClass = 'bg-success'; // Before the current status
-                                            } else {
-                                                $cardClass = 'bg-white'; // After the current status
+                                            $cardClass = "bg-white";
+
+                                            if (!$isConfirmation) {
+                                                if ($phase == $currentStatus) {
+                                                    $cardClass = 'bg-warning';
+                                                    $statusReached = true;
+                                                } elseif (!$statusReached) {
+                                                    $cardClass = 'bg-success';
+                                                }
                                             }
+
+                                            // if ($phase == $currentStatus) {
+                                            //     $cardClass = 'bg-warning';
+                                            //     $statusReached = true;
+                                            // } elseif (!$statusReached) {
+                                            //     $cardClass = 'bg-success';
+                                            // } else {
+                                            //     $cardClass = 'bg-white';*
+                                            // }
                                         @endphp
                                         <div class="col-xl-2 col-md-4 m-0 p-0">
                                             <div class="card card-animate {{ $cardClass }}">

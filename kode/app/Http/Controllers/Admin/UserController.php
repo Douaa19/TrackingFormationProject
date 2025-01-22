@@ -154,6 +154,7 @@ class UserController extends Controller
        $optionsStatus = [];
        if($user->training_type == "direct_training_(CSF)" ) {
             $optionsStatus =   [
+            'confirmation',
             'Phase Qualification',
             'Phase Administrative Préalable',
             'Phase Validation',
@@ -162,6 +163,7 @@ class UserController extends Controller
             ];
         }else{
             $optionsStatus =   [
+                'confirmation',
                 'Phase Qualification',
                 'Phase Ingénierie (GIAC)',
                 'Phase CSF',
