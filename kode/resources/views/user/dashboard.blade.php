@@ -67,48 +67,55 @@
                         $trainingType = $data['user']['training_type'];
                         $phases = $data['trainingsAndStatus'][$trainingType];
                         $currentStatus = $data['user']['status'];
-                        $statusReached = false;
-                        $isConfirmation = $currentStatus === 'confirmation';
                     @endphp
 
-                    @foreach ($phases as $index => $phase)
-                                        @php
-                                            $cardClass = "bg-white";
+                    @if ($currentStatus === 'confirmation')
+                        <div class="col-xl-8">
+                            <div class="col-xl-12">
+                                <div class="card py-2">
+                                    <div class="card-body text-center">
+                                        <h5 class="">{{translate('You are in the confirmation phase!')}}</h5>
+                                        <p class="fs-6 text-uppercase text-muted mb-0">
+                                            {{translate('Please wait while your status is updated. Check back later for updates.')}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                                    {{-- Display the status cards --}}
+                                    @php $statusReached = false; @endphp
 
-                                            if (!$isConfirmation) {
-                                                if ($phase == $currentStatus) {
-                                                    $cardClass = 'bg-warning';
-                                                    $statusReached = true;
-                                                } elseif (!$statusReached) {
-                                                    $cardClass = 'bg-success';
-                                                }
-                                            }
-
-                                            // if ($phase == $currentStatus) {
-                                            //     $cardClass = 'bg-warning';
-                                            //     $statusReached = true;
-                                            // } elseif (!$statusReached) {
-                                            //     $cardClass = 'bg-success';
-                                            // } else {
-                                            //     $cardClass = 'bg-white';*
-                                            // }
-                                        @endphp
-                                        <div class="col-xl-2 col-md-4 m-0 p-0">
-                                            <div class="card card-animate {{ $cardClass }}">
-                                                <div class="card-body">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-grow-1 overflow-hidden">
-                                                            <p
-                                                                class="text-uppercase fw-medium text-truncate mb-0 {{ $phase == $currentStatus ? 'text-white' : ($cardClass == 'bg-success' ? 'text-white' : 'text-muted') }}">
-                                                                {{ translate(ucwords(str_replace('_', ' ', $phase))) }}
-                                                            </p>
+                                    @foreach ($phases as $index => $phase)
+                                                    @php
+                                                        // Determine the class for the background color
+                                                        if ($phase == $currentStatus) {
+                                                            $cardClass = 'bg-warning'; // Current status
+                                                            $statusReached = true; // Mark the current status as reached
+                                                        } elseif (!$statusReached) {
+                                                            $cardClass = 'bg-success'; // Before the current status
+                                                        } else {
+                                                            $cardClass = 'bg-white'; // After the current status
+                                                        }
+                                                    @endphp
+                                                    <div class="col-xl-2 col-md-4 m-0 p-0">
+                                                        <div class="card card-animate {{ $cardClass }}">
+                                                            <div class="card-body">
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="flex-grow-1 overflow-hidden">
+                                                                        <p
+                                                                            class="text-uppercase fw-medium text-truncate mb-0 {{ $phase == $currentStatus ? 'text-white' : ($cardClass == 'bg-success' ? 'text-white' : 'text-muted') }}">
+                                                                            {{ translate(ucwords(str_replace('_', ' ', $phase))) }}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                    @endforeach
+                                    @endforeach
+                    @endif
                 </div>
+
                 <div class="row d-flex justify-content-center">
                     @if ($data['agent_user'])
                         <div class="col-xl-6">
