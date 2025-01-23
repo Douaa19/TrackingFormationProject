@@ -80,7 +80,7 @@
                     </thead>
                     <tbody>
                         @forelse($agents as $agent)
-
+                            @if(($agent->agent == 1 || $agent->agent == 2) && $agent->super_agent == 0)
                             <tr>
                                 <td>
                                     {{$loop->iteration}}
@@ -89,7 +89,7 @@
                                     <img src="{{getImageUrl(getFilePaths()['profile']['admin']['path']."/". $agent->image) }}" alt="{{ $agent->image}}" class="avatar-xs rounded-3 me-2">
                                     <div>
                                         <h5 class="fs-13 mb-0">
-                                            {{  $agent->name}}
+                                            {{  $agent->super_agent}}
                                         </h5>
                                     </div>
                                 </td>
@@ -160,11 +160,11 @@
 
                                 </td>
                             </tr>
+                            @endif
                             @empty
 
-                              @include('admin.partials.not_found')
-
-                            @endforelse
+                            @include('admin.partials.not_found')
+                        @endforelse
                     </tbody>
                 </table>
 			</div>

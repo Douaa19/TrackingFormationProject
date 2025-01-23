@@ -45,7 +45,6 @@ class AgentController extends Controller
             'agents'=> Admin::with(['response'])
                             ->withCount(['response','tickets'])
                             ->latest()
-                            ->agent()
                             ->get()
         ]);
 
