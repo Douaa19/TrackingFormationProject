@@ -134,7 +134,7 @@
                         </div>
                     </div>
 
-                    @if($agent_boolean == 0)
+                    @if($agent_boolean !== 1)
                         <div class="col-xl-2 col-md-4">
                             <div class="card crm-widget">
                                 <div class="card-body p-0">
@@ -389,7 +389,7 @@
                         </div>
                     </div>
 
-                    @if($agent_boolean == 0)
+                    @if($agent_boolean !== 1)
                         <div class="col-xl-2 col-md-4">
                             <div class="card crm-widget">
                                 <div class="card-body p-0">
