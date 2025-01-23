@@ -147,7 +147,7 @@ class AgentController extends Controller
         return view('admin.agent.edit',[
 
             'title'      => "Agent Update",
-            'agent'      => Admin::agent()->where('id',$id)->first(),
+            'agent'      => Admin::where('id',$id)->first(),
             'categories' => Category::active()
              ->where("ticket_display_flag",StatusEnum::true->status())->get()
         ]);
