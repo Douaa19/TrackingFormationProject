@@ -89,7 +89,7 @@
                                     <img src="{{getImageUrl(getFilePaths()['profile']['admin']['path']."/". $agent->image) }}" alt="{{ $agent->image}}" class="avatar-xs rounded-3 me-2">
                                     <div>
                                         <h5 class="fs-13 mb-0">
-                                            {{  $agent->super_agent}}
+                                            {{  $agent->name}}
                                         </h5>
                                     </div>
                                 </td>
