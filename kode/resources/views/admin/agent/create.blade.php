@@ -57,10 +57,10 @@
                                     {{translate("Agent")}}
                                 </option>
                                 <option value="1">
-                                    {{translate("Super agent")}}
+                                    {{translate("Super Agent")}}
                                 </option>
                                 <option value="2">
-                                    {{translate("Admin")}}
+                                    {{translate("Supervisor")}}
                                 </option>
                             </select>
 

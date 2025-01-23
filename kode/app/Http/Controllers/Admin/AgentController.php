@@ -26,7 +26,7 @@ class AgentController extends Controller
         $this->middleware(function($request,$next){
 
             if(auth_user()->agent == (StatusEnum::true)->status()){
-                abort(403,unauthorized_message()); 
+                abort(403,unauthorized_message());
             }
             return $next($request);
         });
@@ -48,7 +48,7 @@ class AgentController extends Controller
                             ->agent()
                             ->get()
         ]);
-        
+
     }
 
     /**
@@ -57,14 +57,14 @@ class AgentController extends Controller
      * @return View
      */
     public function create() :View {
-        
+
         return view('admin.agent.create',[
 
             'title'      => "Create Agent",
             'categories' => Category::active()
               ->where("ticket_display_flag",StatusEnum::true->status())->get()
         ]);
-        
+
     }
 
     /**
@@ -82,11 +82,16 @@ class AgentController extends Controller
         $agent->email         =   $request->email;
         $agent->phone         =   $request->phone;
         $agent->password      =   Hash::make($request->password);
-        $agent->agent         =   $request->type  == 0 ? (StatusEnum::true)->status() : (StatusEnum::false)->status() ;
-        $agent->super_agent   =   $request->type;
-        $agent->status        =  (StatusEnum::true)->status();
-        $agent->permissions   =  $request->type== 1 ? json_encode(@$request->permissions ?? []) : null;
-        $agent->categories    =  $request->type== 1 ? json_encode(@$request->categories ?? []) : null;
+        $agent->agent = $request->type == 0 ? (StatusEnum::true)->status() : ($request->type == 1 ? (StatusEnum::false)->status() : 2);
+        $agent->status = (StatusEnum::true)->status();
+        if(in_array($request->type, [1,2])) {
+            $agent->permissions = json_encode(@$request->permissions ?? []);
+            $agent->categories = json_encode(@$request->categories ?? []);
+        } else {
+            $agent->permissions = null;
+            $agent->categories = null;
+        }
+
         $agent->address       =  json_encode($address_data);
         $agent->longitude	  =  isset($address_data['lon']) ?  $address_data['lon'] : null;
         $agent->latitude	  =  isset($address_data['lat']) ?  $address_data['lat'] : null;
@@ -128,7 +133,7 @@ class AgentController extends Controller
             return [];
         }
 
-       
+
 
      }
 
@@ -141,7 +146,7 @@ class AgentController extends Controller
      public function edit(int | string $id) :View {
 
         return view('admin.agent.edit',[
-            
+
             'title'      => "Agent Update",
             'agent'      => Admin::agent()->where('id',$id)->first(),
             'categories' => Category::active()
@@ -164,7 +169,7 @@ class AgentController extends Controller
         }
         $agent->name     =  $request->name;
         $agent->username = $request->username;
-        
+
         $agent->email        = $request->email;
         $agent->phone        = $request->phone;
         $agent->super_agent  = $request->type;
@@ -174,7 +179,7 @@ class AgentController extends Controller
         $agent->longitude	 =  isset($address_data['lon']) ?  $address_data['lon'] : null;
         $agent->latitude	 =  isset($address_data['lat']) ?  $address_data['lat'] : null;
         $agent->categories   =  json_encode(@$request->categories ?? []);
-        
+
         if($request->hasFile('image')){
             try{
                 $removefile   = $agent->image ?: null;
@@ -185,14 +190,14 @@ class AgentController extends Controller
         }
         $agent->save();
         return back()->with('success', translate('Agent Updated Successfully'));
-        
+
     }
-    
+
 
     /**
      * Update A Agent Status
      *
-     * @param int $id 
+     * @param int $id
      * @param Enum $status
      * @return JsonResponse
      */
@@ -200,7 +205,7 @@ class AgentController extends Controller
 
 
         $modelInfo = [
-            
+
             'table'  => (new Admin())->getTable(),
             'key'    => "id",
             'values' => StatusEnum::toArray()
@@ -228,7 +233,7 @@ class AgentController extends Controller
     /**
      * Update A Agent Status
      *
-     * @param int $id 
+     * @param int $id
      * @param Enum $status
      * @return JsonResponse
      */
@@ -258,7 +263,7 @@ class AgentController extends Controller
             $response['message']  = translate('Status Updated Successfully');
 
         }
-   
+
         return response()->json($response);
     }
 
@@ -269,7 +274,7 @@ class AgentController extends Controller
 
     /**
      * Delete a New Agent
-     * 
+     *
      * @param int $id
      *
      */
@@ -381,16 +386,16 @@ class AgentController extends Controller
         ->where('admin_id',$agent->id)
         ->where('user_id',  $user->id)
         ->first();
-        
+
         if($chat){
-            
+
             $chat->delete();
-            $pusher_settings =  json_decode(site_settings('pusher_settings'),true);   
+            $pusher_settings =  json_decode(site_settings('pusher_settings'),true);
             $options = array(
                 'cluster' => $pusher_settings['app_cluster'],
                 'useTLS'  => true,
             );
-    
+
             $pusher = new Pusher(
                 $pusher_settings['app_key'], $pusher_settings['app_secret'], $pusher_settings['app_id'], $options
             );
@@ -404,13 +409,13 @@ class AgentController extends Controller
                 'receiver' => $user->id,
                 'user_id'  => $user->id,
                 'agent_id' => $agent->id,
-            ]; 
+            ];
             $pusher->trigger($pusher_settings['chanel'], $pusher_settings['event'], $push_data);
             return json_encode([
                 'status'   => true,
                 'message'  => translate("Message Deleted"),
                 'agent_id' => $agent->id,
-                'user_id'  => $user->id 
+                'user_id'  => $user->id
             ]);
         }
 
@@ -455,7 +460,7 @@ class AgentController extends Controller
         $agent->blocked_user = json_encode($block_list_user);
         $agent->save();
         $pusher_settings     =  json_decode(site_settings('pusher_settings'),true);
- 
+
         $options = array(
             'cluster' => $pusher_settings['app_cluster'],
             'useTLS' => true,
@@ -469,7 +474,7 @@ class AgentController extends Controller
             'receiver'       => $request->user_id,
             'user_id'        => $request->user_id,
             'agent_id'       => $agent->id,
-        ]; 
+        ];
         $pusher->trigger($pusher_settings['chanel'], $pusher_settings['event'], $push_data);
 
         return json_encode([
@@ -477,7 +482,7 @@ class AgentController extends Controller
             "status"     => $status,
             "message"    => $message,
         ]);
-  
+
     }
 
     /**
@@ -504,7 +509,7 @@ class AgentController extends Controller
             'receiver'       => $request->user_id,
             'user_id'        => $request->user_id,
             'agent_id'       =>  $request->agent_id,
-        ]; 
+        ];
         $pusher->trigger($pusher_settings['chanel'], $pusher_settings['event'], $push_data);
 
         return back()->with('success',translate('Conversation Deleted'));

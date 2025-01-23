@@ -31,7 +31,7 @@ class AgentRequest extends FormRequest
             'email'       => "required | unique:admins,email,".request()->id,
             'username'    => "required | unique:admins,username,".request()->id,
             'phone'       => "required",
-            'type'        => "required|in:1,0",
+            'type'        => "required|in:2,1,0",
             'password'    => [Rule::requiredIf(!request()->id),'confirmed','min:5'],
             'categories'  => 'nullable|array',
             'permissions' => 'nullable|array',

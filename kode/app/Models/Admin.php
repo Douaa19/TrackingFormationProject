@@ -36,12 +36,12 @@ class Admin extends Authenticatable
         return $this->belongsToMany(Group::class, 'group_members','agent_id','group_id')->latest();
 
     }
-    
+
     public function response(){
 
         return $this->hasMany(AgentResponse::class,'agent_id',"id");
     }
-    
+
     public function scopeActive($q){
 
         return $q->where('status',(StatusEnum::true)->status());
@@ -60,10 +60,10 @@ class Admin extends Authenticatable
 
     /**
      * admin , ticket relation
-     * 
+     *
      */
      public function tickets(){
-        
+
         return $this->belongsToMany(SupportTicket::class, 'agent_tickets','agent_id','ticket_id')
                           ->withPivot(['short_notes']);
      }
@@ -82,7 +82,7 @@ class Admin extends Authenticatable
     }
 
     public function scopeFilter($q,$request){
-        
+
         return $q->when($request->filter && $request->filter != 'all',function($query) use($request){
             $date = \Carbon\Carbon::today()->subDays(pastDate($request->filter));
             return $query->where('created_at','>=',$date);

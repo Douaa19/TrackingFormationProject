@@ -125,7 +125,8 @@
                         </a>
 
                         <div class="pt-1 collapse  {{ ((request()->routeIs('admin.category.*') && !request()->routeIs('admin.category.article.show') && !request()->routeIs('admin.category.article.create')) || request()->routeIs('admin.setting.ticket.*') || request()->routeIs('admin.trigger.*') || request()->routeIs('admin.canned.*') || request()->routeIs('admin.priority.*')) || request()->routeIs('admin.ticket-status.*') || request()->routeIs('admin.department.*') ? "show" : ""  }}
-                                            menu-dropdown" id="ticketConfiguration">
+                                                                                                menu-dropdown"
+                            id="ticketConfiguration">
                             <ul class="nav nav-sm flex-column gap-1">
                                 <li class="nav-item">
                                     <a href="{{route('admin.setting.ticket.configuration')}}"
@@ -143,8 +144,9 @@
                                 @if(check_agent('manage_ticket_status'))
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                        {{request()->routeIs('admin.ticket-status.*') ? 'active' : ''}}
-                                                                        " href="{{route('admin.ticket-status.list')}}">
+                                                                                                                                                                                {{request()->routeIs('admin.ticket-status.*') ? 'active' : ''}}
+                                                                                                                                                                                "
+                                            href="{{route('admin.ticket-status.list')}}">
                                             {{translate('Ticket Status')}}
                                         </a>
                                     </li>
@@ -154,8 +156,9 @@
                                 @if(check_agent('manage_product'))
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                        {{request()->routeIs('admin.department.*') ? 'active' : ''}}
-                                                                        " href="{{route('admin.department.list')}}">
+                                                                                                                                                                                {{request()->routeIs('admin.department.*') ? 'active' : ''}}
+                                                                                                                                                                                "
+                                            href="{{route('admin.department.list')}}">
                                             {{translate('Products')}}
                                         </a>
                                     </li>
@@ -165,8 +168,9 @@
                                 @if(check_agent('manage_priorites'))
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                        {{request()->routeIs('admin.priority.*') ? 'active' : ''}}
-                                                                        " href="{{route('admin.priority.list')}}">
+                                                                                                                                                                                {{request()->routeIs('admin.priority.*') ? 'active' : ''}}
+                                                                                                                                                                                "
+                                            href="{{route('admin.priority.list')}}">
                                             {{translate('Ticket Priority')}}
                                         </a>
                                     </li>
@@ -176,8 +180,9 @@
                                 @if(check_agent('manage_category'))
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                        {{request()->routeIs('admin.category.*') && !request()->routeIs('admin.category.article.show') && !request()->routeIs('admin.category.article.create') ? 'active' : ''}}
-                                                                        " href="{{route('admin.category.index')}}">
+                                                                                                                                                                                {{request()->routeIs('admin.category.*') && !request()->routeIs('admin.category.article.show') && !request()->routeIs('admin.category.article.create') ? 'active' : ''}}
+                                                                                                                                                                                "
+                                            href="{{route('admin.category.index')}}">
                                             {{translate('Ticket Categories')}}
                                         </a>
                                     </li>
@@ -187,8 +192,9 @@
 
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                        {{request()->routeIs('admin.canned.*') ? 'active' : ''}}
-                                                                        " href="{{route('admin.canned.reply.list')}}">
+                                                                                                                                                                                {{request()->routeIs('admin.canned.*') ? 'active' : ''}}
+                                                                                                                                                                                "
+                                            href="{{route('admin.canned.reply.list')}}">
                                             {{translate('Predefined Response')}}
                                         </a>
                                     </li>
@@ -221,23 +227,26 @@
 
                                 <li class="nav-item">
                                     <a class="nav-link
-                                                        {{request()->routeIs('admin.agent.create') ? 'active' : ''}}
-                                                        " href="{{route('admin.agent.create')}}">
+                                                                                                            {{request()->routeIs('admin.agent.create') ? 'active' : ''}}
+                                                                                                            "
+                                        href="{{route('admin.agent.create')}}">
                                         {{translate('Add New')}}
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link
-                                                        {{request()->routeIs('admin.agent.index') || request()->routeIs('admin.agent.edit') || request()->routeIs('admin.agent.chat.list') ? 'active' : ''}}
-                                                        " href="{{route('admin.agent.index')}}">
+                                                                                                            {{request()->routeIs('admin.agent.index') || request()->routeIs('admin.agent.edit') || request()->routeIs('admin.agent.chat.list') ? 'active' : ''}}
+                                                                                                            "
+                                        href="{{route('admin.agent.index')}}">
                                         {{translate('Agent List')}}
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
                                     <a class="nav-link
-                                                        {{request()->routeIs('admin.group.*') ? 'active' : ''}}
-                                                        " href="{{route('admin.group.index')}}">
+                                                                                                            {{request()->routeIs('admin.group.*') ? 'active' : ''}}
+                                                                                                            "
+                                        href="{{route('admin.group.index')}}">
                                         {{translate('Agent Group')}}
                                     </a>
                                 </li>
@@ -267,16 +276,18 @@
                                 @if($agent_boolean == 0)
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                        {{request()->routeIs('admin.user.create') ? 'active' : ''}}
-                                                                        " href="{{route('admin.user.create')}}">
+                                                                                                                                                                                {{request()->routeIs('admin.user.create') ? 'active' : ''}}
+                                                                                                                                                                                "
+                                            href="{{route('admin.user.create')}}">
                                             {{translate('Add New')}}
                                         </a>
                                     </li>
                                 @endif
                                 <li class="nav-item">
                                     <a class="nav-link
-                                                        {{request()->routeIs('admin.user.index') ? 'active' : ''}}
-                                                        " href="{{route('admin.user.index')}}">
+                                                                                                            {{request()->routeIs('admin.user.index') ? 'active' : ''}}
+                                                                                                            "
+                                        href="{{route('admin.user.index')}}">
                                         {{translate('User List')}}
                                     </a>
                                 </li>
@@ -310,8 +321,9 @@
                                 @if(check_agent('manage_frontends'))
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                            {{request()->routeIs('admin.frontend.*') ? 'active' : ''}}
-                                                                        " href="{{route('admin.frontend.list')}}">
+                                                                                                                                                                                    {{request()->routeIs('admin.frontend.*') ? 'active' : ''}}
+                                                                                                                                                                                "
+                                            href="{{route('admin.frontend.list')}}">
 
                                             {{translate('Section Manage')}}
                                         </a>
@@ -319,8 +331,9 @@
 
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                            {{request()->routeIs('admin.menu.*') ? 'active' : ''}}
-                                                                        " href="{{route('admin.menu.list')}}">
+                                                                                                                                                                                    {{request()->routeIs('admin.menu.*') ? 'active' : ''}}
+                                                                                                                                                                                "
+                                            href="{{route('admin.menu.list')}}">
 
                                             {{translate('Menu Manage')}}
 
@@ -333,8 +346,9 @@
                                 @if(check_agent('manage_pages'))
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                            {{request()->routeIs('admin.page.*') ? 'active' : ''}}
-                                                                        " href="{{route('admin.page.list')}}">
+                                                                                                                                                                                    {{request()->routeIs('admin.page.*') ? 'active' : ''}}
+                                                                                                                                                                                "
+                                            href="{{route('admin.page.list')}}">
 
                                             {{translate('Dynamic Pages')}}
 
@@ -346,8 +360,9 @@
                                 @if(check_agent('manage_faqs'))
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                            {{request()->routeIs('admin.faq.*') ? 'active' : ''}}
-                                                                        " href="{{route('admin.faq.list')}}">
+                                                                                                                                                                                    {{request()->routeIs('admin.faq.*') ? 'active' : ''}}
+                                                                                                                                                                                "
+                                            href="{{route('admin.faq.list')}}">
 
                                             {{translate('FAQ Section')}}
 
@@ -367,8 +382,9 @@
 
                     <li class="nav-item">
                         <a class="nav-link menu-link
-                                            {{request()->routeIs('admin.knowledgebase.*') ? 'active' : ''}}
-                                        " href="{{route('admin.knowledgebase.list')}}">
+                                                                                                {{request()->routeIs('admin.knowledgebase.*') ? 'active' : ''}}
+                                                                                            "
+                            href="{{route('admin.knowledgebase.list')}}">
                             <i class="ri-article-line"></i> <span>
                                 {{ucfirst(translate('knowledgebase'))}}
                             </span>
@@ -395,16 +411,18 @@
 
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                            {{request()->routeIs('admin.article.category') || request()->routeIs('admin.article.category.edit') ? 'active' : ''}}
-                                                                        " href="{{route('admin.article.category')}}">
+                                                                                                                                                                                    {{request()->routeIs('admin.article.category') || request()->routeIs('admin.article.category.edit') ? 'active' : ''}}
+                                                                                                                                                                                "
+                                            href="{{route('admin.article.category')}}">
                                             {{translate('Article Topics')}}
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                            {{ !request()->routeIs('admin.article.category.edit') && request()->routeIs('admin.article.category.*') ? 'active' : ''}}
-                                                                        " href="{{route('admin.article.category.list')}}">
+                                                                                                                                                                                    {{ !request()->routeIs('admin.article.category.edit') && request()->routeIs('admin.article.category.*') ? 'active' : ''}}
+                                                                                                                                                                                "
+                                            href="{{route('admin.article.category.list')}}">
 
                                             {{translate('Article Categories')}}
 
@@ -413,8 +431,9 @@
 
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                            {{ request()->routeIs('admin.article.create') || request()->routeIs('admin.category.article.create') ? 'active' : ''}}
-                                                                        " href="{{route('admin.article.create')}}">
+                                                                                                                                                                                    {{ request()->routeIs('admin.article.create') || request()->routeIs('admin.category.article.create') ? 'active' : ''}}
+                                                                                                                                                                                "
+                                            href="{{route('admin.article.create')}}">
 
                                             {{translate('Add New')}}
                                         </a>
@@ -422,8 +441,9 @@
 
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                            {{ request()->routeIs('admin.article.list') || request()->routeIs('admin.article.edit') || request()->routeIs('admin.category.article') || request()->routeIs('admin.category.article.show') ? 'active' : ''}}
-                                                                        " href="{{route('admin.article.list')}}">
+                                                                                                                                                                                    {{ request()->routeIs('admin.article.list') || request()->routeIs('admin.article.edit') || request()->routeIs('admin.category.article') || request()->routeIs('admin.category.article.show') ? 'active' : ''}}
+                                                                                                                                                                                "
+                                            href="{{route('admin.article.list')}}">
 
                                             {{translate('Article List')}}
                                         </a>
@@ -455,16 +475,18 @@
                                 @if(check_agent('manage_frontends'))
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                           {{request()->routeIs('admin.contact.list') ? 'active' : ''}}
-                                                                       " href="{{route('admin.contact.list')}}">
+                                                                                                                                                                                   {{request()->routeIs('admin.contact.list') ? 'active' : ''}}
+                                                                                                                                                                               "
+                                            href="{{route('admin.contact.list')}}">
                                             {{translate('Contact Message')}}
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                           {{request()->routeIs('admin.contact.subscriber') ? 'active' : ''}}
-                                                                       " href="{{route('admin.contact.subscriber')}}">
+                                                                                                                                                                                   {{request()->routeIs('admin.contact.subscriber') ? 'active' : ''}}
+                                                                                                                                                                               "
+                                            href="{{route('admin.contact.subscriber')}}">
                                             {{translate('Subscribers')}}
                                         </a>
                                     </li>
@@ -492,7 +514,8 @@
                             </span>
                         </a>
                         <div class="collapse {{request()->routeIs('admin.mail.*') ? "show" : ""   }}
-                                        menu-dropdown mt-1" id="emailConfiguration">
+                                                                                            menu-dropdown mt-1"
+                            id="emailConfiguration">
                             <ul class="nav nav-sm flex-column gap-1">
                                 <li class="nav-item">
                                     <a href="{{route('admin.mail.configuration')}}"
@@ -510,17 +533,17 @@
                                 <li class="nav-item">
                                     <a href="{{route('admin.mail.global.template')}}" class="
 
-                                                    {{request()->routeIs('admin.mail.global.template') ? "active" : ""   }}
-                                                    nav-link">
+                                                                                                        {{request()->routeIs('admin.mail.global.template') ? "active" : ""   }}
+                                                                                                        nav-link">
                                         {{translate('Global template')}}
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
                                     <a href="{{route('admin.mail.templates.index')}}" class="
-                                                    {{request()->routeIs('admin.mail.templates.index') || request()->routeIs('admin.mail.templates.edit') ? "active" : ""   }}
+                                                                                                        {{request()->routeIs('admin.mail.templates.index') || request()->routeIs('admin.mail.templates.edit') ? "active" : ""   }}
 
-                                                    nav-link">
+                                                                                                        nav-link">
                                         {{translate('Mail templates')}}
                                     </a>
                                 </li>
@@ -568,68 +591,74 @@
                 @endif
 
 
+                @if($agent_boolean !== 2)
+                    <li class="menu-title"><span>{{translate('Setup & Configurations')}}</span></li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link {{ !request()->routeIs('admin.setting.envato.configuration') || !request()->routeIs('admin.notification.settings') || !request()->routeIs('admin.setting.index') || !request()->routeIs('admin.setting.configuration.index') || !request()->routeIs('admin.setting.ai') ? "collapsed" : ""  }}  "
+                            href="#managaeSettings" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                            aria-controls="managaeSettings">
+                            <i class="ri-settings-line"></i> <span>
+                                {{translate('Application Settings')}}
+                            </span>
+                        </a>
+                        <div class="pt-1 collapse {{request()->routeIs('admin.setting.envato.configuration') || request()->routeIs('admin.notification.settings') || request()->routeIs('admin.setting.index') || request()->routeIs('admin.setting.configuration.index') || request()->routeIs('admin.setting.ai') ? "show" : ""  }}  menu-dropdown"
+                            id="managaeSettings">
+                            <ul class="nav nav-sm flex-column gap-1">
 
-                <li class="menu-title"><span>{{translate('Setup & Configurations')}}</span></li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link {{ !request()->routeIs('admin.setting.envato.configuration') || !request()->routeIs('admin.notification.settings') || !request()->routeIs('admin.setting.index') || !request()->routeIs('admin.setting.configuration.index') || !request()->routeIs('admin.setting.ai') ? "collapsed" : ""  }}  "
-                        href="#managaeSettings" data-bs-toggle="collapse" role="button" aria-expanded="false"
-                        aria-controls="managaeSettings">
-                        <i class="ri-settings-line"></i> <span>
-                            {{translate('Application Settings')}}
-                        </span>
-                    </a>
-                    <div class="pt-1 collapse {{request()->routeIs('admin.setting.envato.configuration') || request()->routeIs('admin.notification.settings') || request()->routeIs('admin.setting.index') || request()->routeIs('admin.setting.configuration.index') || request()->routeIs('admin.setting.ai') ? "show" : ""  }}  menu-dropdown"
-                        id="managaeSettings">
-                        <ul class="nav nav-sm flex-column gap-1">
-
-                            @if(check_agent('system_configuration'))
-                                <li class="nav-item">
-                                    <a class="nav-link
-                                                            {{request()->routeIs('admin.setting.index') ? 'active' : ''}}
-                                                        " href="{{route('admin.setting.index')}}">
-                                        {{translate('App Settings')}}
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link
-                                                            {{request()->routeIs('admin.setting.envato.configuration') ? 'active' : ''}}
-                                                        " href="{{route('admin.setting.envato.configuration')}}">
-                                        {{translate('Envato Configuration')}}
-                                    </a>
-                                </li>
-
-                                @if(auth_user()->agent == App\Enums\StatusEnum::false->status())
+                                @if(check_agent('system_configuration'))
                                     <li class="nav-item">
                                         <a class="nav-link
-                                                                                {{request()->routeIs('admin.setting.ai') ? 'active' : ''}}
-                                                                            " href="{{route('admin.setting.ai')}}">
-                                            AI {{translate('Configuration')}}
+                                                                                                                            {{request()->routeIs('admin.setting.index') ? 'active' : ''}}
+                                                                                                                        "
+                                            href="{{route('admin.setting.index')}}">
+                                            {{translate('App Settings')}}
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link
+                                                                                                                                            {{request()->routeIs('admin.setting.envato.configuration') ? 'active' : ''}}
+                                                                                                                                        "
+                                            href="{{route('admin.setting.envato.configuration')}}">
+                                            {{translate('Envato Configuration')}}
+                                        </a>
+                                    </li>
+
+                                    @if(auth_user()->agent == App\Enums\StatusEnum::false->status())
+                                        <li class="nav-item">
+                                            <a class="nav-link
+                                                                                                                                                                                                {{request()->routeIs('admin.setting.ai') ? 'active' : ''}}
+                                                                                                                                                                                            "
+                                                href="{{route('admin.setting.ai')}}">
+                                                AI {{translate('Configuration')}}
+                                            </a>
+                                        </li>
+                                    @endif
+
+
+                                    <li class="nav-item">
+                                        <a class="nav-link
+                                                                                                                        {{request()->routeIs('admin.setting.configuration.index') ? 'active' : ''}}
+                                                                                                                    "
+                                            href="{{route('admin.setting.configuration.index')}}">
+                                            {{translate('System Preferences')}}
                                         </a>
                                     </li>
                                 @endif
 
-
                                 <li class="nav-item">
                                     <a class="nav-link
-                                                            {{request()->routeIs('admin.setting.configuration.index') ? 'active' : ''}}
-                                                        " href="{{route('admin.setting.configuration.index')}}">
-                                        {{translate('System Preferences')}}
+                                                {{request()->routeIs('admin.notification.settings') ? 'active' : ''}}
+                                            " href="{{route('admin.notification.settings')}}">
+                                        {{translate('Notification settings')}}
                                     </a>
                                 </li>
-                            @endif
-
-                            <li class="nav-item">
-                                <a class="nav-link
-                                        {{request()->routeIs('admin.notification.settings') ? 'active' : ''}}
-                                    " href="{{route('admin.notification.settings')}}">
-                                    {{translate('Notification settings')}}
-                                </a>
-                            </li>
 
 
-                        </ul>
-                    </div>
-                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endif
 
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ !request()->routeIs('admin.security.*') ? "collapsed" : ""  }}  "
@@ -646,16 +675,18 @@
                             @if(check_agent('system_configuration'))
                                 <li class="nav-item">
                                     <a class="nav-link
-                                                            {{request()->routeIs('admin.security.ip.list') ? 'active' : ''}}
-                                                        " href="{{route('admin.security.ip.list')}}">
+                                                                                                                {{request()->routeIs('admin.security.ip.list') ? 'active' : ''}}
+                                                                                                            "
+                                        href="{{route('admin.security.ip.list')}}">
                                         {{translate('Visitors')}}
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
                                     <a class="nav-link
-                                                            {{request()->routeIs('admin.security.dos') ? 'active' : ''}}
-                                                        " href="{{route('admin.security.dos')}}">
+                                                                                                                {{request()->routeIs('admin.security.dos') ? 'active' : ''}}
+                                                                                                            "
+                                        href="{{route('admin.security.dos')}}">
                                         {{translate('Dos Security')}}
                                     </a>
                                 </li>
@@ -669,16 +700,18 @@
 
                 <!-- language  section  -->
                 @if(check_agent('manage_language'))
-
-                    <li class="nav-item">
-                        <a class="nav-link menu-link
-                                                {{request()->routeIs('admin.system.update.init') ? 'active' : ''}}
-                                            " href="{{route('admin.system.update.init')}}">
-                            <i class="ri-refresh-line"></i> <span>
-                                {{translate('System Upgrade')}}
-                            </span>
-                        </a>
-                    </li>
+                    @if($agent_boolean !== 2)
+                        <li class="nav-item">
+                            <a class="nav-link menu-link
+                                                                                                                        {{request()->routeIs('admin.system.update.init') ? 'active' : ''}}
+                                                                                                                    "
+                                href="{{route('admin.system.update.init')}}">
+                                <i class="ri-refresh-line"></i> <span>
+                                    {{translate('System Upgrade')}}
+                                </span>
+                            </a>
+                        </li>
+                    @endif
                 @endif
 
 
@@ -688,8 +721,9 @@
 
                     <li class="nav-item">
                         <a class="nav-link menu-link
-                                                {{request()->routeIs('admin.language.*') ? 'active' : ''}}
-                                            " href="{{route('admin.language.index')}}">
+                                                                                                    {{request()->routeIs('admin.language.*') ? 'active' : ''}}
+                                                                                                "
+                            href="{{route('admin.language.index')}}">
                             <i class="ri-translate"></i> <span>
                                 {{translate('Languages')}}
                             </span>
@@ -698,22 +732,15 @@
                 @endif
 
                 @if(check_agent('system_configuration'))
-
-                    <li class="nav-item">
-                        <a class="nav-link menu-link {{request()->routeIs('admin.setting.system.info') ? 'active' : ''}}"
-                            href="{{route('admin.setting.system.info')}}">
-                            <i class="ri-server-line"></i> <span>{{translate('About System')}}</span>
-
-
-                        </a>
-                    </li>
-
-
+                    @if($agent_boolean !== 2)
+                        <li class="nav-item">
+                            <a class="nav-link menu-link {{request()->routeIs('admin.setting.system.info') ? 'active' : ''}}"
+                                href="{{route('admin.setting.system.info')}}">
+                                <i class="ri-server-line"></i> <span>{{translate('About System')}}</span>
+                            </a>
+                        </li>
+                    @endif
                 @endif
-
-
-
-
             </ul>
         </div>
     </div>
